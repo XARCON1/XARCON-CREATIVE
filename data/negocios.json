@@ -1,0 +1,50 @@
+[
+  {
+    "nombre": "Nova Legal Partners",
+    "categoria": "Servicios Legales",
+    "descripcion": "Firma boutique enfocada en asesoría corporativa y expansión internacional para pymes.",
+    "imagen": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+    "url": "https://example.com/nova-legal",
+    "contacto": "https://wa.me/50511111111?text=Hola%20Nova%20Legal,%20quiero%20m%C3%A1s%20informaci%C3%B3n"
+  },
+  {
+    "nombre": "Aurea Wellness Studio",
+    "categoria": "Salud y Bienestar",
+    "descripcion": "Centro integral con programas personalizados de rendimiento físico y bienestar corporativo.",
+    "imagen": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=1200&q=80",
+    "url": "https://example.com/aurea-wellness",
+    "contacto": "https://wa.me/50522222222?text=Hola%20Aurea,%20quiero%20agendar%20una%20consulta"
+  },
+  {
+    "nombre": "Andes Supply Co.",
+    "categoria": "Logística",
+    "descripcion": "Proveedor regional de insumos industriales con cobertura en Centroamérica y atención B2B.",
+    "imagen": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+    "url": "https://example.com/andes-supply",
+    "contacto": "mailto:ventas@andes-supply.com"
+  },
+  {
+    "nombre": "Casa Lumia",
+    "categoria": "Diseño Interior",
+    "descripcion": "Estudio premium de diseño residencial y comercial con enfoque en funcionalidad estética.",
+    "imagen": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb3?auto=format&fit=crop&w=1200&q=80",
+    "url": "https://example.com/casa-lumia",
+    "contacto": "https://wa.me/50533333333?text=Hola%20Casa%20Lumia,%20me%20interesa%20su%20servicio"
+  },
+  {
+    "nombre": "Blue Orbit Tech",
+    "categoria": "Tecnología",
+    "descripcion": "Consultora digital especializada en automatización de procesos y analítica para equipos comerciales.",
+    "imagen": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+    "url": "https://example.com/blue-orbit-tech",
+    "contacto": "mailto:hello@blueorbit.tech"
+  },
+  {
+    "nombre": "Verde Vivo Foods",
+    "categoria": "Alimentos",
+    "descripcion": "Marca de alimentos saludables con distribución omnicanal y línea corporativa para oficinas.",
+    "imagen": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+    "url": "https://example.com/verde-vivo",
+    "contacto": "https://wa.me/50544444444?text=Hola%20Verde%20Vivo,%20quiero%20cotizar"
+  }
+]
