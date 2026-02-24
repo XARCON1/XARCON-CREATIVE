@@ -3,275 +3,238 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>XARCON PUBLICITY | Agencia de Marketing Digital</title>
+    <title>XARCON CREATIVE | Agencia Estratégica de Crecimiento</title>
     <meta
       name="description"
-      content="XARCON PUBLICITY impulsa marcas con estrategia, creatividad y ejecución basada en datos para dominar su mercado."
+      content="XARCON CREATIVE es una agencia estratégica de marketing y crecimiento. Diseñamos sistemas de adquisición, posicionamiento y conversión para marcas con visión internacional."
     />
     <meta
       name="keywords"
-      content="agencia de marketing digital, branding, publicidad online, desarrollo web, redes sociales"
+      content="agencia estratégica, marketing digital, crecimiento de marca, diseño web, performance marketing"
     />
-    <meta name="author" content="XARCON PUBLICITY" />
+    <meta name="author" content="XARCON CREATIVE" />
+    <meta property="og:title" content="XARCON CREATIVE | Agencia Estratégica" />
+    <meta property="og:description" content="Estrategia, ejecución y performance para marcas que buscan escalar con autoridad." />
+    <meta property="og:type" content="website" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body data-theme="dark">
-    <div class="background-glow" aria-hidden="true"></div>
-
-    <div class="app-shell">
-      <aside class="sidebar" aria-label="Secciones del sitio">
-        <a class="brand" href="#inicio" data-view-target="inicio">
-          <span class="brand-mark">XP</span>
-          <span class="brand-name">XARCON PUBLICITY</span>
+  <body>
+    <header class="site-header" id="inicio">
+      <div class="container nav-wrap">
+        <a class="brand" href="#inicio" aria-label="Ir al inicio de XARCON CREATIVE">
+          <span class="brand-mark">XC</span>
+          <span>XARCON CREATIVE</span>
         </a>
 
-        <button class="sidebar-toggle" aria-label="Abrir navegación lateral">
+        <button class="menu-toggle" aria-label="Abrir menú">
           <span></span><span></span><span></span>
         </button>
 
-        <nav class="sidebar-nav" aria-label="Navegación principal">
-          <a href="#inicio" data-view-target="inicio" class="is-active">Inicio</a>
-          <a href="#nosotros" data-view-target="nosotros">Sobre nosotros</a>
-          <a href="#servicios" data-view-target="servicios">Servicios</a>
-          <a href="#proceso" data-view-target="proceso">Proceso</a>
-          <a href="#portafolio" data-view-target="portafolio">Portafolio</a>
-          <a href="#testimonios" data-view-target="testimonios">Testimonios</a>
-          <a href="#contacto" data-view-target="contacto">Contacto</a>
+        <nav class="nav" aria-label="Navegación principal">
+          <a href="#problema">Problema</a>
+          <a href="#solucion">Solución</a>
+          <a href="#autoridad">Autoridad</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#proceso">Proceso</a>
+          <a href="#resultados">Resultados</a>
+          <a href="#testimonios">Testimonios</a>
+          <a href="#contacto">Contacto</a>
         </nav>
 
-        <button class="theme-switch" id="theme-switch" type="button" aria-label="Cambiar modo claro u oscuro">
-          <span class="theme-switch-dot" aria-hidden="true"></span>
-          <span class="theme-switch-text">Modo claro</span>
+        <button class="theme-switch" id="theme-switch" type="button" aria-label="Alternar modo claro y oscuro">
+          <span class="theme-dot" aria-hidden="true"></span>
+          <span class="theme-text">Modo claro</span>
         </button>
-      </aside>
+      </div>
+    </header>
 
-      <main class="view-container" aria-live="polite">
-        <section class="app-view is-active" id="inicio" data-view>
-          <div class="view-scroll">
-            <section class="hero">
-              <div class="container hero-grid">
-                <div>
-                  <p class="eyebrow">Catálogo de negocios impulsados por XARCON PUBLICITY</p>
-                  <h1>Explora marcas con potencial de crecimiento real.</h1>
-                  <p class="hero-subtitle">
-                    Descubre publicaciones destacadas de negocios que construyen autoridad,
-                    generan ventas y elevan su presencia con estrategia digital.
-                  </p>
-                </div>
-                <aside class="hero-card reveal-on-scroll">
-                  <h2>Catálogo en constante expansión</h2>
-                  <p>
-                    Seleccionamos negocios con propuestas claras y oportunidades de escalamiento
-                    para conectarlos con más clientes y mayor visibilidad.
-                  </p>
-                  <ul>
-                    <li>+ Publicaciones verificadas por categoría</li>
-                    <li>+ Información clave para evaluar cada negocio</li>
-                    <li>+ Contacto directo para conocer más detalles</li>
-                  </ul>
-                </aside>
-              </div>
-            </section>
-
-            <section class="section catalog-section">
-              <div class="container section-heading reveal-on-scroll">
-                <p class="eyebrow">Catálogo</p>
-                <h2>Publicaciones destacadas</h2>
-              </div>
-              <div class="container catalog-grid">
-                <article class="catalog-card reveal-on-scroll">
-                  <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=800&q=80" alt="Tienda de moda urbana" />
-                  <div class="catalog-card-content">
-                    <h3>Urban Pulse Store</h3>
-                    <p class="catalog-category">Categoría: Moda</p>
-                    <p>Tienda enfocada en streetwear premium con alta demanda en ventas online.</p>
-                    <a class="btn btn-primary" href="#">Ver más</a>
-                  </div>
-                </article>
-                <article class="catalog-card reveal-on-scroll">
-                  <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Cafetería artesanal" />
-                  <div class="catalog-card-content">
-                    <h3>Café Nativo</h3>
-                    <p class="catalog-category">Categoría: Gastronomía</p>
-                    <p>Cafetería de especialidad con branding sólido y comunidad activa en redes.</p>
-                    <a class="btn btn-primary" href="#">Ver más</a>
-                  </div>
-                </article>
-                <article class="catalog-card reveal-on-scroll">
-                  <img src="https://images.unsplash.com/photo-1514986888952-8cd320577b68?auto=format&fit=crop&w=800&q=80" alt="Restaurante de cocina de autor" />
-                  <div class="catalog-card-content">
-                    <h3>Origen Bistro</h3>
-                    <p class="catalog-category">Categoría: Restaurantes</p>
-                    <p>Concepto gastronómico con ticket promedio alto y experiencia diferenciada.</p>
-                    <a class="btn btn-primary" href="#">Ver más</a>
-                  </div>
-                </article>
-                <article class="catalog-card reveal-on-scroll">
-                  <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80" alt="Estudio fitness" />
-                  <div class="catalog-card-content">
-                    <h3>Core Motion Studio</h3>
-                    <p class="catalog-category">Categoría: Fitness</p>
-                    <p>Estudio boutique con planes de membresía y programa de fidelización mensual.</p>
-                    <a class="btn btn-primary" href="#">Ver más</a>
-                  </div>
-                </article>
-                <article class="catalog-card reveal-on-scroll">
-                  <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=800&q=80" alt="Consultora tecnológica" />
-                  <div class="catalog-card-content">
-                    <h3>Nova Tech Advisors</h3>
-                    <p class="catalog-category">Categoría: Tecnología</p>
-                    <p>Consultora B2B especializada en automatización y crecimiento digital.</p>
-                    <a class="btn btn-primary" href="#">Ver más</a>
-                  </div>
-                </article>
-                <article class="catalog-card reveal-on-scroll">
-                  <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="Academia online" />
-                  <div class="catalog-card-content">
-                    <h3>Impulso Academy</h3>
-                    <p class="catalog-category">Categoría: Educación</p>
-                    <p>Plataforma de cursos digitales con embudos optimizados y alto engagement.</p>
-                    <a class="btn btn-primary" href="#">Ver más</a>
-                  </div>
-                </article>
-              </div>
-            </section>
-
-            <footer class="site-footer">
-              <div class="container footer-grid">
-                <div>
-                  <p class="footer-brand">XARCON PUBLICITY</p>
-                  <p>Agencia de marketing digital enfocada en crecimiento medible.</p>
-                </div>
-                <div>
-                  <p class="footer-title">Contacto</p>
-                  <a href="mailto:contacto@xarconpublicity.com">contacto@xarconpublicity.com</a>
-                </div>
-                <div>
-                  <p class="footer-title">Redes</p>
-                  <div class="social-links">
-                    <a href="#" aria-label="Instagram">Instagram</a>
-                    <a href="#" aria-label="LinkedIn">LinkedIn</a>
-                    <a href="#" aria-label="Facebook">Facebook</a>
-                  </div>
-                </div>
-              </div>
-              <div class="container footer-bottom">
-                <small>© <span id="current-year"></span> XARCON PUBLICITY. Todos los derechos reservados.</small>
-              </div>
-            </footer>
-          </div>
-        </section>
-
-        <section class="app-view" id="nosotros" data-view>
-          <div class="view-scroll">
-            <div class="container section-heading reveal-on-scroll">
-              <p class="eyebrow">Sobre nosotros</p>
-              <h2>Una filosofía estratégica orientada a dominar categorías.</h2>
-            </div>
-            <div class="container about-grid">
-              <article class="panel reveal-on-scroll">
-                <h3>Pensamiento estratégico</h3>
-                <p>Trabajamos como socios de crecimiento para diseñar rutas claras y accionables.</p>
-              </article>
-              <article class="panel reveal-on-scroll">
-                <h3>Decisiones basadas en datos</h3>
-                <p>Medimos, aprendemos y optimizamos para maximizar retorno de cada acción.</p>
-              </article>
-              <article class="panel reveal-on-scroll">
-                <h3>Creatividad con resultado</h3>
-                <p>Convertimos ideas en activos de marca que impulsan ventas y recordación.</p>
-              </article>
+    <main>
+      <section class="hero section">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="container hero-grid">
+          <div class="reveal">
+            <p class="eyebrow">Agencia de crecimiento y posicionamiento</p>
+            <h1>Convertimos marcas ambiciosas en referentes de su mercado.</h1>
+            <p class="hero-copy">
+              Diseñamos estrategias de adquisición, autoridad y conversión para empresas que quieren escalar con estructura,
+              consistencia y resultados medibles.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="https://wa.me/50500000000?text=Hola%20XARCON%20CREATIVE,%20quiero%20escalar%20mi%20marca" target="_blank" rel="noopener noreferrer">Agendar diagnóstico estratégico</a>
+              <a class="btn btn-secondary" href="#servicios">Ver capacidades</a>
             </div>
           </div>
-        </section>
+          <aside class="hero-card reveal">
+            <h2>Estructura de crecimiento internacional</h2>
+            <ul>
+              <li>Arquitectura de embudo enfocada en conversiones reales.</li>
+              <li>Decisiones basadas en datos, no en suposiciones.</li>
+              <li>Ejecución creativa alineada a objetivos de negocio.</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
 
-        <section class="app-view" id="servicios" data-view>
-          <div class="view-scroll">
-            <div class="container section-heading reveal-on-scroll">
-              <p class="eyebrow">Servicios</p>
-              <h2>Soluciones diseñadas para escalar con precisión.</h2>
-            </div>
-            <div class="container services-grid">
-              <article class="service-card reveal-on-scroll"><h3>Branding Estratégico</h3></article>
-              <article class="service-card reveal-on-scroll"><h3>Marketing Digital</h3></article>
-              <article class="service-card reveal-on-scroll"><h3>Gestión de Redes Sociales</h3></article>
-              <article class="service-card reveal-on-scroll"><h3>Publicidad Online</h3></article>
-              <article class="service-card reveal-on-scroll"><h3>Desarrollo Web</h3></article>
-              <article class="service-card reveal-on-scroll"><h3>Producción de Contenido</h3></article>
+      <section class="section" id="problema">
+        <div class="container narrow reveal">
+          <p class="eyebrow">Problema</p>
+          <h2>Muchas marcas invierten en marketing, pero sin sistema estratégico pierden dinero y tracción.</h2>
+          <p>
+            La falta de narrativa, posicionamiento y una ruta clara de conversión genera campañas aisladas, bajo retorno y una
+            percepción débil frente a clientes premium.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="solucion">
+        <div class="container split-grid">
+          <article class="panel reveal">
+            <p class="eyebrow">Solución</p>
+            <h2>Unimos estrategia, creatividad y performance en un solo sistema operativo de crecimiento.</h2>
+            <p>
+              Alineamos comunicación, contenido, adquisición y optimización continua para construir una marca con autoridad y
+              pipeline comercial estable.
+            </p>
+          </article>
+          <article class="panel reveal">
+            <h3>Qué cambia cuando trabajas con XARCON</h3>
+            <ul class="check-list">
+              <li>Mensaje estratégico que conecta con decisores.</li>
+              <li>Embudos que convierten visitas en oportunidades.</li>
+              <li>Procesos medibles para escalar con previsibilidad.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="autoridad">
+        <div class="container authority-grid">
+          <article class="authority-card reveal"><strong>+80</strong><span>proyectos ejecutados con enfoque ROI</span></article>
+          <article class="authority-card reveal"><strong>7</strong><span>industrias con crecimiento documentado</span></article>
+          <article class="authority-card reveal"><strong>Metodología</strong><span>Growth Blueprint de 4 fases</span></article>
+        </div>
+      </section>
+
+      <section class="section" id="servicios">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Servicios estratégicos</p>
+            <h2>Capacidades diseñadas para mover indicadores críticos de negocio.</h2>
+          </div>
+          <div class="services-grid">
+            <article class="service-card reveal">
+              <div class="icon" aria-hidden="true">◈</div>
+              <h3>Brand Strategy & Positioning</h3>
+              <p>Construimos una narrativa de marca que incrementa valor percibido y diferenciación competitiva.</p>
+            </article>
+            <article class="service-card reveal">
+              <div class="icon" aria-hidden="true">◎</div>
+              <h3>Performance Marketing</h3>
+              <p>Campañas full-funnel orientadas a CAC eficiente, crecimiento de leads y ventas escalables.</p>
+            </article>
+            <article class="service-card reveal">
+              <div class="icon" aria-hidden="true">✦</div>
+              <h3>Web & Conversion Systems</h3>
+              <p>Diseño y optimización de experiencias digitales con alta claridad, confianza y conversión.</p>
+            </article>
+            <article class="service-card reveal">
+              <div class="icon" aria-hidden="true">◍</div>
+              <h3>Content & Authority Engine</h3>
+              <p>Contenido estratégico para construir credibilidad, demanda y consideración de compra.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="proceso">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Proceso</p>
+            <h2>Metodología clara para reducir incertidumbre y acelerar resultados.</h2>
+          </div>
+          <div class="process-grid">
+            <article class="process-card reveal"><span>01</span><h3>Diagnóstico</h3><p>Auditoría de negocio, mercado y embudo actual.</p></article>
+            <article class="process-card reveal"><span>02</span><h3>Estrategia</h3><p>Roadmap con prioridades, hipótesis y KPI de impacto.</p></article>
+            <article class="process-card reveal"><span>03</span><h3>Ejecución</h3><p>Implementación coordinada de marketing, contenido y web.</p></article>
+            <article class="process-card reveal"><span>04</span><h3>Optimización</h3><p>Iteración continua con datos para maximizar retorno.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="resultados">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Resultados e impacto</p>
+            <h2>Métricas que fortalecen confianza y validan capacidad de ejecución.</h2>
+          </div>
+          <div class="metrics-grid">
+            <article class="metric-card reveal"><strong class="counter" data-target="312" data-suffix="%">0</strong><span>Incremento promedio en alcance calificado</span></article>
+            <article class="metric-card reveal"><strong class="counter" data-target="4.7" data-decimals="1" data-prefix="x">0</strong><span>ROAS en campañas de captación optimizadas</span></article>
+            <article class="metric-card reveal"><strong class="counter" data-target="62" data-suffix="%">0</strong><span>Mejora en tasa de conversión de landing pages</span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="testimonios">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="eyebrow">Prueba social</p>
+            <h2>Equipos que necesitaban crecimiento serio y medible.</h2>
+          </div>
+          <div class="testimonial-slider reveal">
+            <article class="testimonial-card is-active">
+              <p>“En 6 meses pasamos de comunicación dispersa a un sistema de ventas consistente con métricas claras.”</p>
+              <h3>María Pineda</h3>
+              <span>CEO, Retail Regional</span>
+            </article>
+            <article class="testimonial-card">
+              <p>“XARCON elevó la percepción de nuestra marca y mejoró de forma tangible nuestros leads calificados.”</p>
+              <h3>Javier Morales</h3>
+              <span>Director Comercial, Servicios B2B</span>
+            </article>
+            <article class="testimonial-card">
+              <p>“Su enfoque estratégico cambió cómo priorizamos inversión y hoy tenemos crecimiento más predecible.”</p>
+              <h3>Ana Rivera</h3>
+              <span>Founder, E-commerce Lifestyle</span>
+            </article>
+            <div class="slider-controls">
+              <button type="button" data-slide="prev" aria-label="Testimonio anterior">←</button>
+              <button type="button" data-slide="next" aria-label="Siguiente testimonio">→</button>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="app-view" id="proceso" data-view>
-          <div class="view-scroll">
-            <div class="container section-heading reveal-on-scroll">
-              <p class="eyebrow">Proceso</p>
-              <h2>Metodología de trabajo orientada a resultados.</h2>
-            </div>
-            <div class="container process-grid">
-              <article class="process-step reveal-on-scroll"><span>01</span><h3>Diagnóstico</h3></article>
-              <article class="process-step reveal-on-scroll"><span>02</span><h3>Estrategia</h3></article>
-              <article class="process-step reveal-on-scroll"><span>03</span><h3>Ejecución</h3></article>
-              <article class="process-step reveal-on-scroll"><span>04</span><h3>Optimización</h3></article>
-            </div>
-          </div>
-        </section>
+      <section class="section" id="contacto">
+        <div class="container">
+          <article class="final-cta reveal">
+            <p class="eyebrow">Escalar o estancarse: decide hoy.</p>
+            <h2>Construyamos una estrategia de crecimiento que tu competencia no pueda replicar fácilmente.</h2>
+            <a class="btn btn-primary" href="https://wa.me/50500000000?text=Hola%20XARCON%20CREATIVE,%20quiero%20una%20reuni%C3%B3n%20estrat%C3%A9gica" target="_blank" rel="noopener noreferrer">Iniciar por WhatsApp</a>
+          </article>
+        </div>
+      </section>
+    </main>
 
-        <section class="app-view" id="portafolio" data-view>
-          <div class="view-scroll">
-            <div class="container section-heading reveal-on-scroll">
-              <p class="eyebrow">Portafolio</p>
-              <h2>Estamos preparando casos de éxito para esta sección.</h2>
-            </div>
-            <div class="container panel reveal-on-scroll portfolio-placeholder">
-              <p>Muy pronto mostraremos proyectos con métricas reales y resultados alcanzados.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="app-view" id="testimonios" data-view>
-          <div class="view-scroll">
-            <div class="container section-heading reveal-on-scroll">
-              <p class="eyebrow">Testimonios</p>
-              <h2>Confianza construida con resultados.</h2>
-            </div>
-            <div class="container testimonials-grid">
-              <blockquote class="testimonial reveal-on-scroll">
-                <p>“XARCON PUBLICITY convirtió nuestra comunicación en una estrategia de negocio.”</p>
-              </blockquote>
-              <blockquote class="testimonial reveal-on-scroll">
-                <p>“Su enfoque en datos y creatividad nos permitió duplicar leads calificados.”</p>
-              </blockquote>
-              <blockquote class="testimonial reveal-on-scroll">
-                <p>“No son solo ejecutores: son un equipo estratégico que entiende crecimiento real.”</p>
-              </blockquote>
-            </div>
-          </div>
-        </section>
-
-        <section class="app-view" id="contacto" data-view>
-          <div class="view-scroll">
-            <div class="container cta-box reveal-on-scroll contact-view-box">
-              <p class="eyebrow">¿Listo para crecer?</p>
-              <h2>Construyamos una estrategia que haga tu marca imposible de ignorar.</h2>
-              <a
-                class="btn btn-primary"
-                href="https://wa.me/0000000000?text=Hola%20XARCON%20PUBLICITY,%20quiero%20impulsar%20mi%20marca"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Escríbenos por WhatsApp</a
-              >
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <strong>XARCON CREATIVE</strong>
+          <p>Estrategia, autoridad y resultados para marcas con mentalidad global.</p>
+        </div>
+        <div>
+          <p>contacto@xarconcreative.com</p>
+          <p>Managua, Nicaragua · Operación remota internacional</p>
+        </div>
+      </div>
+      <div class="container footer-bottom">© <span id="year"></span> XARCON CREATIVE. Todos los derechos reservados.</div>
+    </footer>
 
     <script src="script.js"></script>
   </body>

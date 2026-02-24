@@ -1,106 +1,93 @@
-// Navegación tipo SPA: una sola vista visible a la vez, sin recargar página.
-const navLinks = document.querySelectorAll('[data-view-target]');
-const views = document.querySelectorAll('[data-view]');
-const sidebarNav = document.querySelector('.sidebar-nav');
-const sidebarToggle = document.querySelector('.sidebar-toggle');
-
-const validViews = new Set(Array.from(views, (view) => view.id));
-
-function activateView(viewId, updateHash = true) {
-  const targetId = validViews.has(viewId) ? viewId : 'inicio';
-
-  views.forEach((view) => {
-    const isCurrent = view.id === targetId;
-    view.classList.toggle('is-active', isCurrent);
-
-    if (isCurrent) {
-      const scrollableArea = view.querySelector('.view-scroll');
-      if (scrollableArea) scrollableArea.scrollTop = 0;
-    }
-  });
-
-  navLinks.forEach((link) => {
-    const isCurrent = link.dataset.viewTarget === targetId;
-    link.classList.toggle('is-active', isCurrent);
-    link.setAttribute('aria-current', isCurrent ? 'page' : 'false');
-  });
-
-  if (updateHash && window.location.hash !== `#${targetId}`) {
-    history.replaceState(null, '', `#${targetId}`);
-  }
-
-  revealVisibleElements();
-}
-
-navLinks.forEach((link) => {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
-    activateView(link.dataset.viewTarget);
-    sidebarNav?.classList.remove('open');
-  });
-});
-
-window.addEventListener('hashchange', () => {
-  const hashTarget = window.location.hash.replace('#', '');
-  activateView(hashTarget, false);
-});
-
-if (sidebarToggle && sidebarNav) {
-  sidebarToggle.addEventListener('click', () => {
-    sidebarNav.classList.toggle('open');
-  });
-}
-
-// Observador para micro animaciones al mostrar contenido en cada vista.
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
-
-function revealVisibleElements() {
-  document
-    .querySelectorAll('.app-view.is-active .reveal-on-scroll:not(.is-visible)')
-    .forEach((element) => revealObserver.observe(element));
-}
-
-// Modo claro / oscuro persistente con localStorage.
 const themeSwitch = document.querySelector('#theme-switch');
-const themeSwitchText = document.querySelector('.theme-switch-text');
+const themeText = document.querySelector('.theme-text');
 const THEME_KEY = 'xarcon-theme';
 
 function applyTheme(theme) {
-  const selectedTheme = theme === 'light' ? 'light' : 'dark';
-  document.body.setAttribute('data-theme', selectedTheme);
+  const current = theme === 'light' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', current);
+  if (themeText) themeText.textContent = current === 'dark' ? 'Modo claro' : 'Modo oscuro';
+}
 
-  if (themeSwitchText) {
-    themeSwitchText.textContent = selectedTheme === 'dark' ? 'Modo claro' : 'Modo oscuro';
+applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+
+themeSwitch?.addEventListener('click', () => {
+  const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  localStorage.setItem(THEME_KEY, next);
+});
+
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.nav');
+menuToggle?.addEventListener('click', () => nav?.classList.toggle('open'));
+document.querySelectorAll('.nav a').forEach((link) => {
+  link.addEventListener('click', () => nav?.classList.remove('open'));
+});
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  },
+  { threshold: 0.2 }
+);
+
+document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+function animateCounter(node) {
+  const target = parseFloat(node.dataset.target || '0');
+  const decimals = parseInt(node.dataset.decimals || '0', 10);
+  const suffix = node.dataset.suffix || '';
+  const prefix = node.dataset.prefix || '';
+  const duration = 1300;
+  const start = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const value = target * progress;
+    node.textContent = `${prefix}${value.toFixed(decimals)}${suffix}`;
+    if (progress < 1) requestAnimationFrame(tick);
   }
+
+  requestAnimationFrame(tick);
 }
 
-const storedTheme = localStorage.getItem(THEME_KEY);
-applyTheme(storedTheme || 'dark');
+const counterObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      animateCounter(entry.target);
+      observer.unobserve(entry.target);
+    });
+  },
+  { threshold: 0.5 }
+);
 
-if (themeSwitch) {
-  themeSwitch.addEventListener('click', () => {
-    const currentTheme = document.body.getAttribute('data-theme') || 'dark';
-    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    applyTheme(nextTheme);
-    localStorage.setItem(THEME_KEY, nextTheme);
+document.querySelectorAll('.counter').forEach((counter) => counterObserver.observe(counter));
+
+const slides = document.querySelectorAll('.testimonial-card');
+let currentSlide = 0;
+
+function showSlide(index) {
+  slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
+  currentSlide = index;
+}
+
+function nextSlide(step = 1) {
+  const next = (currentSlide + step + slides.length) % slides.length;
+  showSlide(next);
+}
+
+document.querySelectorAll('[data-slide]').forEach((button) => {
+  button.addEventListener('click', () => {
+    nextSlide(button.dataset.slide === 'next' ? 1 : -1);
   });
+});
+
+if (slides.length > 0) {
+  showSlide(0);
+  setInterval(() => nextSlide(1), 6000);
 }
 
-// Año dinámico del footer principal.
-const yearNode = document.querySelector('#current-year');
-if (yearNode) {
-  yearNode.textContent = new Date().getFullYear();
-}
-
-// Estado inicial: solo Inicio visible por defecto.
-const initialView = window.location.hash.replace('#', '') || 'inicio';
-activateView(initialView, false);
+const year = document.querySelector('#year');
+if (year) year.textContent = new Date().getFullYear();
