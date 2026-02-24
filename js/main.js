@@ -1,5 +1,11 @@
 const THEME_KEY = 'xarcon-theme';
 
+function getPreferredTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved === 'dark' || saved === 'light') return saved;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
 function applyTheme(theme) {
   const resolvedTheme = theme === 'light' ? 'light' : 'dark';
   document.body.setAttribute('data-theme', resolvedTheme);
@@ -8,11 +14,15 @@ function applyTheme(theme) {
   if (toggleText) {
     toggleText.textContent = resolvedTheme === 'dark' ? 'Cambiar a claro' : 'Cambiar a oscuro';
   }
+
+  const toggleButton = document.querySelector('[data-theme-toggle]');
+  if (toggleButton) {
+    toggleButton.setAttribute('aria-pressed', String(resolvedTheme === 'dark'));
+  }
 }
 
 function initTheme() {
-  const saved = localStorage.getItem(THEME_KEY);
-  applyTheme(saved || 'dark');
+  applyTheme(getPreferredTheme());
 
   const themeToggle = document.querySelector('[data-theme-toggle]');
   themeToggle?.addEventListener('click', () => {
