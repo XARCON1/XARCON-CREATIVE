@@ -51,7 +51,7 @@ body, .sidebar, .main, .section, .hero, .business-card, .info-card, .btn, .theme
   transition: background-color var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 
-img { max-width: 100%; display: block; }
+img { display: block; }
 a { color: inherit; text-decoration: none; }
 
 .layout { min-height: 100vh; }
@@ -70,10 +70,16 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand { display: inline-flex; align-items: center; }
-.brand-logo {
-  max-height: 55px;
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 55px;
   width: auto;
-  object-fit: contain;
+  display: block;
 }
 
 .sidebar-nav { display: grid; gap: 0.35rem; }
@@ -264,7 +270,6 @@ main .section:nth-of-type(even) {
     row-gap: 0.8rem;
   }
 
-  .brand-logo { max-height: 40px; }
 
   .sidebar-nav {
     order: 3;
@@ -282,6 +287,12 @@ main .section:nth-of-type(even) {
   .main { margin-left: 0; padding: 1rem; }
 
   .page-card-grid, .business-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .logo img {
+    height: 40px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
