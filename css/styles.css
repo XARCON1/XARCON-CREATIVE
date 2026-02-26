@@ -61,7 +61,7 @@ body {
 }
 
 body {
-  padding-top: 86px;
+  padding-top: 236px;
 }
 
 body,
@@ -110,7 +110,7 @@ a { color: inherit; text-decoration: none; }
 .brand { display: inline-flex; align-items: center; }
 
 .logo img {
-  height: 45px;
+  height: 180px;
   width: auto;
 }
 
