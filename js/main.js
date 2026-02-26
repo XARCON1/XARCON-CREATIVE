@@ -98,85 +98,112 @@ async function loadBusinessCatalog() {
 }
 
 function initGsapAnimations() {
-  // Fallback seguro: si GSAP no está disponible, el sitio funciona sin JS de animaciones.
+  // Fallback defensivo: si GSAP o ScrollTrigger no cargan desde CDN, dejamos el sitio funcional sin romper UX.
   if (typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') return;
 
   const { gsap, ScrollTrigger } = window;
 
-  // Respeta accesibilidad: con reduced-motion evitamos secuencias y triggers largos.
+  // Accesibilidad + performance: reducimos movimiento si el usuario lo prefiere.
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Configuración global para que todas las animaciones usen propiedades de alto rendimiento.
+  // Todos los tweens usan easing y overwrite consistentes para animaciones fluidas y sin saltos.
   gsap.defaults({
     ease: 'power2.out',
     duration: 0.8,
     overwrite: 'auto',
   });
 
-  // Animación del header al cargar: entrada suave con desplazamiento vertical corto.
+  // Solo declaramos will-change en elementos animados para optimizar composición en móviles sin abusar de memoria.
+  const animatedTargets = document.querySelectorAll('.navbar, .hero h1, .hero .actions .btn, .section, .btn, .theme-toggle');
+  animatedTargets.forEach((el) => {
+    el.style.willChange = 'transform, opacity';
+  });
+
+  // Header: entrada inicial suave + cambio sutil al hacer scroll para reforzar transición entre secciones.
   const navbar = document.querySelector('.navbar');
   if (navbar) {
-    gsap.fromTo(navbar, { y: -24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, clearProps: 'transform' });
+    gsap.fromTo(navbar, { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 });
+
+    ScrollTrigger.create({
+      start: 8,
+      onUpdate: ({ direction, progress }) => {
+        // Solo transform/opacity para mantener 60fps en navegadores móviles.
+        gsap.to(navbar, {
+          y: progress > 0.02 && direction === 1 ? -4 : 0,
+          opacity: progress > 0.02 ? 0.96 : 1,
+          duration: 0.25,
+        });
+      },
+    });
   }
 
-  // Transición de enlaces del menú: efecto sutil al hacer click para reforzar feedback visual.
+  // Menú: animación del enlace activo al cargar y micro-feedback al pulsar un link.
+  const activeLink = document.querySelector('.nav-links a.active');
+  if (activeLink) {
+    gsap.fromTo(activeLink, { y: -8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, delay: 0.15 });
+  }
+
   document.querySelectorAll('.nav-links a').forEach((link) => {
     link.addEventListener('click', () => {
-      gsap.fromTo(link, { y: 0, opacity: 1 }, { y: -2, opacity: 0.88, duration: 0.18, yoyo: true, repeat: 1 });
+      gsap.fromTo(link, { y: 0, opacity: 1 }, { y: -2, opacity: 0.85, duration: 0.16, yoyo: true, repeat: 1 });
     });
   });
 
-  // Hero timeline: secuencia narrativa del título principal y luego acciones CTA.
-  const hero = document.querySelector('.hero');
-  if (hero) {
-    const heroTitle = hero.querySelector('h1');
-    const heroText = hero.querySelector('p:not(.eyebrow)');
-    const heroButtons = hero.querySelectorAll('.actions .btn');
+  // Hero Timeline (Inicio): secuencia profesional con título principal y luego CTA para dirigir la atención.
+  const heroTitle = document.querySelector('.hero h1');
+  const heroButtons = document.querySelectorAll('.hero .actions .btn');
 
-    const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  if (heroTitle) {
+    const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    if (heroTitle) {
-      heroTl.fromTo(heroTitle, { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 });
-    }
+    // Paso 1: aparece el título con fade + slide-up (solo transform y opacity).
+    heroTimeline.from(heroTitle, {
+      y: 46,
+      opacity: 0,
+      duration: 0.9,
+    });
 
-    if (heroText) {
-      heroTl.fromTo(heroText, { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, '-=0.55');
-    }
-
+    // Paso 2: aparecen los botones del hero con leve escalado para micro-énfasis visual.
     if (heroButtons.length) {
-      heroTl.fromTo(heroButtons, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.12 }, '-=0.35');
+      heroTimeline.from(
+        heroButtons,
+        {
+          y: 20,
+          opacity: 0,
+          scale: 0.98,
+          duration: 0.6,
+          stagger: 0.12,
+        },
+        '-=0.35'
+      );
     }
   }
 
-  // Secciones principales: reveal al entrar en viewport con ScrollTrigger.
-  const revealTargets = document.querySelectorAll('.hero, .section');
-  revealTargets.forEach((section) => {
-    gsap.fromTo(
-      section,
-      { y: 46, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.85,
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 84%',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    );
+  // Reveal de secciones principales (Inicio, Sobre Nosotros, Servicios, Proceso, Contacto):
+  // cada bloque entra al viewport con fade + slide-up para mantener jerarquía visual consistente.
+  gsap.utils.toArray('.section').forEach((section) => {
+    gsap.from(section, {
+      y: 44,
+      opacity: 0,
+      duration: 0.82,
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 82%',
+        toggleActions: 'play none none reverse',
+      },
+    });
   });
 
-  // Microinteracciones en botones: hover con scale/translate para una sensación premium.
+  // Microinteracciones en botones: hover suave para feedback táctil/visual premium.
   document.querySelectorAll('.btn, .theme-toggle').forEach((button) => {
     button.addEventListener('mouseenter', () => {
-      gsap.to(button, { y: -3, scale: 1.02, duration: 0.22, ease: 'power2.out' });
+      gsap.to(button, { y: -3, scale: 1.03, duration: 0.2 });
     });
 
     button.addEventListener('mouseleave', () => {
-      gsap.to(button, { y: 0, scale: 1, duration: 0.22, ease: 'power2.out' });
+      gsap.to(button, { y: 0, scale: 1, duration: 0.2 });
     });
   });
 }
@@ -185,6 +212,6 @@ initTheme();
 setActiveNav();
 initMobileMenu();
 loadBusinessCatalog().finally(() => {
-  // Esperamos a que el catálogo termine para incluir tarjetas dinámicas en triggers.
+  // Esperamos al catálogo dinámico para que las nuevas tarjetas compartan timeline y triggers correctamente.
   initGsapAnimations();
 });
