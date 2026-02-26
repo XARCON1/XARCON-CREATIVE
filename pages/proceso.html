@@ -11,25 +11,32 @@
     <link rel="stylesheet" href="../css/styles.css" />
   </head>
   <body data-theme="dark">
-    <div class="layout">
-      <aside class="sidebar">
+    <nav class="navbar" aria-label="Navegación principal">
+      <div class="nav-container">
         <a class="brand" href="../index.html" aria-label="Ir al inicio de XARCON CREATIVE">
           <div class="logo">
             <img src="/assets/LOGO (2).png" alt="XARCON CREATIVE" />
           </div>
         </a>
-        <nav class="sidebar-nav" aria-label="Navegación principal">
-          <a href="../index.html">Inicio</a>
-          <a href="sobre.html">Sobre Nosotros</a>
-          <a href="servicios.html">Servicios</a>
-          <a href="proceso.html">Proceso</a>
-          <a href="contacto.html">Contacto</a>
-        </nav>
-        <button class="theme-toggle" type="button" data-theme-toggle>
-          <span class="toggle-knob">◐</span><span class="toggle-text" data-theme-text>Cambiar tema</span>
-        </button>
-      </aside>
 
+        <ul class="nav-links">
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="sobre.html">Sobre Nosotros</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="proceso.html">Proceso</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle>
+            <span class="toggle-knob">◐</span><span class="toggle-text" data-theme-text>Cambiar tema</span>
+          </button>
+          <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Abrir menú de navegación" aria-expanded="false">☰</button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="layout">
       <main class="main">
         <section class="section">
           <p class="eyebrow">Proceso</p>

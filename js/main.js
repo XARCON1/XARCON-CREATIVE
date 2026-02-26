@@ -9,6 +9,7 @@ function getPreferredTheme() {
 function applyTheme(theme) {
   const resolvedTheme = theme === 'light' ? 'light' : 'dark';
   document.body.setAttribute('data-theme', resolvedTheme);
+  document.body.classList.toggle('light-mode', resolvedTheme === 'light');
 
   const toggleText = document.querySelector('[data-theme-text]');
   if (toggleText) {
@@ -34,13 +35,31 @@ function initTheme() {
 
 function setActiveNav() {
   const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.sidebar-nav a').forEach((link) => {
+  document.querySelectorAll('.nav-links a').forEach((link) => {
     const href = link.getAttribute('href') || '';
     const target = href.split('/').pop();
     if (target === currentPath || (currentPath === '' && target === 'index.html')) {
       link.classList.add('active');
       link.setAttribute('aria-current', 'page');
     }
+  });
+}
+
+function initMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const navLinks = document.querySelector('.nav-links');
+  if (!menu || !navLinks) return;
+
+  menu.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('active');
+    menu.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      menu.setAttribute('aria-expanded', 'false');
+    });
   });
 }
 
@@ -80,4 +99,5 @@ async function loadBusinessCatalog() {
 
 initTheme();
 setActiveNav();
+initMobileMenu();
 loadBusinessCatalog();
