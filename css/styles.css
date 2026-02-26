@@ -71,11 +71,6 @@ a { color: inherit; text-decoration: none; }
 
 .brand { display: inline-flex; align-items: center; }
 
-.logo {
-  display: flex;
-  align-items: center;
-}
-
 .logo img {
   height: 55px;
   width: auto;
