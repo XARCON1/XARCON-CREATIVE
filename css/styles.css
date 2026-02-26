@@ -61,7 +61,7 @@ body {
 }
 
 body {
-  padding-top: 236px;
+  padding-top: 65px;
 }
 
 body,
@@ -89,35 +89,35 @@ a { color: inherit; text-decoration: none; }
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  backdrop-filter: blur(12px);
-  background: var(--navbar-bg);
-  border-bottom: 1px solid var(--navbar-border);
+  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.65);
   z-index: 1000;
+  border: none;
 }
 
 .nav-container {
   max-width: 1200px;
   margin: auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  padding: 0.8rem 1.5rem;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
 }
 
 .brand { display: inline-flex; align-items: center; }
 
 .logo img {
-  height: 180px;
+  height: 38px;
   width: auto;
+  display: block;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1.6rem;
+  gap: 1.5rem;
+  align-items: center;
   margin: 0;
   padding: 0;
 }
@@ -125,8 +125,9 @@ a { color: inherit; text-decoration: none; }
 .nav-links li a {
   text-decoration: none;
   color: var(--navbar-text);
+  font-size: 0.95rem;
   font-weight: 500;
-  padding-bottom: 0.2rem;
+  padding: 4px 0;
   border-bottom: 2px solid transparent;
 }
 
@@ -312,7 +313,7 @@ li { color: var(--muted); }
   }
 
   .nav-container {
-    padding: 0.75rem 0.8rem;
+    padding: 0.5rem 0.8rem;
   }
 
   .theme-toggle .toggle-text {
@@ -328,12 +329,8 @@ li { color: var(--muted); }
 }
 
 @media (max-width: 768px) {
-  body {
-    padding-top: 76px;
-  }
-
   .logo img {
-    height: 40px;
+    height: 38px;
   }
 
   .menu-toggle {
