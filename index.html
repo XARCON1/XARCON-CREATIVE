@@ -3,75 +3,160 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>XARCON CREATIVE | Inicio</title>
-    <meta name="description" content="Arquitectura empresarial modular para presentar servicios y catálogo de negocios destacados." />
+    <title>XARCON CREATIVE | Agencia Premium</title>
+    <meta
+      name="description"
+      content="Experiencia inmersiva de negocios premium con scroll cinematográfico y animaciones fluidas."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" sizes="64x64" href="assets/LOGO (2).png">
-    <link rel="shortcut icon" type="image/png" sizes="64x64" href="assets/LOGO (2).png">
-    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/LOGO (2).png" />
+    <link rel="stylesheet" href="styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="script.js" defer></script>
   </head>
-  <body data-theme="dark">
-    <nav class="navbar" aria-label="Navegación principal">
-      <div class="nav-container">
-        <a class="brand" href="index.html" aria-label="Ir al inicio de XARCON CREATIVE">
-          <div class="logo">
-            <img src="assets/LOGO (2).png" alt="XARCON CREATIVE" class="logo-img">
-          </div>
-        </a>
-
-        <ul class="nav-links">
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="pages/sobre.html">Sobre Nosotros</a></li>
-          <li><a href="pages/servicios.html">Servicios</a></li>
-          <li><a href="pages/proceso.html">Proceso</a></li>
-          <li><a href="pages/contacto.html">Contacto</a></li>
-        </ul>
-
-        <div class="nav-actions">
-          <button class="theme-toggle" type="button" data-theme-toggle>
-            <span class="toggle-knob">◐</span>
-            <span class="toggle-text" data-theme-text>Cambiar tema</span>
-          </button>
-          <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Abrir menú de navegación" aria-expanded="false">☰</button>
-        </div>
-      </div>
-    </nav>
-
-    <div class="layout">
-      <main class="main">
-        <section class="hero">
-          <p class="eyebrow">Inicio</p>
-          <h1>Impulsamos marcas con una arquitectura empresarial clara y escalable.</h1>
-          <p>
-            XARCON CREATIVE integra estrategia, diseño y crecimiento comercial en un ecosistema modular que permite presentar
-            servicios, procesos y oportunidades de negocio de forma profesional.
-          </p>
-          <div class="actions">
-            <a class="btn btn-primary" href="pages/contacto.html">Solicitar reunión</a>
-            <a class="btn btn-secondary" href="pages/servicios.html">Explorar servicios</a>
-          </div>
-        </section>
-
-        <section class="section" aria-labelledby="negocios-destacados">
-          <header class="page-head">
-            <p class="eyebrow">Catálogo Empresarial</p>
-            <h2 id="negocios-destacados">Negocios Destacados</h2>
-            <p class="page-intro">
-              Este catálogo se alimenta desde <strong>data/negocios.json</strong>. Puedes agregar o editar tarjetas sin tocar el HTML.
+  <body>
+    <main class="immersive-site">
+      <section class="business-section restaurant" data-section>
+        <video
+          class="section-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=60"
+        >
+          <source src="https://cdn.coverr.co/videos/coverr-a-chef-plates-a-dish-1579/1080p.mp4" type="video/mp4" />
+        </video>
+        <div class="section-overlay"></div>
+        <div class="section-content">
+          <div class="content-left">
+            <p class="sector">Restaurante moderno</p>
+            <h1>Atelier Fuego</h1>
+            <p class="description">
+              Cocina de autor con ambiente inmersivo, carta estacional y experiencia gastronómica premium en cada servicio.
             </p>
-          </header>
-
-          <div class="business-grid" data-business-grid>
-            <p>Cargando negocios...</p>
+            <p class="label">Rubro: Gastronomía Contemporánea</p>
           </div>
-        </section>
-      </main>
-    </div>
+          <div class="content-right">
+            <iframe
+              title="Ubicación de Atelier Fuego"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Puerto+Madero+Buenos+Aires&output=embed"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
 
-    <script src="js/main.js" defer></script>
+      <section class="business-section dental" data-section>
+        <video
+          class="section-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1400&q=60"
+        >
+          <source src="https://cdn.coverr.co/videos/coverr-dentist-working-with-patient-8678/1080p.mp4" type="video/mp4" />
+        </video>
+        <div class="section-overlay"></div>
+        <div class="section-content">
+          <div class="content-left">
+            <p class="sector">Clínica dental</p>
+            <h2>Nova Smile Center</h2>
+            <p class="description">
+              Odontología estética y digital de alta precisión, enfocada en confort, confianza y resultados de nivel internacional.
+            </p>
+            <p class="label">Rubro: Salud Odontológica</p>
+          </div>
+          <div class="content-right">
+            <iframe
+              title="Ubicación de Nova Smile Center"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Recoleta+Buenos+Aires&output=embed"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section class="business-section construction" data-section>
+        <video
+          class="section-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=60"
+        >
+          <source src="https://cdn.coverr.co/videos/coverr-construction-site-with-crane-1578/1080p.mp4" type="video/mp4" />
+        </video>
+        <div class="section-overlay"></div>
+        <div class="section-content">
+          <div class="content-left">
+            <p class="sector">Empresa de construcción</p>
+            <h2>Axiom Build Group</h2>
+            <p class="description">
+              Desarrollo de obras corporativas y residenciales con gestión integral, diseño funcional y estándares sustentables.
+            </p>
+            <p class="label">Rubro: Ingeniería y Construcción</p>
+          </div>
+          <div class="content-right">
+            <iframe
+              title="Ubicación de Axiom Build Group"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Nordelta+Tigre+Buenos+Aires&output=embed"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section class="business-section tech" data-section>
+        <video
+          class="section-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=60"
+        >
+          <source src="https://cdn.coverr.co/videos/coverr-man-working-on-computer-5170/1080p.mp4" type="video/mp4" />
+        </video>
+        <div class="section-overlay"></div>
+        <div class="section-content">
+          <div class="content-left">
+            <p class="sector">Tienda tecnológica</p>
+            <h2>Pulse Tech Store</h2>
+            <p class="description">
+              Espacio de innovación con gadgets de última generación, asesoría especializada y experiencias conectadas.
+            </p>
+            <p class="label">Rubro: Retail Tecnológico</p>
+          </div>
+          <div class="content-right">
+            <iframe
+              title="Ubicación de Pulse Tech Store"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Palermo+Soho+Buenos+Aires&output=embed"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
