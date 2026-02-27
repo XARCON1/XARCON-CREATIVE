@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>XARCON CREATIVE | Agencia Premium</title>
+    <title>XARCON CREATIVE | Agencia Premium Cinemática</title>
     <meta
       name="description"
-      content="Experiencia inmersiva de negocios premium con scroll cinematográfico y animaciones fluidas."
+      content="Agencia creativa premium con experiencia cinematográfica, animaciones fluidas y diseño inmersivo."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,157 +23,113 @@
   <body>
     <header class="site-header" id="siteHeader">
       <div class="nav-shell">
-        <a href="index.html" class="brand" aria-label="Inicio XARCON CREATIVE">XARCON CREATIVE</a>
-
+        <a href="#hero" class="brand" aria-label="Inicio XARCON CREATIVE">XARCON CREATIVE</a>
         <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
           <span></span>
           <span></span>
           <span></span>
         </button>
-
         <nav class="main-nav" id="mainNav" aria-label="Principal">
-          <a href="index.html">Más Negocios</a>
-          <a href="pages/servicios.html">Servicios</a>
-          <a href="pages/sobre.html">Nosotros</a>
-          <a href="pages/contacto.html">Contacto</a>
+          <a href="#hero">Inicio</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#showcase">Portafolio</a>
+          <a href="#nosotros">Nosotros</a>
+          <a href="#contacto">Contacto</a>
         </nav>
       </div>
     </header>
 
-    <main class="immersive-site">
-      <section class="business-section restaurant" data-section>
-        <video
-          class="section-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          poster="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=60"
-        >
-          <source src="https://cdn.coverr.co/videos/coverr-a-chef-plates-a-dish-1579/1080p.mp4" type="video/mp4" />
+    <main>
+      <section class="hero" id="hero">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+          <source src="https://cdn.coverr.co/videos/coverr-night-driving-in-the-city-1571/1080p.mp4" type="video/mp4" />
         </video>
-        <div class="section-overlay"></div>
-        <div class="section-content">
-          <div class="content-left">
-            <p class="sector">Restaurante moderno</p>
-            <h1>Atelier Fuego</h1>
-            <p class="description">
-              Cocina de autor con ambiente inmersivo, carta estacional y experiencia gastronómica premium en cada servicio.
-            </p>
-            <p class="label">Rubro: Gastronomía Contemporánea</p>
+        <div class="hero-overlay"></div>
+        <div class="hero-content reveal">
+          <p class="eyebrow">AGENCIA CREATIVA PREMIUM</p>
+          <h1>Diseñamos marcas que se sienten como cine.</h1>
+          <p class="lead">Estrategia, producción visual y performance digital para negocios que buscan impacto internacional.</p>
+        </div>
+        <a class="scroll-indicator" href="#servicios" aria-label="Ir a servicios">
+          <span></span>
+        </a>
+      </section>
+
+      <section id="servicios" class="services-wrap">
+        <article class="service-panel" data-panel>
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1800&q=70" alt="Equipo creativo en sesión estratégica" loading="lazy" />
+          <div class="service-overlay"></div>
+          <div class="service-content reveal from-left">
+            <p class="eyebrow">SERVICIO 01</p>
+            <h2>Brand Strategy & Positioning</h2>
+            <p>Definimos narrativa, personalidad y ventaja competitiva para construir marcas memorables en mercados globales.</p>
           </div>
-          <div class="content-right">
-            <iframe
-              title="Ubicación de Atelier Fuego"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=Puerto+Madero+Buenos+Aires&output=embed"
-              allowfullscreen
-            ></iframe>
+        </article>
+
+        <article class="service-panel" data-panel>
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1800&q=70" alt="Equipo trabajando en interfaces y desarrollo" loading="lazy" />
+          <div class="service-overlay"></div>
+          <div class="service-content reveal from-right">
+            <p class="eyebrow">SERVICIO 02</p>
+            <h2>Digital Experience Design</h2>
+            <p>Creamos experiencias web de alto rendimiento con estética editorial y microinteracciones premium.</p>
+          </div>
+        </article>
+
+        <article class="service-panel" data-panel>
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1800&q=70" alt="Producción audiovisual en set profesional" loading="lazy" />
+          <div class="service-overlay"></div>
+          <div class="service-content reveal from-left">
+            <p class="eyebrow">SERVICIO 03</p>
+            <h2>Film & Content Production</h2>
+            <p>Producción de piezas visuales cinematográficas para comunicar valor, confianza y autoridad de marca.</p>
+          </div>
+        </article>
+      </section>
+
+      <section id="showcase" class="showcase-section">
+        <div class="showcase-media" data-parallax>
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2000&q=70" alt="Panel de métricas de campaña digital" loading="lazy" />
+          <div class="glass-card reveal">
+            <p class="eyebrow">PORTAFOLIO / MÁS NEGOCIOS</p>
+            <h2>Escalamos marcas con diseño, data y storytelling.</h2>
+            <p>Casos reales donde combinamos visión creativa, automatización y performance para multiplicar conversiones.</p>
           </div>
         </div>
       </section>
 
-      <section class="business-section dental" data-section>
-        <video
-          class="section-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          poster="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1400&q=60"
-        >
-          <source src="https://cdn.coverr.co/videos/coverr-dentist-working-with-patient-8678/1080p.mp4" type="video/mp4" />
-        </video>
-        <div class="section-overlay"></div>
-        <div class="section-content">
-          <div class="content-left">
-            <p class="sector">Clínica dental</p>
-            <h2>Nova Smile Center</h2>
-            <p class="description">
-              Odontología estética y digital de alta precisión, enfocada en confort, confianza y resultados de nivel internacional.
-            </p>
-            <p class="label">Rubro: Salud Odontológica</p>
-          </div>
-          <div class="content-right">
-            <iframe
-              title="Ubicación de Nova Smile Center"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=Recoleta+Buenos+Aires&output=embed"
-              allowfullscreen
-            ></iframe>
-          </div>
+      <section id="nosotros" class="about-section">
+        <div class="about-text reveal from-left">
+          <p class="eyebrow">NOSOTROS</p>
+          <h2>Talento multidisciplinario, estándar internacional.</h2>
+          <p>Somos estrategas, diseñadores y productores enfocados en construir activos digitales que eleven el valor percibido de cada negocio.</p>
+        </div>
+        <div class="about-media" data-parallax>
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="https://cdn.coverr.co/videos/coverr-people-working-at-the-office-1574/1080p.mp4" type="video/mp4" />
+          </video>
         </div>
       </section>
 
-      <section class="business-section construction" data-section>
-        <video
-          class="section-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          poster="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=60"
-        >
-          <source src="https://cdn.coverr.co/videos/coverr-construction-site-with-crane-1578/1080p.mp4" type="video/mp4" />
-        </video>
-        <div class="section-overlay"></div>
-        <div class="section-content">
-          <div class="content-left">
-            <p class="sector">Empresa de construcción</p>
-            <h2>Axiom Build Group</h2>
-            <p class="description">
-              Desarrollo de obras corporativas y residenciales con gestión integral, diseño funcional y estándares sustentables.
-            </p>
-            <p class="label">Rubro: Ingeniería y Construcción</p>
-          </div>
-          <div class="content-right">
-            <iframe
-              title="Ubicación de Axiom Build Group"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=Nordelta+Tigre+Buenos+Aires&output=embed"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>
-      </section>
-
-      <section class="business-section tech" data-section>
-        <video
-          class="section-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          poster="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=60"
-        >
-          <source src="https://cdn.coverr.co/videos/coverr-man-working-on-computer-5170/1080p.mp4" type="video/mp4" />
-        </video>
-        <div class="section-overlay"></div>
-        <div class="section-content">
-          <div class="content-left">
-            <p class="sector">Tienda tecnológica</p>
-            <h2>Pulse Tech Store</h2>
-            <p class="description">
-              Espacio de innovación con gadgets de última generación, asesoría especializada y experiencias conectadas.
-            </p>
-            <p class="label">Rubro: Retail Tecnológico</p>
-          </div>
-          <div class="content-right">
-            <iframe
-              title="Ubicación de Pulse Tech Store"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=Palermo+Soho+Buenos+Aires&output=embed"
-              allowfullscreen
-            ></iframe>
-          </div>
+      <section id="contacto" class="contact-section">
+        <div class="contact-shell reveal">
+          <p class="eyebrow">CONTACTO</p>
+          <h2>Hablemos sobre tu próxima experiencia premium.</h2>
+          <form class="contact-form" action="#" method="post">
+            <label>
+              Nombre
+              <input type="text" name="nombre" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" required />
+            </label>
+            <label>
+              Proyecto
+              <textarea name="proyecto" rows="3" required></textarea>
+            </label>
+            <button type="submit">Iniciar conversación</button>
+          </form>
         </div>
       </section>
     </main>

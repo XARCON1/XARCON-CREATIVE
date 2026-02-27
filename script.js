@@ -2,13 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.getElementById('siteHeader');
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
+  const revealItems = document.querySelectorAll('.reveal');
 
   const handleHeaderState = () => {
-    if (!header) {
-      return;
+    if (header) {
+      header.classList.toggle('scrolled', window.scrollY > 50);
     }
-
-    header.classList.toggle('scrolled', window.scrollY > 50);
   };
 
   handleHeaderState();
@@ -30,71 +29,131 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (typeof IntersectionObserver !== 'undefined') {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+  }
+
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    revealItems.forEach((item) => {
+      item.style.opacity = '1';
+      item.style.transform = 'none';
+    });
     return;
   }
 
   gsap.registerPlugin(ScrollTrigger);
-
-  const sections = gsap.utils.toArray('[data-section]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  sections.forEach((section, index) => {
-    const left = section.querySelector('.content-left');
-    const right = section.querySelector('.content-right');
-    const video = section.querySelector('.section-video');
+  gsap.from('.site-header', {
+    y: -70,
+    autoAlpha: 0,
+    duration: 0.9,
+    ease: 'power3.out'
+  });
 
-    gsap.set([left, right], { autoAlpha: index === 0 ? 1 : 0, y: index === 0 ? 0 : 55 });
+  gsap.from('.hero-content', {
+    y: 54,
+    autoAlpha: 0,
+    duration: 1.1,
+    delay: 0.2,
+    ease: 'power3.out'
+  });
+
+  const servicePanels = gsap.utils.toArray('[data-panel]');
+  servicePanels.forEach((panel, index) => {
+    const content = panel.querySelector('.service-content');
+    const fromX = index % 2 === 0 ? -90 : 90;
+
+    gsap.fromTo(
+      content,
+      { x: fromX, autoAlpha: 0 },
+      {
+        x: 0,
+        autoAlpha: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: panel,
+          start: 'top 70%',
+          end: 'top 35%',
+          scrub: 0.7
+        }
+      }
+    );
 
     if (!reduceMotion) {
+      const media = panel.querySelector('img');
       gsap.fromTo(
-        video,
-        { scale: 1.08 },
+        media,
+        { scale: 1.12 },
         {
           scale: 1,
           ease: 'none',
           scrollTrigger: {
-            trigger: section,
+            trigger: panel,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.1
+          }
+        }
+      );
+    }
+  });
+
+  if (!reduceMotion) {
+    gsap.utils.toArray('[data-parallax]').forEach((item) => {
+      const media = item.querySelector('img, video');
+      if (!media) {
+        return;
+      }
+
+      gsap.fromTo(
+        media,
+        { yPercent: -7 },
+        {
+          yPercent: 7,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: item,
             start: 'top bottom',
             end: 'bottom top',
             scrub: 1.2
           }
         }
       );
-    }
+    });
+  }
 
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top 60%',
-      end: 'bottom 40%',
-      onEnter: () => animateSection(section, 'down'),
-      onEnterBack: () => animateSection(section, 'up'),
-      onLeave: () => fadeSection(section, 'down'),
-      onLeaveBack: () => fadeSection(section, 'up')
+  revealItems.forEach((item) => {
+    const xOffset = item.classList.contains('from-left') ? -50 : item.classList.contains('from-right') ? 50 : 0;
+
+    gsap.to(item, {
+      x: 0,
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.9,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: item,
+        start: 'top 80%'
+      },
+      onStart: () => {
+        gsap.set(item, { x: xOffset });
+      }
     });
   });
-
-  function animateSection(section, direction) {
-    const left = section.querySelector('.content-left');
-    const right = section.querySelector('.content-right');
-    const fromY = direction === 'down' ? 56 : -56;
-
-    gsap.timeline({ defaults: { duration: 0.9, ease: 'power3.out' } })
-      .fromTo(left, { autoAlpha: 0, y: fromY }, { autoAlpha: 1, y: 0 }, 0)
-      .fromTo(right, { autoAlpha: 0, y: fromY * 0.75 }, { autoAlpha: 1, y: 0 }, 0.1);
-  }
-
-  function fadeSection(section, direction) {
-    const left = section.querySelector('.content-left');
-    const right = section.querySelector('.content-right');
-    const toY = direction === 'down' ? -42 : 42;
-
-    gsap.to([left, right], {
-      autoAlpha: 0,
-      y: toY,
-      duration: 0.65,
-      ease: 'power2.out',
-      overwrite: 'auto'
-    });
-  }
 });
