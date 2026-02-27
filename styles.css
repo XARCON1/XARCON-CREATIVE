@@ -176,30 +176,14 @@ p {
   place-items: center;
 }
 
-.hero-title {
-  margin: 0;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  letter-spacing: clamp(0.08em, 0.45vw, 0.18em);
-  text-align: center;
-  line-height: 1;
-  max-width: 100%;
-}
-
-.hero-title .hero-letter {
-  display: inline-block;
+.hero-logo {
+  width: 60%;
+  max-width: 280px;
+  height: auto;
+  display: block;
   opacity: 0;
-  transform: translateY(25px);
+  transform: scale(0.95);
   will-change: transform, opacity;
-}
-
-.hero-title .hero-letter.xarcon-letter {
-  color: #0f2a5f;
-}
-
-.hero-title .hero-letter.creative-letter {
-  color: #f4b400;
 }
 
 .eyebrow {
@@ -222,9 +206,6 @@ h1 {
   max-width: 12ch;
 }
 
-.hero-title {
-  max-width: none;
-}
 
 h2 {
   font-size: clamp(1.9rem, 5vw, 4.4rem);

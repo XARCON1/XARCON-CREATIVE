@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
   const revealItems = document.querySelectorAll('.reveal');
-  const heroTitle = document.getElementById('heroTitle');
+  const heroLogo = document.getElementById('heroLogo');
 
   const handleHeaderState = () => {
     if (header) {
@@ -66,47 +66,25 @@ document.addEventListener('DOMContentLoaded', () => {
     ease: 'power3.out'
   });
 
-  if (heroTitle) {
-    const originalText = (heroTitle.textContent || '').trim();
-    const splitWords = originalText.split(' ');
-    const lettersMarkup = splitWords
-      .map((word, wordIndex) => {
-        const wordClass = wordIndex === 0 ? 'xarcon-letter' : 'creative-letter';
-        const letters = [...word]
-          .map((char) => `<span class="hero-letter ${wordClass}" aria-hidden="true">${char}</span>`)
-          .join('');
-
-        if (wordIndex < splitWords.length - 1) {
-          return `${letters}<span class="hero-letter hero-space" aria-hidden="true">&nbsp;</span>`;
-        }
-
-        return letters;
-      })
-      .join('');
-
-    heroTitle.setAttribute('aria-label', originalText);
-    heroTitle.innerHTML = lettersMarkup;
-
-    const heroLetters = heroTitle.querySelectorAll('.hero-letter:not(.hero-space)');
-
-    gsap.to(heroLetters, {
+  if (heroLogo) {
+    gsap.to(heroLogo, {
       autoAlpha: 1,
-      y: 0,
-      duration: 1.1,
+      scale: 1,
+      duration: 1.4,
       ease: 'power3.out',
-      stagger: 0.045,
-      delay: 0.12
+      delay: 0.15
     });
 
-    gsap.to(heroLetters, {
-      y: -18,
+    gsap.to(heroLogo, {
+      y: -40,
+      scale: 0.9,
       autoAlpha: 0,
       ease: 'none',
       scrollTrigger: {
         trigger: '#hero',
         start: 'top top',
         end: 'bottom top',
-        scrub: 1.15
+        scrub: 1
       }
     });
   }
