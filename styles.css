@@ -180,17 +180,26 @@ p {
   margin: 0;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: clamp(2.8rem, 10vw, 9rem);
-  letter-spacing: clamp(0.2em, 1.1vw, 0.48em);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  letter-spacing: clamp(0.08em, 0.45vw, 0.18em);
   text-align: center;
   line-height: 1;
-  color: #f6f7fa;
   max-width: 100%;
 }
 
 .hero-title .hero-letter {
   display: inline-block;
+  opacity: 0;
+  transform: translateY(25px);
   will-change: transform, opacity;
+}
+
+.hero-title .hero-letter.xarcon-letter {
+  color: #0f2a5f;
+}
+
+.hero-title .hero-letter.creative-letter {
+  color: #f4b400;
 }
 
 .eyebrow {

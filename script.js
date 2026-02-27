@@ -67,42 +67,46 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (heroTitle) {
-    const originalText = heroTitle.textContent || '';
-    const lettersMarkup = [...originalText].map((char) => {
-      if (char === ' ') {
-        return '<span class="hero-letter hero-space" aria-hidden="true">&nbsp;</span>';
-      }
+    const originalText = (heroTitle.textContent || '').trim();
+    const splitWords = originalText.split(' ');
+    const lettersMarkup = splitWords
+      .map((word, wordIndex) => {
+        const wordClass = wordIndex === 0 ? 'xarcon-letter' : 'creative-letter';
+        const letters = [...word]
+          .map((char) => `<span class="hero-letter ${wordClass}" aria-hidden="true">${char}</span>`)
+          .join('');
 
-      return `<span class="hero-letter" aria-hidden="true">${char}</span>`;
-    });
+        if (wordIndex < splitWords.length - 1) {
+          return `${letters}<span class="hero-letter hero-space" aria-hidden="true">&nbsp;</span>`;
+        }
 
-    heroTitle.setAttribute('aria-label', originalText.trim());
-    heroTitle.innerHTML = lettersMarkup.join('');
+        return letters;
+      })
+      .join('');
+
+    heroTitle.setAttribute('aria-label', originalText);
+    heroTitle.innerHTML = lettersMarkup;
 
     const heroLetters = heroTitle.querySelectorAll('.hero-letter:not(.hero-space)');
 
-    gsap.fromTo(
-      heroLetters,
-      { autoAlpha: 0, y: 30 },
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 1.2,
-        ease: 'power3.out',
-        stagger: 0.06,
-        delay: 0.15
-      }
-    );
+    gsap.to(heroLetters, {
+      autoAlpha: 1,
+      y: 0,
+      duration: 1.1,
+      ease: 'power3.out',
+      stagger: 0.045,
+      delay: 0.12
+    });
 
     gsap.to(heroLetters, {
-      y: -24,
-      autoAlpha: 0.2,
+      y: -18,
+      autoAlpha: 0,
       ease: 'none',
       scrollTrigger: {
         trigger: '#hero',
         start: 'top top',
         end: 'bottom top',
-        scrub: 1.2
+        scrub: 1.15
       }
     });
   }
