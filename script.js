@@ -1,4 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const header = document.getElementById('siteHeader');
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+
+  const handleHeaderState = () => {
+    if (!header) {
+      return;
+    }
+
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  };
+
+  handleHeaderState();
+  window.addEventListener('scroll', handleHeaderState, { passive: true });
+
+  if (header && navToggle && mainNav) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = header.classList.toggle('nav-open');
+      navToggle.classList.toggle('active', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    mainNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        header.classList.remove('nav-open');
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
     return;
   }
