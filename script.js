@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
   const revealItems = document.querySelectorAll('.reveal');
+  const heroTitle = document.getElementById('heroTitle');
 
   const handleHeaderState = () => {
     if (header) {
@@ -65,13 +66,47 @@ document.addEventListener('DOMContentLoaded', () => {
     ease: 'power3.out'
   });
 
-  gsap.from('.hero-content', {
-    y: 54,
-    autoAlpha: 0,
-    duration: 1.1,
-    delay: 0.2,
-    ease: 'power3.out'
-  });
+  if (heroTitle) {
+    const originalText = heroTitle.textContent || '';
+    const lettersMarkup = [...originalText].map((char) => {
+      if (char === ' ') {
+        return '<span class="hero-letter hero-space" aria-hidden="true">&nbsp;</span>';
+      }
+
+      return `<span class="hero-letter" aria-hidden="true">${char}</span>`;
+    });
+
+    heroTitle.setAttribute('aria-label', originalText.trim());
+    heroTitle.innerHTML = lettersMarkup.join('');
+
+    const heroLetters = heroTitle.querySelectorAll('.hero-letter:not(.hero-space)');
+
+    gsap.fromTo(
+      heroLetters,
+      { autoAlpha: 0, y: 30 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        stagger: 0.06,
+        delay: 0.15
+      }
+    );
+
+    gsap.to(heroLetters, {
+      y: -24,
+      autoAlpha: 0.2,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.2
+      }
+    });
+  }
+
 
   const servicePanels = gsap.utils.toArray('[data-panel]');
   servicePanels.forEach((panel, index) => {
