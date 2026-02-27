@@ -108,7 +108,7 @@ a { color: inherit; text-decoration: none; }
 .brand { display: inline-flex; align-items: center; }
 
 .logo img {
-  height: 50px;
+  height: 90px;
   width: auto;
   display: block;
 }
