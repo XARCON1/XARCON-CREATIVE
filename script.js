@@ -114,6 +114,71 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  const negocios = gsap.utils.toArray('[data-negocio]');
+  negocios.forEach((negocio, index) => {
+    const content = negocio.querySelector('.negocio-content');
+    const map = negocio.querySelector('.negocio-map-wrap');
+    const contentFromX = index % 2 === 0 ? -80 : 80;
+    const mapFromX = index % 2 === 0 ? 80 : -80;
+
+    if (content) {
+      gsap.fromTo(
+        content,
+        { x: contentFromX, y: 28, autoAlpha: 0 },
+        {
+          x: 0,
+          y: 0,
+          autoAlpha: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: negocio,
+            start: 'top 75%',
+            end: 'top 40%',
+            scrub: 0.7
+          }
+        }
+      );
+    }
+
+    if (map) {
+      gsap.fromTo(
+        map,
+        { x: mapFromX, y: 28, autoAlpha: 0 },
+        {
+          x: 0,
+          y: 0,
+          autoAlpha: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: negocio,
+            start: 'top 72%',
+            end: 'top 36%',
+            scrub: 0.7
+          }
+        }
+      );
+    }
+
+    if (!reduceMotion && map) {
+      gsap.fromTo(
+        map,
+        { yPercent: -3 },
+        {
+          yPercent: 3,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: negocio,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          }
+        }
+      );
+    }
+  });
+
   if (!reduceMotion) {
     gsap.utils.toArray('[data-parallax]').forEach((item) => {
       const media = item.querySelector('img, video');
