@@ -402,6 +402,95 @@ h2 {
   border-color: rgba(255, 255, 255, 0.6);
 }
 
+.negocios-section {
+  background: linear-gradient(to bottom, #030406, #06080d);
+  padding: clamp(3.5rem, 8vh, 6.5rem) 4vw 2vh;
+}
+
+.negocios-header {
+  text-align: center;
+  width: min(980px, 94vw);
+  margin: 0 auto clamp(2.5rem, 7vh, 5rem);
+}
+
+.negocios-header h2 {
+  font-size: clamp(2.2rem, 6.5vw, 5.2rem);
+}
+
+.negocio-item {
+  min-height: 100vh;
+  width: min(1240px, 92vw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.2rem, 3.2vw, 3.5rem);
+  align-items: center;
+  padding: clamp(1.8rem, 5vw, 4rem) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.negocio-content {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 56ch;
+}
+
+.negocio-content h3 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.negocio-rubro {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.negocio-description,
+.negocio-services {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.negocio-btn {
+  justify-self: start;
+  margin-top: 0.8rem;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  padding: 0.78rem 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.74rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.negocio-btn:hover,
+.negocio-btn:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.negocio-map-wrap {
+  position: relative;
+  min-height: clamp(300px, 58vh, 650px);
+  border-radius: 1.1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.35);
+}
+
+.negocio-map-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(0.92) contrast(1.08) brightness(0.8);
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(34px);
@@ -446,6 +535,18 @@ h2 {
 
   .about-media {
     min-height: 56vh;
+  }
+
+  .negocio-item {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 2.6rem 0 3.6rem;
+    gap: 1.4rem;
+  }
+
+  .negocio-map-wrap {
+    min-height: 48vh;
+    order: 2;
   }
 }
 
