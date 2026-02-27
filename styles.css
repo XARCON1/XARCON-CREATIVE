@@ -509,6 +509,32 @@ h2 {
   filter: grayscale(0.92) contrast(1.08) brightness(0.8);
 }
 
+.negocios-hero {
+  min-height: 72vh;
+  display: grid;
+  align-items: end;
+  padding: clamp(7rem, 16vh, 12rem) 4vw clamp(3rem, 8vh, 6rem);
+  background: radial-gradient(circle at 75% 0%, rgba(96, 114, 158, 0.16), transparent 46%), #040507;
+}
+
+.negocios-hero-content {
+  width: min(980px, 92vw);
+  margin: 0 auto;
+}
+
+.negocios-hero h1 {
+  max-width: 14ch;
+  font-size: clamp(2.3rem, 7vw, 5.8rem);
+}
+
+.negocios-page-section {
+  padding-top: 0;
+}
+
+.negocios-page-section .negocio-item:first-child {
+  border-top: 0;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(34px);
