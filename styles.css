@@ -177,8 +177,7 @@ p {
 }
 
 .hero-logo {
-  width: 60%;
-  max-width: 280px;
+  width: clamp(300px, 40vw, 700px);
   height: auto;
   display: block;
   opacity: 0;
