@@ -1,93 +1,69 @@
-const themeSwitch = document.querySelector('#theme-switch');
-const themeText = document.querySelector('.theme-text');
-const THEME_KEY = 'xarcon-theme';
-
-function applyTheme(theme) {
-  const current = theme === 'light' ? 'light' : 'dark';
-  document.body.setAttribute('data-theme', current);
-  if (themeText) themeText.textContent = current === 'dark' ? 'Modo claro' : 'Modo oscuro';
-}
-
-applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
-
-themeSwitch?.addEventListener('click', () => {
-  const next = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
-  localStorage.setItem(THEME_KEY, next);
-});
-
-const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.nav');
-menuToggle?.addEventListener('click', () => nav?.classList.toggle('open'));
-document.querySelectorAll('.nav a').forEach((link) => {
-  link.addEventListener('click', () => nav?.classList.remove('open'));
-});
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  },
-  { threshold: 0.2 }
-);
-
-document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
-
-function animateCounter(node) {
-  const target = parseFloat(node.dataset.target || '0');
-  const decimals = parseInt(node.dataset.decimals || '0', 10);
-  const suffix = node.dataset.suffix || '';
-  const prefix = node.dataset.prefix || '';
-  const duration = 1300;
-  const start = performance.now();
-
-  function tick(now) {
-    const progress = Math.min((now - start) / duration, 1);
-    const value = target * progress;
-    node.textContent = `${prefix}${value.toFixed(decimals)}${suffix}`;
-    if (progress < 1) requestAnimationFrame(tick);
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    return;
   }
 
-  requestAnimationFrame(tick);
-}
+  gsap.registerPlugin(ScrollTrigger);
 
-const counterObserver = new IntersectionObserver(
-  (entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      animateCounter(entry.target);
-      observer.unobserve(entry.target);
+  const sections = gsap.utils.toArray('[data-section]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  sections.forEach((section, index) => {
+    const left = section.querySelector('.content-left');
+    const right = section.querySelector('.content-right');
+    const video = section.querySelector('.section-video');
+
+    gsap.set([left, right], { autoAlpha: index === 0 ? 1 : 0, y: index === 0 ? 0 : 55 });
+
+    if (!reduceMotion) {
+      gsap.fromTo(
+        video,
+        { scale: 1.08 },
+        {
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.2
+          }
+        }
+      );
+    }
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top 60%',
+      end: 'bottom 40%',
+      onEnter: () => animateSection(section, 'down'),
+      onEnterBack: () => animateSection(section, 'up'),
+      onLeave: () => fadeSection(section, 'down'),
+      onLeaveBack: () => fadeSection(section, 'up')
     });
-  },
-  { threshold: 0.5 }
-);
-
-document.querySelectorAll('.counter').forEach((counter) => counterObserver.observe(counter));
-
-const slides = document.querySelectorAll('.testimonial-card');
-let currentSlide = 0;
-
-function showSlide(index) {
-  slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
-  currentSlide = index;
-}
-
-function nextSlide(step = 1) {
-  const next = (currentSlide + step + slides.length) % slides.length;
-  showSlide(next);
-}
-
-document.querySelectorAll('[data-slide]').forEach((button) => {
-  button.addEventListener('click', () => {
-    nextSlide(button.dataset.slide === 'next' ? 1 : -1);
   });
+
+  function animateSection(section, direction) {
+    const left = section.querySelector('.content-left');
+    const right = section.querySelector('.content-right');
+    const fromY = direction === 'down' ? 56 : -56;
+
+    gsap.timeline({ defaults: { duration: 0.9, ease: 'power3.out' } })
+      .fromTo(left, { autoAlpha: 0, y: fromY }, { autoAlpha: 1, y: 0 }, 0)
+      .fromTo(right, { autoAlpha: 0, y: fromY * 0.75 }, { autoAlpha: 1, y: 0 }, 0.1);
+  }
+
+  function fadeSection(section, direction) {
+    const left = section.querySelector('.content-left');
+    const right = section.querySelector('.content-right');
+    const toY = direction === 'down' ? -42 : 42;
+
+    gsap.to([left, right], {
+      autoAlpha: 0,
+      y: toY,
+      duration: 0.65,
+      ease: 'power2.out',
+      overwrite: 'auto'
+    });
+  }
 });
-
-if (slides.length > 0) {
-  showSlide(0);
-  setInterval(() => nextSlide(1), 6000);
-}
-
-const year = document.querySelector('#year');
-if (year) year.textContent = new Date().getFullYear();
