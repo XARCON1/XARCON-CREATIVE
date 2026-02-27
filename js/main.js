@@ -196,6 +196,36 @@ function initGsapAnimations() {
     });
   });
 
+  // Catálogo de negocios (Inicio): animación individual estilo agencia premium en cada card.
+  // Al entrar al viewport: fade + desplazamiento vertical ascendente.
+  // Al salir del viewport al subir: reverse suave (se oculta de nuevo).
+  gsap.utils.toArray('.business-card').forEach((card) => {
+    // Preparamos el elemento para composición por GPU en móviles y desktop.
+    card.style.willChange = 'transform, opacity';
+
+    gsap.fromTo(
+      card,
+      {
+        y: 60,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          end: 'bottom 15%',
+          toggleActions: 'play reverse play reverse',
+          // Recalcula posiciones en resize/orientación para un comportamiento fiable en móvil.
+          invalidateOnRefresh: true,
+        },
+      }
+    );
+  });
+
   // Microinteracciones en botones: hover suave para feedback táctil/visual premium.
   document.querySelectorAll('.btn, .theme-toggle').forEach((button) => {
     button.addEventListener('mouseenter', () => {
