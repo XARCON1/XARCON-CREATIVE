@@ -38,15 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const introSeen = window.sessionStorage.getItem('xarcon-intro-seen') === 'true';
-    if (introSeen) {
-      introVideo.classList.add('is-hidden');
-      introFinalImage.classList.add('fade-in');
-      return;
-    }
-
     document.body.classList.add('intro-active');
     let hasFinished = false;
+    let introTimerId;
+
+    const showFinalImage = () => {
+      console.log('showing final image');
+      introContainer.classList.add('is-hidden');
+      introFinalImage.classList.add('fade-in');
+      document.body.classList.remove('intro-active');
+    };
 
     const finishIntro = () => {
       if (hasFinished) {
@@ -55,21 +56,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
       hasFinished = true;
       window.sessionStorage.setItem('xarcon-intro-seen', 'true');
-      introVideo.classList.add('fade-out');
+      console.log('video ended');
+      introContainer.classList.add('fade-out');
 
-      requestAnimationFrame(() => {
-        introFinalImage.classList.add('fade-in');
-      });
-
-      setTimeout(() => {
-        introVideo.classList.add('is-hidden');
-        document.body.classList.remove('intro-active');
-      }, 1000);
+      setTimeout(showFinalImage, 1000);
     };
+
+    introVideo.addEventListener('loadedmetadata', () => {
+      if (Math.round(introVideo.duration) !== 10) {
+        console.warn(`Duración inesperada para assets/intro.mp4: ${introVideo.duration}s`);
+      }
+    }, { once: true });
+
+    introVideo.addEventListener('playing', () => {
+      console.log('video started');
+      if (introTimerId) {
+        return;
+      }
+
+      introTimerId = setTimeout(finishIntro, 10000);
+    }, { once: true });
 
     introVideo.addEventListener('ended', finishIntro, { once: true });
 
-    setTimeout(finishIntro, 10000);
+    introVideo.play().catch(() => {
+      // autoplay policies may block playback in some browsers; ended listener remains as fallback.
+    });
   };
 
   setupHeroIntro();
