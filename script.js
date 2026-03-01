@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const revealItems = document.querySelectorAll('.reveal');
   const introContainer = document.getElementById('intro-container');
   const introVideo = document.getElementById('intro-video');
+  const introFinalImage = document.getElementById('intro-final-image');
   const heroBusinessBubble = document.getElementById('heroBusinessBubble');
 
   const handleHeaderState = () => {
@@ -33,18 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const setupHeroIntro = () => {
-    if (!introContainer || !introVideo) {
+    if (!introContainer || !introVideo || !introFinalImage) {
       return;
     }
 
     const introSeen = window.sessionStorage.getItem('xarcon-intro-seen') === 'true';
     if (introSeen) {
-      const introLogo = document.createElement('img');
-      introLogo.className = 'intro-logo fade-in';
-      introLogo.src = 'assets/LOGO (2).png';
-      introLogo.alt = 'XARCON CREATIVE';
-      introContainer.appendChild(introLogo);
-      introVideo.remove();
+      introVideo.classList.add('is-hidden');
+      introFinalImage.classList.add('fade-in');
       return;
     }
 
@@ -60,18 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
       window.sessionStorage.setItem('xarcon-intro-seen', 'true');
       introVideo.classList.add('fade-out');
 
-      const introLogo = document.createElement('img');
-      introLogo.className = 'intro-logo';
-      introLogo.src = 'assets/LOGO (2).png';
-      introLogo.alt = 'XARCON CREATIVE';
-      introContainer.appendChild(introLogo);
-
       requestAnimationFrame(() => {
-        introLogo.classList.add('fade-in');
+        introFinalImage.classList.add('fade-in');
       });
 
       setTimeout(() => {
-        introVideo.remove();
+        introVideo.classList.add('is-hidden');
         document.body.classList.remove('intro-active');
       }, 1000);
     };
