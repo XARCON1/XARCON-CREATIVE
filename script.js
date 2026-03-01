@@ -70,25 +70,75 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (heroBusinessBubble && !reduceMotion) {
-    gsap.to(heroBusinessBubble, {
-      x: 18,
-      y: -14,
-      duration: 4.8,
-      ease: 'sine.inOut',
-      repeat: -1,
-      yoyo: true
+  const heroSection = document.getElementById('hero');
+  const servicesSection = document.getElementById('servicios');
+
+  const setupFloatingBusinessBubble = () => {
+    if (!heroBusinessBubble) {
+      return;
+    }
+
+    const isVisibleInRange = () => {
+      const heroTop = heroSection ? heroSection.offsetTop : 0;
+      const servicesBottom = servicesSection ? servicesSection.offsetTop + servicesSection.offsetHeight : 0;
+      const currentScroll = window.scrollY + window.innerHeight * 0.1;
+      return currentScroll >= heroTop && currentScroll <= servicesBottom;
+    };
+
+    const toggleBubbleVisibility = () => {
+      heroBusinessBubble.style.opacity = isVisibleInRange() ? '0.92' : '0';
+      heroBusinessBubble.style.visibility = isVisibleInRange() ? 'visible' : 'hidden';
+    };
+
+    const bubbleSize = () => heroBusinessBubble.getBoundingClientRect().width || 110;
+
+    const getRandomPoint = () => {
+      const size = bubbleSize();
+      const padding = Math.max(16, size * 0.2);
+      const maxX = Math.max(padding, window.innerWidth - size - padding);
+      const maxY = Math.max(padding, window.innerHeight - size - padding);
+      return {
+        x: gsap.utils.random(padding, maxX),
+        y: gsap.utils.random(padding, maxY)
+      };
+    };
+
+    const animateToNextPoint = () => {
+      const next = getRandomPoint();
+      gsap.to(heroBusinessBubble, {
+        x: next.x,
+        y: next.y,
+        duration: gsap.utils.random(3.2, 6.4),
+        ease: 'sine.inOut',
+        onComplete: animateToNextPoint
+      });
+    };
+
+    const start = () => {
+      const initial = getRandomPoint();
+      gsap.set(heroBusinessBubble, { x: initial.x, y: initial.y });
+      if (!reduceMotion) {
+        animateToNextPoint();
+      }
+    };
+
+    toggleBubbleVisibility();
+    window.addEventListener('scroll', toggleBubbleVisibility, { passive: true });
+    window.addEventListener('resize', toggleBubbleVisibility);
+    window.addEventListener('resize', () => {
+      const size = bubbleSize();
+      const currentX = gsap.getProperty(heroBusinessBubble, 'x');
+      const currentY = gsap.getProperty(heroBusinessBubble, 'y');
+      const boundedX = Math.min(Math.max(16, Number(currentX)), Math.max(16, window.innerWidth - size - 16));
+      const boundedY = Math.min(Math.max(16, Number(currentY)), Math.max(16, window.innerHeight - size - 16));
+      gsap.set(heroBusinessBubble, { x: boundedX, y: boundedY });
     });
 
-    gsap.to(heroBusinessBubble, {
-      x: -10,
-      y: 16,
-      duration: 6.2,
-      ease: 'sine.inOut',
-      repeat: -1,
-      yoyo: true
-    });
-  }
+    start();
+  };
+
+  setupFloatingBusinessBubble();
+
 
   gsap.from('.site-header', {
     y: -70,
