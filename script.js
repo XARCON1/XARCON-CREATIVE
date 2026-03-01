@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mainNav = document.getElementById('mainNav');
   const revealItems = document.querySelectorAll('.reveal');
   const heroLogo = document.getElementById('heroLogo');
+  const heroBusinessBubble = document.getElementById('heroBusinessBubble');
 
   const handleHeaderState = () => {
     if (header) {
@@ -30,6 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+  if (heroBusinessBubble) {
+    heroBusinessBubble.addEventListener('click', () => {
+      window.location.href = 'negocios.html';
+    });
+  }
+
   if (typeof IntersectionObserver !== 'undefined') {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -53,11 +61,34 @@ document.addEventListener('DOMContentLoaded', () => {
       item.style.opacity = '1';
       item.style.transform = 'none';
     });
+    if (heroBusinessBubble) {
+      heroBusinessBubble.style.opacity = '1';
+    }
     return;
   }
 
   gsap.registerPlugin(ScrollTrigger);
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (heroBusinessBubble && !reduceMotion) {
+    gsap.to(heroBusinessBubble, {
+      x: 18,
+      y: -14,
+      duration: 4.8,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true
+    });
+
+    gsap.to(heroBusinessBubble, {
+      x: -10,
+      y: 16,
+      duration: 6.2,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true
+    });
+  }
 
   gsap.from('.site-header', {
     y: -70,
