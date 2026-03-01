@@ -221,20 +221,40 @@ p {
   outline-offset: 4px;
 }
 
-.intro-container {
+.intro-stage {
   position: relative;
   width: min(92vw, 960px);
   aspect-ratio: 16 / 9;
   max-height: 72vh;
+}
+
+.intro-container,
+.intro-final-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro-container {
   display: grid;
   place-items: center;
+}
+
+.intro-container.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.intro-container.is-hidden {
+  display: none;
 }
 
 .intro-video,
 .intro-final-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
 
@@ -242,18 +262,7 @@ p {
   opacity: 1;
 }
 
-.intro-video.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-.intro-video.is-hidden {
-  display: none;
-}
-
 .intro-final-image {
-  position: absolute;
-  inset: 0;
   opacity: 0;
 }
 
