@@ -45,7 +45,18 @@
     <main>
       <section class="hero" id="hero">
         <div class="hero-content">
-          <img class="hero-logo" id="heroLogo" src="assets/LOGO (2).png" alt="XARCON CREATIVE" />
+          <div id="intro-container" class="intro-container" aria-live="polite">
+            <video
+              id="intro-video"
+              class="intro-video"
+              autoplay
+              muted
+              playsinline
+              preload="auto"
+            >
+              <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
         <a class="scroll-indicator" href="#servicios" aria-label="Ir a servicios">
           <span></span>

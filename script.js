@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
   const revealItems = document.querySelectorAll('.reveal');
-  const heroLogo = document.getElementById('heroLogo');
+  const introContainer = document.getElementById('intro-container');
+  const introVideo = document.getElementById('intro-video');
   const heroBusinessBubble = document.getElementById('heroBusinessBubble');
 
   const handleHeaderState = () => {
@@ -31,6 +32,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const setupHeroIntro = () => {
+    if (!introContainer || !introVideo) {
+      return;
+    }
+
+    const introSeen = window.sessionStorage.getItem('xarcon-intro-seen') === 'true';
+    if (introSeen) {
+      const introLogo = document.createElement('img');
+      introLogo.className = 'intro-logo fade-in';
+      introLogo.src = 'assets/LOGO (2).png';
+      introLogo.alt = 'XARCON CREATIVE';
+      introContainer.appendChild(introLogo);
+      introVideo.remove();
+      return;
+    }
+
+    document.body.classList.add('intro-active');
+    let hasFinished = false;
+
+    const finishIntro = () => {
+      if (hasFinished) {
+        return;
+      }
+
+      hasFinished = true;
+      window.sessionStorage.setItem('xarcon-intro-seen', 'true');
+      introVideo.classList.add('fade-out');
+
+      const introLogo = document.createElement('img');
+      introLogo.className = 'intro-logo';
+      introLogo.src = 'assets/LOGO (2).png';
+      introLogo.alt = 'XARCON CREATIVE';
+      introContainer.appendChild(introLogo);
+
+      requestAnimationFrame(() => {
+        introLogo.classList.add('fade-in');
+      });
+
+      setTimeout(() => {
+        introVideo.remove();
+        document.body.classList.remove('intro-active');
+      }, 1000);
+    };
+
+    introVideo.addEventListener('ended', finishIntro, { once: true });
+
+    setTimeout(finishIntro, 10000);
+  };
+
+  setupHeroIntro();
 
   if (heroBusinessBubble) {
     heroBusinessBubble.addEventListener('click', () => {
@@ -147,28 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ease: 'power3.out'
   });
 
-  if (heroLogo) {
-    gsap.to(heroLogo, {
-      autoAlpha: 1,
-      scale: 1,
-      duration: 1.4,
-      ease: 'power3.out',
-      delay: 0.15
-    });
-
-    gsap.to(heroLogo, {
-      y: -40,
-      scale: 0.9,
-      autoAlpha: 0,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-      }
-    });
-  }
 
 
   const servicePanels = gsap.utils.toArray('[data-panel]');
