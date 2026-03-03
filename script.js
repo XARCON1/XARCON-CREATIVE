@@ -7,6 +7,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const introVideo = document.getElementById('intro-video');
   const introFinalImage = document.getElementById('intro-final-image');
   const heroBusinessBubble = document.getElementById('heroBusinessBubble');
+  const themeToggle = document.getElementById('themeToggle');
+  const themeToggleIcon = themeToggle ? themeToggle.querySelector('.theme-toggle-icon') : null;
+  const themeStorageKey = 'xarcon-theme';
+
+  const applyTheme = (mode) => {
+    const isLightMode = mode === 'light';
+    document.body.classList.toggle('light-mode', isLightMode);
+
+    if (!themeToggle || !themeToggleIcon) {
+      return;
+    }
+
+    themeToggleIcon.textContent = isLightMode ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', isLightMode ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro');
+    themeToggle.setAttribute('aria-pressed', String(isLightMode));
+  };
+
+  const savedTheme = window.localStorage.getItem(themeStorageKey);
+  applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isLightMode = document.body.classList.toggle('light-mode');
+      const nextTheme = isLightMode ? 'light' : 'dark';
+      applyTheme(nextTheme);
+      window.localStorage.setItem(themeStorageKey, nextTheme);
+    });
+  }
 
   const handleHeaderState = () => {
     if (header) {
