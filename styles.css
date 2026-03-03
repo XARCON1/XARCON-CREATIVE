@@ -16,20 +16,7 @@
 }
 
 body.light-mode {
-  --text: #121820;
-  --muted: rgba(18, 24, 32, 0.72);
-  --border: rgba(18, 24, 32, 0.24);
-  --glass: rgba(255, 255, 255, 0.5);
-  --bg: linear-gradient(135deg, #f4f6f8 0%, #e9edf2 50%, #dde3ea 100%);
-  --header-bg: rgba(255, 255, 255, 0.65);
-  --header-bg-scrolled: rgba(255, 255, 255, 0.92);
-  --header-border-scrolled: rgba(18, 24, 32, 0.14);
-  --section-deep: rgba(255, 255, 255, 0.25);
-  --section-mid: rgba(255, 255, 255, 0.35);
-  --contact-bg: linear-gradient(to bottom, rgba(255, 255, 255, 0.28), rgba(221, 227, 234, 0.55));
-  --toggle-track: rgba(18, 24, 32, 0.18);
-  --toggle-thumb: #ffffff;
-  --toggle-icon-color: #f7b500;
+  --bg: linear-gradient(135deg, #1e1f23 0%, #2a2c31 50%, #34363c 100%);
 }
 
 * {
@@ -45,6 +32,10 @@ body {
   font-family: 'Inter', sans-serif;
   scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+body {
+  transition: background 0.4s ease;
 }
 
 body.intro-active {
