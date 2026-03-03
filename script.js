@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
   const header = document.getElementById('siteHeader');
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let introTimerId;
 
     const showFinalImage = () => {
-      console.log('showing final image');
       introContainer.classList.add('is-hidden');
       introFinalImage.classList.add('fade-in');
       document.body.classList.remove('intro-active');
@@ -84,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       hasFinished = true;
       window.sessionStorage.setItem('xarcon-intro-seen', 'true');
-      console.log('video ended');
       introContainer.classList.add('fade-out');
 
       setTimeout(showFinalImage, 1000);
@@ -97,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { once: true });
 
     introVideo.addEventListener('playing', () => {
-      console.log('video started');
       if (introTimerId) {
         return;
       }
@@ -138,11 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
     revealItems.forEach((item) => observer.observe(item));
   }
 
+  revealItems.forEach((item) => {
+    item.style.opacity = '1';
+    item.style.transform = 'none';
+  });
+
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    revealItems.forEach((item) => {
-      item.style.opacity = '1';
-      item.style.transform = 'none';
-    });
     if (heroBusinessBubble) {
       heroBusinessBubble.style.opacity = '1';
     }
@@ -174,34 +172,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const bubbleSize = () => heroBusinessBubble.getBoundingClientRect().width || 110;
 
-    const getRandomPoint = () => {
+    const getSafePoint = () => {
       const size = bubbleSize();
       const padding = Math.max(16, size * 0.2);
       const maxX = Math.max(padding, window.innerWidth - size - padding);
       const maxY = Math.max(padding, window.innerHeight - size - padding);
       return {
-        x: gsap.utils.random(padding, maxX),
-        y: gsap.utils.random(padding, maxY)
+        x: window.innerWidth > size * 2 ? (window.innerWidth - size) / 2 : padding,
+        y: window.innerHeight > size * 2 ? (window.innerHeight - size) / 2 : padding
       };
     };
 
-    const animateToNextPoint = () => {
-      const next = getRandomPoint();
-      gsap.to(heroBusinessBubble, {
-        x: next.x,
-        y: next.y,
-        duration: gsap.utils.random(3.2, 6.4),
-        ease: 'sine.inOut',
-        onComplete: animateToNextPoint
-      });
-    };
-
     const start = () => {
-      const initial = getRandomPoint();
+      const initial = getSafePoint();
       gsap.set(heroBusinessBubble, { x: initial.x, y: initial.y });
-      if (!reduceMotion) {
-        animateToNextPoint();
-      }
     };
 
     toggleBubbleVisibility();
@@ -242,20 +226,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const aboutImage = document.querySelector('#nosotros .about-media');
 
     if (heroContent) {
-      gsap.fromTo(
+      gsap.from(
         heroContent,
-        { opacity: 0, y: 60 },
-        { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }
+        { y: 60, duration: 1.2, ease: 'power3.out' }
       );
     }
 
-    gsap.set(pageSections, { opacity: 0, y: 60 });
     pageSections.forEach((section) => {
-      gsap.to(section, {
-        opacity: 1,
-        y: 0,
+      gsap.from(section, {
+        y: 60,
         duration: 1,
         ease: 'power3.out',
+        immediateRender: false,
         scrollTrigger: {
           trigger: section,
           start: 'top 80%',
@@ -265,12 +247,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (serviceCards.length) {
-      gsap.set(serviceCards, { opacity: 0, y: 60 });
-      gsap.to(serviceCards, {
-        opacity: 1,
-        y: 0,
+      gsap.from(serviceCards, {
+        y: 60,
         duration: 1,
         ease: 'power3.out',
+        immediateRender: false,
         stagger: 0.2,
         scrollTrigger: {
           trigger: '#servicios',
@@ -281,14 +262,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (aboutText) {
-      gsap.fromTo(
+      gsap.from(
         aboutText,
-        { opacity: 0, x: -80 },
         {
-          opacity: 1,
-          x: 0,
+          x: -80,
           duration: 1,
           ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: {
             trigger: '#nosotros',
             start: 'top 80%',
@@ -299,14 +279,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (aboutImage) {
-      gsap.fromTo(
+      gsap.from(
         aboutImage,
-        { opacity: 0, x: 80 },
         {
-          opacity: 1,
-          x: 0,
+          x: 80,
           duration: 1,
           ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: {
             trigger: '#nosotros',
             start: 'top 80%',
@@ -317,7 +296,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  setupCreativeScrollAnimations();
+  try {
+    setupCreativeScrollAnimations();
+  } catch (error) {
+    console.error('No se pudieron inicializar las animaciones principales', error);
+  }
 
   const negocios = gsap.utils.toArray('[data-negocio]');
   negocios.forEach((negocio, index) => {
@@ -327,15 +310,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const mapFromX = index % 2 === 0 ? 80 : -80;
 
     if (content) {
-      gsap.fromTo(
+      gsap.from(
         content,
-        { x: contentFromX, y: 28, autoAlpha: 0 },
         {
-          x: 0,
-          y: 0,
-          autoAlpha: 1,
+          x: contentFromX,
+          y: 28,
           duration: 1,
           ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: {
             trigger: negocio,
             start: 'top 75%',
@@ -347,15 +329,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (map) {
-      gsap.fromTo(
+      gsap.from(
         map,
-        { x: mapFromX, y: 28, autoAlpha: 0 },
         {
-          x: 0,
-          y: 0,
-          autoAlpha: 1,
+          x: mapFromX,
+          y: 28,
           duration: 1,
           ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: {
             trigger: negocio,
             start: 'top 72%',
@@ -367,12 +348,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!reduceMotion && map) {
-      gsap.fromTo(
+      gsap.from(
         map,
-        { yPercent: -3 },
         {
-          yPercent: 3,
+          yPercent: -3,
           ease: 'none',
+          immediateRender: false,
           scrollTrigger: {
             trigger: negocio,
             start: 'top bottom',
@@ -391,12 +372,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      gsap.fromTo(
+      gsap.from(
         media,
-        { yPercent: -7 },
         {
-          yPercent: 7,
+          yPercent: -7,
           ease: 'none',
+          immediateRender: false,
           scrollTrigger: {
             trigger: item,
             start: 'top bottom',
