@@ -1,3 +1,6 @@
+console.log("JS FUNCIONANDO");
+document.body.style.border = "5px solid red";
+
 document.addEventListener('DOMContentLoaded', function () {
   const header = document.getElementById('siteHeader');
   const navToggle = document.getElementById('navToggle');
