@@ -17,8 +17,7 @@
     <link rel="icon" type="image/png" sizes="64x64" href="assets/LOGO (2).png" />
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="script.js" defer></script>
+        <script src="script.js" defer></script>
   </head>
   <body>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a modo claro" aria-pressed="false">
@@ -47,32 +46,16 @@
 
     <main>
       <section class="hero" id="hero">
-        <div class="hero-content">
-          <div class="intro-stage" aria-live="polite">
-            <div id="intro-container" class="intro-container">
-              <video
-                id="intro-video"
-                class="intro-video"
-                autoplay
-                muted
-                playsinline
-                preload="auto"
-              >
-                <source src="assets/intro.mp4" type="video/mp4" />
-              </video>
-            </div>
-            <img
-              id="intro-final-image"
-              class="intro-final-image"
-              src="assets/intro-final.png"
-              alt="XARCON CREATIVE"
-            />
-          </div>
-          <h2 class="hero-title">XARCON CREATIVE</h2>
+        <div class="hero-media" aria-hidden="true">
+          <video class="hero-video" autoplay muted loop playsinline preload="auto">
+            <source src="assets/intro.mp4" type="video/mp4" />
+          </video>
         </div>
-        <a class="scroll-indicator" href="#servicios" aria-label="Ir a servicios">
-          <span></span>
-        </a>
+        <div class="hero-content">
+          <h1 class="hero-title">XARCON CREATIVE</h1>
+          <p class="hero-subtitle">Estrategia, diseño y producción digital con impacto cinematográfico para marcas ambiciosas.</p>
+          <a class="hero-button" href="#contacto">Iniciar proyecto</a>
+        </div>
       </section>
 
       <section id="servicios" class="services-wrap">
