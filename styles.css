@@ -17,6 +17,18 @@
 
 body.light-mode {
   --bg: linear-gradient(135deg, #1e1f23 0%, #2a2c31 50%, #34363c 100%);
+  background: linear-gradient(135deg, #1e1f23 0%, #2a2c31 50%, #34363c 100%);
+}
+
+body.light-mode .hero,
+body.light-mode .section,
+body.light-mode .main-wrapper,
+body.light-mode .showcase-section,
+body.light-mode .about-section,
+body.light-mode .contact-section,
+body.light-mode .negocios-section,
+body.light-mode .negocios-hero {
+  background: transparent;
 }
 
 * {
