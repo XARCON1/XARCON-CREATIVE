@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroBusinessBubble = document.getElementById('heroBusinessBubble');
   const themeToggle = document.getElementById('themeToggle');
   const themeToggleIcon = themeToggle ? themeToggle.querySelector('.theme-toggle-icon') : null;
+  const introOverlay = document.getElementById('introOverlay');
+  const introVideo = document.getElementById('introVideo');
+  const introFinal = document.getElementById('introFinal');
   const themeStorageKey = 'xarcon-theme';
 
   const applyTheme = (mode) => {
@@ -61,15 +64,89 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (introOverlay && introVideo && introFinal) {
+    document.body.classList.add('intro-active');
+    introVideo.loop = false;
+
+    const finishIntro = () => {
+      introOverlay.remove();
+      document.body.classList.remove('intro-active');
+    };
+
+    introVideo.play().catch(() => {
+      // Autoplay can fail in some browsers, but timing sequence still runs.
+    });
+
+    setTimeout(() => {
+      if (typeof window.gsap !== 'undefined') {
+        window.gsap.to(introVideo, { opacity: 0, duration: 1.2, ease: 'power2.out' });
+        window.gsap.to(introFinal, { opacity: 1, duration: 1.2, ease: 'power2.out' });
+        window.gsap.to(introOverlay, { opacity: 0, delay: 1.3, duration: 0.9, onComplete: finishIntro });
+      } else {
+        introVideo.style.opacity = '0';
+        introFinal.style.opacity = '1';
+        setTimeout(finishIntro, 2100);
+      }
+    }, 10000);
+  }
+
   if (typeof window.gsap === 'undefined') return;
 
   const { gsap } = window;
+  const hasScrollTrigger = typeof window.ScrollTrigger !== 'undefined';
 
-  gsap.from(".hero-line", {
-    y: 150,
+  if (hasScrollTrigger) {
+    gsap.registerPlugin(window.ScrollTrigger);
+  }
+
+  gsap.from('.hero-line', {
+    y: 120,
     opacity: 0,
     duration: 1.2,
-    stagger: 0.2,
-    ease: "power4.out"
+    stagger: 0.3,
+    ease: 'power4.out'
   });
+
+  if (hasScrollTrigger) {
+    gsap.from('.servicio-card', {
+      scrollTrigger: {
+        trigger: '.services-wrap',
+        start: 'top 85%'
+      },
+      y: 60,
+      opacity: 0,
+      stagger: 0.2,
+      duration: 1.1,
+      ease: 'power3.out'
+    });
+
+    gsap.utils.toArray('.negocio-item').forEach((item) => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 80%'
+        },
+        y: 80,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out'
+      });
+    });
+  }
+
+  const randomRange = (min, max) => Math.random() * (max - min) + min;
+
+  function animateSphere() {
+    if (!heroBusinessBubble) return;
+
+    gsap.to(heroBusinessBubble, {
+      x: randomRange(-100, 100),
+      y: randomRange(-80, 80),
+      duration: 4,
+      ease: 'sine.inOut',
+      onComplete: animateSphere
+    });
+  }
+
+  animateSphere();
 });
