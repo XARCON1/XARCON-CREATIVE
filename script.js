@@ -64,32 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof window.gsap === 'undefined') return;
 
   const { gsap } = window;
-  const tl = gsap.timeline();
 
-  tl.from(".hero-media", {
-    scale: 1.2,
-    duration: 2,
-    ease: "power2.out"
+  gsap.from(".hero-line", {
+    y: 150,
+    opacity: 0,
+    duration: 1.2,
+    stagger: 0.2,
+    ease: "power4.out"
   });
-
-  tl.from(".hero-title", {
-    y: 120,
-    opacity: 0,
-    duration: 1,
-    ease: "power4.out"
-  }, "-=1.5");
-
-  tl.from(".hero-subtitle", {
-    y: 80,
-    opacity: 0,
-    duration: 1,
-    ease: "power4.out"
-  }, "-=0.8");
-
-  tl.from(".hero-button", {
-    scale: 0.5,
-    opacity: 0,
-    duration: 0.8,
-    ease: "back.out(1.7)"
-  }, "-=0.6");
 });
