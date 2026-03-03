@@ -731,8 +731,8 @@ body.light-mode .theme-toggle-icon {
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(34px);
+  opacity: 1;
+  transform: none;
 }
 
 @media (max-width: 900px) {
