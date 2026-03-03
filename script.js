@@ -152,24 +152,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from('h1', {
-    y: 80,
-    opacity: 0,
-    duration: 1.2,
-    ease: 'power3.out'
-  });
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) {
+    gsap.from('.hero-title', {
+      y: 80,
+      opacity: 0,
+      duration: 1.2,
+      ease: 'power3.out'
+    });
+  }
 
-  gsap.from('.servicio-card', {
-    scrollTrigger: {
-      trigger: '.servicio-card',
-      start: 'top 80%'
-    },
-    y: 60,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.2,
-    ease: 'power3.out'
-  });
+  const serviceCards = document.querySelectorAll('.servicio-card');
+  if (serviceCards.length) {
+    gsap.from('.servicio-card', {
+      scrollTrigger: {
+        trigger: '.servicio-card',
+        start: 'top 80%'
+      },
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.2,
+      ease: 'power3.out'
+    });
+  }
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
