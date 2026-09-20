@@ -37,7 +37,7 @@ export default function ConceptLab() {
             proyectos de clientes.
           </p>
         </Reveal>
-        <div className="lab-shell">
+        <Reveal className="lab-shell" variant="media">
           <div className="lab-sidebar">
             <span className="lab-label">ELIGE UNA EXPERIENCIA</span>
             <div
@@ -214,7 +214,7 @@ export default function ConceptLab() {
               </div>
             )}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

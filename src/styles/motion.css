@@ -1,0 +1,175 @@
+/* One motion language: anticipation, reveal, then supporting detail. */
+.reveal-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.reveal-word {
+  display: inline-block;
+  transform: translate3d(0, 112%, 0) rotate(2deg);
+  opacity: 0;
+  transition:
+    transform 0.94s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 0.6s ease;
+  transition-delay: calc(
+    var(--reveal-delay, 0s) + var(--word-delay, 0s) + 0.08s
+  );
+  transform-origin: 0 100%;
+}
+.reveal[data-visible="true"] .reveal-word,
+.reveal:focus-within .reveal-word {
+  transform: none;
+  opacity: 1;
+}
+.reveal-content [data-reveal-item],
+.reveal-content .text-link,
+.reveal-content .button {
+  opacity: 0;
+  translate: 0 17px;
+  filter: blur(3px);
+  transition:
+    opacity 0.7s ease,
+    translate 1s cubic-bezier(0.19, 1, 0.22, 1),
+    filter 0.7s ease;
+  transition-delay: calc(var(--reveal-delay, 0s) + 0.3s);
+}
+.reveal-content [data-reveal-item="meta"] {
+  translate: 0 9px;
+  filter: none;
+  transition-delay: var(--reveal-delay, 0s);
+}
+.reveal-content [data-reveal-item="detail"] {
+  transition-delay: calc(var(--reveal-delay, 0s) + 0.18s);
+}
+.reveal-content .text-link,
+.reveal-content .button {
+  transition-delay: calc(var(--reveal-delay, 0s) + 0.44s);
+}
+.reveal[data-visible="true"] [data-reveal-item],
+.reveal[data-visible="true"] .text-link,
+.reveal[data-visible="true"] .button,
+.reveal:focus-within [data-reveal-item],
+.reveal:focus-within .text-link,
+.reveal:focus-within .button {
+  opacity: 1;
+  translate: none;
+  filter: none;
+}
+.reveal-media:focus-within {
+  opacity: 1 !important;
+  clip-path: none !important;
+  transform: none !important;
+}
+.hero-picture {
+  animation: hero-atmosphere 1.8s cubic-bezier(0.19, 1, 0.22, 1) both;
+  transform-origin: 65% 50%;
+}
+.laptop-arrival {
+  animation: object-arrival 1.25s cubic-bezier(0.19, 1, 0.22, 1) 0.24s both;
+  filter: drop-shadow(14px 31px 22px #0006);
+}
+.phone-parallax {
+  animation: object-arrival 1.15s cubic-bezier(0.19, 1, 0.22, 1) 0.4s both;
+}
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  color: var(--paper);
+  z-index: 80;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.page-transition:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9ff9b90, transparent);
+}
+.page-transition > div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.page-transition .symbol {
+  width: 27px;
+  height: 27px;
+}
+.page-transition span {
+  font-size: 10px;
+  letter-spacing: 0.23em;
+}
+.page-transition i {
+  width: 42px;
+  height: 1px;
+  background: var(--lime);
+  margin-left: 12px;
+}
+@keyframes hero-atmosphere {
+  from {
+    transform: scale(1.065);
+    filter: brightness(0.65);
+  }
+  to {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+@keyframes object-arrival {
+  from {
+    opacity: 0;
+    translate: 0 34px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@media (max-width: 767px) {
+  .reveal-word {
+    transition-duration: 0.78s;
+  }
+  .reveal-content [data-reveal-item],
+  .reveal-content .text-link,
+  .reveal-content .button {
+    filter: none;
+  }
+  .hero-picture {
+    animation-duration: 1.3s;
+  }
+  .page-transition i {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-word,
+  .reveal-content [data-reveal-item],
+  .reveal-content .text-link,
+  .reveal-content .button {
+    opacity: 1 !important;
+    transform: none !important;
+    translate: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .reveal-media {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .hero-picture,
+  .laptop-arrival,
+  .phone-parallax {
+    animation: none !important;
+  }
+  .page-transition {
+    display: none;
+  }
+}

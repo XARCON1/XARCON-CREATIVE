@@ -2,6 +2,8 @@ import { Suspense, lazy, useEffect, useRef } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { motion, MotionConfig, useReducedMotion } from "framer-motion";
 import RouteAnchor from "./components/RouteAnchor";
+import PageTransition from "./components/PageTransition";
+import "./styles/motion.css";
 import Navigation from "./components/Navigation";
 import SiteFooter from "./components/SiteFooter";
 import Home from "./pages/Home";
@@ -27,12 +29,13 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <Navigation />
+      <PageTransition />
       <motion.main
         id="main"
         tabIndex={-1}
         key={pathname}
-        initial={reduced ? false : { opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.35 }}
       >
         <Suspense

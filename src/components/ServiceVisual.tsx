@@ -13,7 +13,7 @@ import {
   CheckCheck,
 } from "lucide-react";
 import { Symbol } from "./Logo";
-import { WebInterface } from "./DeviceScene";
+import { WebInterface } from "./WebInterface";
 export type ServiceKind =
   "identity" | "web" | "systems" | "automation" | "strategy" | "special";
 export function AutomationFlow() {

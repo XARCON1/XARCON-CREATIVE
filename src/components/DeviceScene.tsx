@@ -20,6 +20,7 @@ import {
   Play,
 } from "lucide-react";
 import { Symbol } from "./Logo";
+import Laptop from "./Laptop";
 import "../styles/devices.css";
 
 const experiences = [
@@ -28,49 +29,6 @@ const experiences = [
   "Panel empresarial",
   "Producto digital",
 ];
-export function WebInterface({ variant = 0 }: { variant?: number }) {
-  return (
-    <div className={`web-interface web-variant-${variant}`}>
-      <div className="web-interface-nav">
-        <span>
-          <Symbol /> XARCON<span className="web-mini-creative"> CREATIVE</span>
-        </span>
-        <div>
-          Espacios <span>Visión</span> Contacto
-        </div>
-        <Menu size={12} />
-      </div>
-      <div className="web-interface-hero">
-        <img src="/images/hero.webp" alt="" />
-        <div>
-          <small>DISEÑAR PARA VIVIR MEJOR</small>
-          <strong>
-            Un lugar para
-            <br />
-            lo que sigue.
-          </strong>
-          <span>
-            Espacios que conectan contigo. <ArrowUpRight size={15} />
-          </span>
-        </div>
-        <span className="web-image-counter">01 — 03</span>
-      </div>
-      <div className="web-interface-bottom">
-        <span>
-          Arquitectura.
-          <br />
-          <b>Naturaleza. Posibilidades.</b>
-        </span>
-        <div>
-          <span>Forma</span>
-          <span>Función</span>
-          <span>Futuro</span>
-        </div>
-        <ArrowUpRight size={21} />
-      </div>
-    </div>
-  );
-}
 function MobileInterface({ index }: { index: number }) {
   if (index === 2)
     return (
@@ -213,21 +171,7 @@ export default function DeviceScene() {
     >
       <div className="scene-objects" aria-hidden="true">
         <div className="laptop-parallax">
-          <div className="laptop">
-            <div className="laptop-lid">
-              <span className="laptop-camera" />
-              <div className="laptop-display">
-                <WebInterface />
-              </div>
-            </div>
-            <div className="laptop-keyboard">
-              <div className="key-lines" />
-              <div className="trackpad" />
-            </div>
-            <div className="laptop-base">
-              <span />
-            </div>
-          </div>
+          <Laptop />
         </div>
         <div className="phone-parallax">
           <div className="phone">

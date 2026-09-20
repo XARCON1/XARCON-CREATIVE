@@ -47,7 +47,7 @@ export default function Services() {
             Explora nuestras capacidades <ArrowUpRight size={17} />
           </a>
         </Reveal>
-        <div className="services-intro-art">
+        <Reveal className="services-intro-art" variant="media" delay={0.16}>
           <img
             src="/images/future.webp"
             alt="Escultura conceptual de vidrio azul, luz y piedra"
@@ -59,7 +59,7 @@ export default function Services() {
             <span>ESTRATEGIA × DISEÑO × TECNOLOGÍA</span>
             <Plus size={23} />
           </div>
-        </div>
+        </Reveal>
       </section>
       <section id="explorar-servicios" className="service-explorer section">
         <div className="wrap">

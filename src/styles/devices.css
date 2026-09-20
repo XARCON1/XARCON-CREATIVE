@@ -1160,3 +1160,330 @@
     right: 15px;
   }
 }
+
+/* Rebuilt aluminum laptop: a hinged display and a continuous 3D deck. */
+.laptop-crafted {
+  transform: perspective(1500px) rotateY(-23deg) rotateX(2deg) rotateZ(0.6deg);
+  transform-style: preserve-3d;
+  filter: none;
+}
+.laptop-crafted .laptop-lid {
+  padding: 10px 8px 12px;
+  border-radius: 12px 12px 5px 5px;
+  border: 1.5px solid #a7b0ad;
+  background: linear-gradient(
+    125deg,
+    #e5e7e0 0%,
+    #535d61 1%,
+    #12191d 2%,
+    #0b1115 98%,
+    #b4beba 99%
+  );
+  box-shadow:
+    3px 1px 0 #647174,
+    5px 2px 0 #28363c,
+    inset 0 0 0 1px #111b20;
+  transform-origin: 50% 100%;
+  transform: rotateX(-7deg);
+  backface-visibility: hidden;
+}
+.laptop-crafted .laptop-display {
+  aspect-ratio: 1.6;
+  border-radius: 5px 5px 2px 2px;
+}
+.laptop-crafted .laptop-display:after {
+  background: linear-gradient(
+    122deg,
+    transparent 31%,
+    #ffffff10 32%,
+    #ffffff03 63%,
+    transparent 64%
+  );
+}
+.laptop-crafted .laptop-camera {
+  top: 4px;
+  width: 3px;
+  height: 3px;
+  background: #294550;
+  box-shadow: 0 0 0 1px #081012;
+}
+.laptop-screen-label {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 4px;
+  letter-spacing: 0.2em;
+  color: #80918f;
+}
+.laptop-deck {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3.6;
+  transform-origin: 50% 0;
+  transform: rotateX(66deg);
+  transform-style: preserve-3d;
+  border-radius: 2px 2px 10px 10px;
+  border: 1px solid #a9b3b4;
+  background: linear-gradient(
+    108deg,
+    #707e84 0%,
+    #c3cccb 16%,
+    #dce2dc 48%,
+    #acb8b9 76%,
+    #63727b 100%
+  );
+  box-shadow:
+    inset 0 1px 1px #eef3ec,
+    inset 0 -2px 2px #60727b;
+}
+.laptop-hinge {
+  position: absolute;
+  top: -2px;
+  left: 7%;
+  right: 7%;
+  height: 7px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(#0a1217, #56666c 48%, #15222a);
+}
+.laptop-keys {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 9%;
+  height: 54%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px;
+  border-radius: 5px;
+  background: #35434a;
+  box-shadow:
+    0 0 0 1px #c8d1ce,
+    inset 0 2px 4px #061118;
+}
+.keyboard-row {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+  min-height: 0;
+}
+.keyboard-row > span {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(#25353e, #12222c);
+  color: #a7b5b7;
+  font-size: 5px;
+  line-height: 1;
+  border-radius: 2px;
+  box-shadow:
+    0 1px 0 #070f16,
+    inset 0 1px 0 #4b5b63;
+  font-family: "DM Sans Variable", sans-serif;
+}
+.keyboard-row .key-wide {
+  flex: 1.6;
+  font-size: 4px;
+}
+.keyboard-row .key-space {
+  flex: 6;
+}
+.keyboard-row.row-0 {
+  flex: 0.7;
+}
+.laptop-trackpad {
+  position: absolute;
+  width: 27%;
+  height: 26%;
+  left: 36.5%;
+  bottom: 5%;
+  border: 1px solid #74868a;
+  border-radius: 4px;
+  background: linear-gradient(110deg, #a4b3b6, #bec9c7);
+  box-shadow:
+    0 1px 0 #e1e6e2,
+    inset 0 1px 2px #71848b40;
+}
+.laptop-speaker {
+  position: absolute;
+  width: 3.5%;
+  height: 48%;
+  top: 14%;
+  background: radial-gradient(#455860 30%, transparent 36%) 0 0/3px 3px;
+  opacity: 0.72;
+}
+.speaker-left {
+  left: 4%;
+}
+.speaker-right {
+  right: 4%;
+}
+.laptop-front {
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  right: -1px;
+  height: 9px;
+  border-radius: 0 0 7px 7px;
+  transform-origin: 50% 0;
+  transform: rotateX(-90deg);
+  background: linear-gradient(#d3dcd8, #889ba1 40%, #3c515d 80%, #213641);
+  border-top: 1px solid #ebf0e8;
+  box-shadow: 0 4px 6px #03111d70;
+}
+.laptop-front > i {
+  display: block;
+  position: absolute;
+  top: -1px;
+  left: 43%;
+  width: 14%;
+  height: 4px;
+  border-radius: 0 0 5px 5px;
+  background: linear-gradient(#647882, #a8b9b9);
+  box-shadow: 0 1px 0 #d3ddda;
+}
+.laptop-front > span {
+  position: absolute;
+  height: 2px;
+  left: 5%;
+  right: 5%;
+  bottom: 1px;
+  background: #12283670;
+}
+.laptop-port {
+  position: absolute;
+  right: -2px;
+  width: 2px;
+  height: 15%;
+  background: #10252e;
+  border: 1px solid #a5b8be;
+  transform: rotateY(90deg);
+  transform-origin: right;
+  box-shadow: 0 0 1px #05202c;
+}
+.port-one {
+  top: 19%;
+}
+.port-two {
+  top: 42%;
+}
+@media (min-width: 768px) {
+  .laptop-parallax {
+    width: 87%;
+    top: 95px;
+    left: 1%;
+  }
+}
+@media (min-width: 1700px) {
+  .laptop-parallax {
+    width: 82%;
+    top: 105px;
+  }
+}
+@media (max-width: 767px) {
+  .laptop-crafted {
+    transform: perspective(900px) rotateY(-23deg) rotateX(2deg) rotateZ(0.6deg);
+  }
+  .laptop-crafted .laptop-lid {
+    padding: 6px 4px 7px;
+    border-radius: 7px 7px 3px 3px;
+    border-width: 1px;
+    box-shadow:
+      2px 1px 0 #647174,
+      3px 1px 0 #28363c;
+  }
+  .laptop-crafted .laptop-camera {
+    top: 2px;
+    width: 2px;
+    height: 2px;
+  }
+  .laptop-screen-label {
+    font-size: 2px;
+    bottom: 2px;
+  }
+  .laptop-deck {
+    border-radius: 2px 2px 6px 6px;
+  }
+  .laptop-hinge {
+    height: 3px;
+  }
+  .laptop-keys {
+    gap: 1px;
+    padding: 2px;
+  }
+  .keyboard-row {
+    gap: 1px;
+  }
+  .keyboard-row > span,
+  .keyboard-row .key-wide {
+    font-size: 2px;
+    border-radius: 1px;
+  }
+  .laptop-trackpad {
+    border-radius: 2px;
+  }
+  .laptop-speaker {
+    background-size: 2px 2px;
+  }
+  .laptop-front {
+    height: 5px;
+  }
+  .laptop-front > i {
+    height: 2px;
+  }
+  .laptop-arrival {
+    filter: drop-shadow(6px 17px 12px #0006);
+  }
+}
+.laptop-crafted .web-variant-2 .web-interface-hero {
+  background: #f1f2ed;
+  color: #142a35;
+  height: 66%;
+}
+.laptop-crafted .web-variant-2 .web-interface-hero > img {
+  left: auto;
+  right: 0;
+  width: 57%;
+  object-position: 66% center;
+  clip-path: polygon(28% 0, 100% 0, 100% 100%, 0 100%);
+  z-index: 0;
+}
+.laptop-crafted .web-variant-2 .web-interface-hero:after {
+  display: none;
+}
+.laptop-crafted .web-variant-2 .web-interface-hero > div {
+  position: relative;
+  padding: 9% 5%;
+  z-index: 1;
+}
+.laptop-crafted .web-variant-2 .web-interface-hero strong {
+  font-size: 5.6cqw;
+  line-height: 1.13;
+  letter-spacing: -0.045em;
+  font-weight: 450;
+  margin-block: 11px;
+}
+.laptop-crafted .web-variant-2 .web-interface-hero small {
+  color: #5c716e;
+  font-size: 1.1cqw;
+}
+.laptop-crafted .web-variant-2 .web-interface-hero > div > span {
+  font-size: 1.3cqw;
+  gap: 10px;
+}
+.laptop-crafted .web-variant-2 .web-interface-bottom {
+  border-top: 1px solid #dce3dd;
+}
+.laptop-crafted .web-variant-2 .web-image-counter {
+  z-index: 1;
+  color: #f7f5ef;
+}
+@media (max-width: 767px) {
+  .laptop-crafted .web-variant-2 .web-interface-hero strong {
+    margin-block: 6px;
+  }
+}

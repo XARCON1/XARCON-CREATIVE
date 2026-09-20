@@ -1,9 +1,10 @@
 import { useRef, type PointerEvent } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import DeviceScene from "../components/DeviceScene";
 import Button from "../components/Button";
+import Reveal from "../components/Reveal";
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
@@ -46,12 +47,7 @@ export default function Hero() {
       </picture>
       <div className="hero-shade" />
       <div className="hero-inner wrap">
-        <motion.div
-          className="hero-copy"
-          initial={reduced ? false : { opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <Reveal className="hero-copy" delay={0.14}>
           <div className="eyebrow light">
             <span className="eyebrow-rule" /> ESTUDIO DE DISEÑO & TECNOLOGÍA
           </div>
@@ -72,7 +68,7 @@ export default function Hero() {
               Ver cómo trabajamos <ArrowUpRight size={17} />
             </Link>
           </div>
-        </motion.div>
+        </Reveal>
         <DeviceScene />
       </div>
       <div className="hero-bottom wrap">
