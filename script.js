@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const onScroll = () => {
     if (header) header.classList.toggle('scrolled', window.scrollY > 36);
   };
-
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -34,10 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.toggle('menu-open', open);
     });
 
-    mobileMenu.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', closeMenu);
-    });
-
+    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
     window.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') closeMenu();
     });
@@ -55,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if ('IntersectionObserver' in window && !reduceMotion) {
     reveals.forEach((element) => element.classList.add('reveal-pending'));
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -63,24 +58,109 @@ document.addEventListener('DOMContentLoaded', () => {
           observer.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.11,
-      rootMargin: '0px 0px -40px 0px'
-    });
-
+    }, { threshold: 0.08, rootMargin: '0px 0px -35px 0px' });
     reveals.forEach((element) => observer.observe(element));
   } else {
     reveals.forEach((element) => element.classList.add('visible'));
   }
 
+  const tiltItems = document.querySelectorAll('[data-tilt]');
+  if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
+    tiltItems.forEach((item) => {
+      item.addEventListener('pointermove', (event) => {
+        const rect = item.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width;
+        const py = (event.clientY - rect.top) / rect.height;
+        const rx = (0.5 - py) * 4;
+        const ry = (px - 0.5) * 5;
+        item.style.transform = 'perspective(1000px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      });
+      item.addEventListener('pointerleave', () => {
+        item.style.transform = '';
+      });
+    });
+  }
+
+  document.querySelectorAll('.lab-control[data-device]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const demo = document.getElementById('deviceDemo');
+      if (!demo) return;
+      document.querySelectorAll('.lab-control[data-device]').forEach((item) => item.classList.remove('active'));
+      button.classList.add('active');
+      demo.classList.toggle('mobile', button.dataset.device === 'mobile');
+      demo.classList.toggle('desktop', button.dataset.device !== 'mobile');
+    });
+  });
+
+  const identityDemo = document.getElementById('identityDemo');
+  const identityTitle = document.getElementById('identityTitle');
+  const identityNames = {
+    a: 'Precision / Tech',
+    b: 'Quiet / Luxury',
+    c: 'Bright / Playful'
+  };
+
+  document.querySelectorAll('.identity-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (!identityDemo) return;
+      document.querySelectorAll('.identity-btn').forEach((item) => item.classList.remove('active'));
+      button.classList.add('active');
+      identityDemo.classList.remove('theme-a', 'theme-b', 'theme-c');
+      identityDemo.classList.add('theme-' + button.dataset.theme);
+      if (identityTitle) identityTitle.textContent = identityNames[button.dataset.theme] || '';
+    });
+  });
+
+  const runFlow = document.getElementById('runFlow');
+  const automationStage = document.getElementById('automationStage');
+  if (runFlow && automationStage) {
+    runFlow.addEventListener('click', () => {
+      automationStage.classList.remove('running');
+      void automationStage.offsetWidth;
+      automationStage.classList.add('running');
+      runFlow.innerHTML = 'Flujo ejecutándose <span>●</span>';
+      window.setTimeout(() => {
+        runFlow.innerHTML = 'Ejecutar flujo <span>▶</span>';
+      }, 2600);
+    });
+  }
+
+  const budgetRange = document.getElementById('budgetRange');
+  const budgetValue = document.getElementById('budgetValue');
+  const leadValue = document.getElementById('leadValue');
+  const visitValue = document.getElementById('visitValue');
+  const projectionValue = document.getElementById('projectionValue');
+
+  if (budgetRange) {
+    const updateBudget = () => {
+      const budget = Number(budgetRange.value);
+      const leads = Math.round(budget * 0.084);
+      const visits = budget * 3.6;
+      const projection = Math.min(22.8, 5.4 + (budget / 2000) * 12.4);
+      if (budgetValue) budgetValue.textContent = '$' + budget.toLocaleString('en-US');
+      if (leadValue) leadValue.textContent = String(leads);
+      if (visitValue) visitValue.textContent = visits >= 1000 ? (visits / 1000).toFixed(1) + 'K' : String(Math.round(visits));
+      if (projectionValue) projectionValue.textContent = projection.toFixed(1) + '%';
+
+      const bars = document.querySelectorAll('.growth-line i');
+      bars.forEach((bar, index) => {
+        const base = 18 + index * 9;
+        const extra = (budget / 2000) * (10 + index * 2);
+        bar.style.height = Math.min(96, base + extra) + '%';
+      });
+    };
+    budgetRange.addEventListener('input', updateBudget);
+    updateBudget();
+  }
+
   if (form && formStatus) {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-
       const data = new FormData(form);
       const name = String(data.get('name') || '').trim();
       const email = String(data.get('email') || '').trim();
       const service = String(data.get('service') || '').trim();
+      const budget = String(data.get('budget') || '').trim();
       const message = String(data.get('message') || '').trim();
 
       const summary = [
@@ -88,15 +168,16 @@ document.addEventListener('DOMContentLoaded', () => {
         'Nombre: ' + name,
         'Correo: ' + email,
         'Servicio: ' + service,
+        budget ? 'Presupuesto: ' + budget : '',
         '',
         message
-      ].join('\n');
+      ].filter(Boolean).join('\n');
 
       try {
         await navigator.clipboard.writeText(summary);
-        formStatus.textContent = 'Solicitud preparada y copiada. Conecta aquí tu correo, WhatsApp o CRM cuando definamos el canal comercial.';
+        formStatus.textContent = 'Solicitud preparada y copiada. El canal comercial definitivo se conectará antes del lanzamiento.';
       } catch (error) {
-        formStatus.textContent = 'Solicitud preparada. El formulario quedará conectado al canal comercial definitivo antes del lanzamiento.';
+        formStatus.textContent = 'Solicitud preparada. El canal comercial definitivo se conectará antes del lanzamiento.';
       }
     });
   }
