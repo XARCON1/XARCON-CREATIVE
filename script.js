@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const onScroll = () => {
     if (header) header.classList.toggle('scrolled', window.scrollY > 36);
   };
+
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -33,7 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.toggle('menu-open', open);
     });
 
-    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
     window.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') closeMenu();
     });
@@ -41,13 +45,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
     window.addEventListener('pointermove', (event) => {
-      cursorGlow.style.left = \`\${event.clientX}px\`;
-      cursorGlow.style.top = \`\${event.clientY}px\`;
+      cursorGlow.style.left = event.clientX + 'px';
+      cursorGlow.style.top = event.clientY + 'px';
     }, { passive: true });
   }
 
   const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    reveals.forEach((element) => element.classList.add('reveal-pending'));
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -55,7 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.11, rootMargin: '0px 0px -40px 0px' });
+    }, {
+      threshold: 0.11,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
     reveals.forEach((element) => observer.observe(element));
   } else {
     reveals.forEach((element) => element.classList.add('visible'));
@@ -64,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (form && formStatus) {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+
       const data = new FormData(form);
       const name = String(data.get('name') || '').trim();
       const email = String(data.get('email') || '').trim();
@@ -72,9 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const summary = [
         'Solicitud de proyecto — XARCON Creative',
-        \`Nombre: \${name}\`,
-        \`Correo: \${email}\`,
-        \`Servicio: \${service}\`,
+        'Nombre: ' + name,
+        'Correo: ' + email,
+        'Servicio: ' + service,
         '',
         message
       ].join('\n');
@@ -82,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         await navigator.clipboard.writeText(summary);
         formStatus.textContent = 'Solicitud preparada y copiada. Conecta aquí tu correo, WhatsApp o CRM cuando definamos el canal comercial.';
-      } catch {
+      } catch (error) {
         formStatus.textContent = 'Solicitud preparada. El formulario quedará conectado al canal comercial definitivo antes del lanzamiento.';
       }
     });
