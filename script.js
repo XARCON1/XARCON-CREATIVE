@@ -153,6 +153,55 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBudget();
   }
 
+
+  // Barra de progreso y transición suave entre páginas.
+  const progress = document.createElement('div');
+  progress.className = 'scroll-progress';
+  document.body.appendChild(progress);
+
+  const updateProgress = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const value = max > 0 ? (window.scrollY / max) * 100 : 0;
+    progress.style.width = value + '%';
+  };
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  const transitionLayer = document.createElement('div');
+  transitionLayer.className = 'page-transition';
+  transitionLayer.innerHTML = '<span><img src="/assets/xarcon-mark.svg" alt=""></span>';
+  document.body.appendChild(transitionLayer);
+  requestAnimationFrame(() => document.body.classList.add('page-ready'));
+
+  document.querySelectorAll('a[href]').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
+    const url = new URL(link.href, window.location.href);
+    if (url.origin !== window.location.origin) return;
+
+    link.addEventListener('click', (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      document.body.classList.add('page-leaving');
+      window.setTimeout(() => { window.location.href = url.href; }, 360);
+    });
+  });
+
+  // Profundidad sutil en piezas visuales al hacer scroll.
+  const depthItems = document.querySelectorAll('.stage-panel, .case-thumb, .mini-live');
+  if (!reduceMotion && depthItems.length) {
+    const depthTick = () => {
+      const center = window.innerHeight / 2;
+      depthItems.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const delta = (rect.top + rect.height / 2 - center) / window.innerHeight;
+        item.style.setProperty('--depth-y', Math.max(-8, Math.min(8, delta * -10)).toFixed(2) + 'px');
+      });
+    };
+    depthTick();
+    window.addEventListener('scroll', depthTick, { passive: true });
+  }
+
   if (form && formStatus) {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
