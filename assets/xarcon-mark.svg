@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="t d">
+<title id="t">XARCON</title><desc id="d">Símbolo geométrico de XARCON</desc>
+<defs>
+  <linearGradient id="g1" x1="12" y1="12" x2="84" y2="84" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#F4F8F5"/>
+    <stop offset="1" stop-color="#8BE3B0"/>
+  </linearGradient>
+  <linearGradient id="g2" x1="84" y1="12" x2="16" y2="84" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#A9C7FF"/>
+    <stop offset="1" stop-color="#6FE0A0"/>
+  </linearGradient>
+</defs>
+<path d="M20 14h18l16 20-11 14L20 14Z" fill="url(#g1)"/>
+<path d="M58 14h18L53 48 42 34 58 14Z" fill="url(#g2)"/>
+<path d="M43 48 20 82h18l16-20-11-14Z" fill="url(#g2)"/>
+<path d="M53 48 76 82H58L42 62l11-14Z" fill="url(#g1)"/>
+<rect x="44" y="44" width="8" height="8" rx="2" transform="rotate(45 48 48)" fill="#0B1220"/>
+</svg>
