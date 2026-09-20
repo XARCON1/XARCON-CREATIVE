@@ -1,143 +1,333 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>XARCON CREATIVE | Agencia Premium Cinemática</title>
-    <meta
-      name="description"
-      content="Agencia creativa premium con experiencia cinematográfica, animaciones fluidas y diseño inmersivo."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/png" sizes="64x64" href="assets/LOGO (2).png" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <div class="intro-overlay" id="introOverlay" aria-hidden="true">
-      <video class="intro-video" id="introVideo" autoplay muted playsinline preload="auto">
-        <source src="assets/intro.mp4" type="video/mp4" />
-      </video>
-      <img class="intro-final" id="introFinal" src="assets/intro-final.png" alt="XARCON CREATIVE" />
-    </div>
-    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a modo claro" aria-pressed="false">
-      <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07090d" />
+  <meta name="description" content="XARCON Creative diseña marcas, sitios web, sistemas digitales y automatizaciones pensadas para crecer." />
+  <meta property="og:title" content="XARCON Creative — Marcas, webs y sistemas digitales" />
+  <meta property="og:description" content="Estrategia, diseño, desarrollo web y automatización para negocios que quieren construir con visión de futuro." />
+  <title>XARCON Creative — Diseño, desarrollo y sistemas digitales</title>
+  <link rel="icon" type="image/png" href="assets/LOGO%20(2).png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#inicio" aria-label="XARCON Creative, ir al inicio">
+      <span class="brand-mark" aria-hidden="true">X</span>
+      <span class="brand-copy">
+        <strong>XARCON</strong>
+        <small>CREATIVE</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navegación principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#trabajo">Trabajo</a>
+      <a href="#metodo">Método</a>
+      <a href="#vision">Visión</a>
+    </nav>
+
+    <a class="header-cta" href="#contacto">Iniciar proyecto <span>↗</span></a>
+
+    <button class="menu-button" id="menuButton" type="button" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span>
     </button>
-    <header class="site-header" id="siteHeader">
-      <div class="nav-shell">
-        <a href="#hero" class="brand" aria-label="Inicio XARCON CREATIVE">XARCON CREATIVE</a>
-        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <nav class="main-nav" id="mainNav" aria-label="Principal">
-          <a href="#hero">Inicio</a>
-          <a href="#servicios">Servicios</a>
-          <a href="#showcase">Portafolio</a>
-          <a href="#nosotros">Nosotros</a>
-          <a href="negocios.html">Negocios</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="#trabajo">Trabajo</a>
+      <a href="#metodo">Método</a>
+      <a href="#vision">Visión</a>
+      <a href="#contacto">Iniciar proyecto</a>
+    </nav>
+  </div>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+      <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
+
+      <div class="hero-copy reveal">
+        <p class="kicker"><span></span> Estrategia · Diseño · Tecnología</p>
+        <h1>
+          Construimos la
+          <span class="hero-accent">capa digital</span>
+          de negocios que quieren crecer.
+        </h1>
+        <p class="hero-lead">
+          Unimos marketing, diseño, desarrollo web y automatización para convertir ideas en marcas, plataformas y experiencias que funcionan de verdad.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#trabajo">Explorar proyectos <span>↓</span></a>
+          <a class="button button-ghost" href="#servicios">Qué hacemos</a>
+        </div>
       </div>
-    </header>
 
-    <button class="hero-business-bubble floating-sphere" id="heroBusinessBubble" type="button" aria-label="Ir a Negocios">Negocios</button>
+      <div class="hero-system reveal" aria-label="Visualización conceptual del sistema XARCON Creative">
+        <div class="system-window">
+          <div class="system-topbar">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <span>creative.xarcon / system</span>
+            <span class="live-dot">LIVE</span>
+          </div>
 
-    <main>
-      <section class="hero" id="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-          <h1 class="hero-line">CREATIVIDAD</h1>
-          <h1 class="hero-line">QUE</h1>
-          <h1 class="hero-line">ESCALA</h1>
+          <div class="system-stage">
+            <div class="system-ring ring-a"></div>
+            <div class="system-ring ring-b"></div>
+            <div class="system-core">
+              <span>X</span>
+              <small>XARCON</small>
+            </div>
+            <div class="system-label label-one"><b>01</b> BRAND</div>
+            <div class="system-label label-two"><b>02</b> BUILD</div>
+            <div class="system-label label-three"><b>03</b> SCALE</div>
+          </div>
+
+          <div class="system-stats">
+            <div><small>CAPA</small><strong>Strategy</strong></div>
+            <div><small>CAPA</small><strong>Experience</strong></div>
+            <div><small>CAPA</small><strong>Systems</strong></div>
+          </div>
         </div>
-      </section>
+      </div>
 
-      <section id="servicios" class="services-wrap">
-        <article class="service-panel servicio-card" data-panel>
-          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1800&q=70" alt="Equipo creativo en sesión estratégica" loading="lazy" />
-          <div class="service-overlay"></div>
-          <div class="service-content reveal from-left">
-            <p class="eyebrow">SERVICIO 01</p>
-            <h2>Estrategia y Posicionamiento de Marca</h2>
-            <p>Definimos narrativa, personalidad y ventaja competitiva para construir marcas memorables en mercados globales.</p>
+      <div class="hero-footer">
+        <span>Nicaragua · Digital studio</span>
+        <span class="scroll-note">Scroll para explorar <i>↓</i></span>
+      </div>
+    </section>
+
+    <section class="statement section-pad">
+      <p class="section-index">01 / ENFOQUE</p>
+      <div class="statement-copy reveal">
+        <p class="eyebrow">No hacemos piezas aisladas.</p>
+        <h2>Diseñamos <em>ecosistemas</em> donde marca, tecnología y negocio hablan el mismo idioma.</h2>
+      </div>
+      <div class="statement-note reveal">
+        <p>Desde una identidad visual hasta una plataforma completa: cada decisión parte del objetivo comercial, no de una tendencia.</p>
+      </div>
+    </section>
+
+    <section class="services section-pad" id="servicios">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-index">02 / CAPACIDADES</p>
+          <h2>De la idea al sistema.</h2>
+        </div>
+        <p class="heading-note">Una estructura flexible para proyectos pequeños, lanzamientos completos o productos digitales en evolución.</p>
+      </div>
+
+      <div class="service-list">
+        <article class="service-row reveal">
+          <span class="service-number">01</span>
+          <div class="service-title-wrap">
+            <h3>Estrategia &amp; Branding</h3>
+            <p>Posicionamiento, arquitectura de marca, identidad, narrativa y dirección visual.</p>
+          </div>
+          <div class="service-tags"><span>Brand systems</span><span>Campaigns</span><span>Content</span></div>
+          <div class="service-icon">↗</div>
+        </article>
+
+        <article class="service-row reveal">
+          <span class="service-number">02</span>
+          <div class="service-title-wrap">
+            <h3>Web &amp; Experiencias</h3>
+            <p>Sitios corporativos, landing pages, portales y experiencias interactivas responsive.</p>
+          </div>
+          <div class="service-tags"><span>UI/UX</span><span>Frontend</span><span>Responsive</span></div>
+          <div class="service-icon">↗</div>
+        </article>
+
+        <article class="service-row reveal">
+          <span class="service-number">03</span>
+          <div class="service-title-wrap">
+            <h3>Sistemas &amp; Automatización</h3>
+            <p>Paneles, autenticación, bases de datos, flujos operativos y herramientas digitales a medida.</p>
+          </div>
+          <div class="service-tags"><span>Firebase</span><span>Dashboards</span><span>Workflows</span></div>
+          <div class="service-icon">↗</div>
+        </article>
+
+        <article class="service-row reveal">
+          <span class="service-number">04</span>
+          <div class="service-title-wrap">
+            <h3>Growth &amp; Marketing</h3>
+            <p>Estrategia digital, contenido, activos de conversión y sistemas orientados a crecimiento.</p>
+          </div>
+          <div class="service-tags"><span>Strategy</span><span>Funnels</span><span>Analytics</span></div>
+          <div class="service-icon">↗</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="work section-pad" id="trabajo">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-index">03 / TRABAJO SELECCIONADO</p>
+          <h2>Proyectos que resuelven.</h2>
+        </div>
+        <p class="heading-note">Casos construidos desde necesidades reales: operación, captación, experiencia de usuario y crecimiento.</p>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card project-large reveal">
+          <div class="project-visual realty-visual">
+            <div class="mock-browser">
+              <div class="mock-bar"><span></span><span></span><span></span><b>PROPERTIES / LIVE MAP</b></div>
+              <div class="map-stage">
+                <div class="map-road road-a"></div>
+                <div class="map-road road-b"></div>
+                <div class="map-road road-c"></div>
+                <i class="pin p1">$85K</i><i class="pin p2">$130K</i><i class="pin p3">$52K</i>
+                <div class="property-mini"><span></span><b>Inventory</b><small>Interactive map</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="project-meta">
+            <div><p class="project-type">REAL ESTATE PLATFORM</p><h3>Experiencia inmobiliaria digital</h3></div>
+            <p>Inventario, mapas interactivos, filtros, panel administrativo y arquitectura preparada para escalar.</p>
           </div>
         </article>
 
-        <article class="service-panel servicio-card" data-panel>
-          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1800&q=70" alt="Equipo trabajando en interfaces y desarrollo" loading="lazy" />
-          <div class="service-overlay"></div>
-          <div class="service-content reveal from-right">
-            <p class="eyebrow">SERVICIO 02</p>
-            <h2>Diseño de Experiencias Digitales</h2>
-            <p>Creamos experiencias web de alto rendimiento con estética editorial y microinteracciones premium.</p>
+        <article class="project-card reveal">
+          <div class="project-visual education-visual">
+            <div class="learning-card card-a"><span>A</span><small>Trazo</small></div>
+            <div class="learning-card card-b"><span>△</span><small>Formas</small></div>
+            <div class="learning-card card-c"><span>7</span><small>Números</small></div>
+            <div class="progress-pill"><i></i> Progreso inteligente</div>
+          </div>
+          <div class="project-meta compact">
+            <div><p class="project-type">EDTECH SYSTEM</p><h3>Aprendizaje interactivo</h3></div>
+            <p>Perfiles, retos, progreso, gamificación y experiencias diseñadas para educación inicial.</p>
           </div>
         </article>
 
-        <article class="service-panel servicio-card" data-panel>
-          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1800&q=70" alt="Producción audiovisual en set profesional" loading="lazy" />
-          <div class="service-overlay"></div>
-          <div class="service-content reveal from-left">
-            <p class="eyebrow">SERVICIO 03</p>
-            <h2>Producción Audiovisual y de Contenidos</h2>
-            <p>Producción de piezas visuales cinematográficas para comunicar valor, confianza y autoridad de marca.</p>
+        <article class="project-card reveal">
+          <div class="project-visual valuation-visual">
+            <div class="valuation-panel">
+              <span class="val-label">VALOR ESTIMADO</span>
+              <strong>$ 148,500</strong>
+              <div class="val-chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="val-footer"><span>Zona</span><b>Matagalpa</b><span>Rango</span><b>± 7.5%</b></div>
+            </div>
+          </div>
+          <div class="project-meta compact">
+            <div><p class="project-type">BUSINESS TOOL</p><h3>Sistema de avalúos</h3></div>
+            <p>Cálculo, historial, administración y reportes pensados para un flujo profesional de valoración.</p>
           </div>
         </article>
-      </section>
 
-      <section id="showcase" class="showcase-section">
-        <div class="showcase-media" data-parallax>
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2000&q=70" alt="Panel de métricas de campaña digital" loading="lazy" />
-          <div class="glass-card reveal">
-            <p class="eyebrow">PORTAFOLIO / MÁS NEGOCIOS</p>
-            <h2>Escalamos marcas con diseño, análisis de datos y narrativa estratégica.</h2>
-            <p>Casos reales donde combinamos visión creativa, automatización y rendimiento para multiplicar conversiones.</p>
+        <article class="project-card project-wide reveal">
+          <div class="project-visual corporate-visual">
+            <div class="corporate-word">BRAND</div>
+            <div class="corp-card corp-one"><small>01</small><b>Real Estate</b></div>
+            <div class="corp-card corp-two"><small>02</small><b>Insurance</b></div>
+            <div class="corp-card corp-three"><small>03</small><b>Investments</b></div>
+            <div class="corp-line"></div>
           </div>
-        </div>
-      </section>
+          <div class="project-meta">
+            <div><p class="project-type">CORPORATE EXPERIENCE</p><h3>Presencia digital multiarea</h3></div>
+            <p>Arquitectura de contenido, servicios, conversión y experiencia premium para marcas profesionales con varias líneas de negocio.</p>
+          </div>
+        </article>
+      </div>
+    </section>
 
-      <section id="nosotros" class="about-section">
-        <div class="about-text reveal from-left">
-          <p class="eyebrow">NOSOTROS</p>
-          <h2>Talento multidisciplinario, estándar internacional.</h2>
-          <p>Somos estrategas, diseñadores y productores enfocados en construir activos digitales que eleven el valor percibido de cada negocio.</p>
-        </div>
-        <div class="about-media" data-parallax>
-          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1800&q=70" alt="Equipo creativo colaborando en estrategia digital" loading="lazy" />
-        </div>
-      </section>
+    <section class="method section-pad" id="metodo">
+      <div class="method-intro reveal">
+        <p class="section-index">04 / MÉTODO</p>
+        <h2>Menos ruido.<br />Más sistema.</h2>
+        <p>Trabajamos con una lógica simple: entender el negocio, construir la solución correcta y medir lo que ocurre después.</p>
+      </div>
 
-      <section id="contacto" class="contact-section">
-        <div class="contact-shell reveal">
-          <p class="eyebrow">CONTACTO</p>
-          <h2>Hablemos sobre tu próxima experiencia premium.</h2>
-          <form class="contact-form" action="#" method="post">
-            <label>
-              Nombre
-              <input type="text" name="nombre" required />
-            </label>
-            <label>
-              Correo electrónico
-              <input type="email" name="email" required />
-            </label>
-            <label>
-              Proyecto
-              <textarea name="proyecto" rows="3" required></textarea>
-            </label>
-            <button type="submit">Iniciar conversación</button>
-          </form>
+      <div class="method-steps">
+        <article class="method-step reveal">
+          <span>01</span><h3>Diagnosticar</h3><p>Objetivo, audiencia, problema, operación y oportunidad real.</p>
+        </article>
+        <article class="method-step reveal">
+          <span>02</span><h3>Diseñar</h3><p>Arquitectura, identidad, experiencia, contenido y prototipo funcional.</p>
+        </article>
+        <article class="method-step reveal">
+          <span>03</span><h3>Construir</h3><p>Desarrollo, integraciones, automatizaciones, pruebas y despliegue.</p>
+        </article>
+        <article class="method-step reveal">
+          <span>04</span><h3>Escalar</h3><p>Medición, iteración, nuevos módulos y evolución del producto.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="vision section-pad" id="vision">
+      <div class="vision-panel reveal">
+        <div class="vision-grid" aria-hidden="true"></div>
+        <p class="section-index">05 / XARCON</p>
+        <div class="vision-copy">
+          <p class="eyebrow">Creative es una pieza de algo mayor.</p>
+          <h2>Una visión construida para conectar <span>ideas, negocios y ejecución.</span></h2>
+          <p>XARCON nace como una estructura multiservicios. Creative desarrolla la capa de marca y tecnología: el punto donde una idea empieza a verse, operar y crecer como empresa.</p>
         </div>
-      </section>
+        <div class="vision-modules">
+          <div class="module active"><span>01</span><b>CREATIVE</b><small>Brand · Web · Systems</small></div>
+          <div class="module"><span>02</span><b>CONSTRUCCIONES</b><small>Engineering · Architecture</small></div>
+          <div class="module"><span>03</span><b>REALTY</b><small>Property · Investment</small></div>
+        </div>
+      </div>
+    </section>
 
+    <section class="contact section-pad" id="contacto">
+      <div class="contact-main reveal">
+        <p class="section-index">06 / CONTACTO</p>
+        <h2>¿Qué quieres<br /><span>construir?</span></h2>
+        <p>Cuéntanos qué necesitas. Organizamos la idea, definimos el alcance y convertimos el proyecto en una solución concreta.</p>
+      </div>
 
-    </main>
-  </body>
+      <form class="contact-form reveal" id="contactForm">
+        <label>
+          <span>Nombre</span>
+          <input type="text" name="name" placeholder="Tu nombre" autocomplete="name" required />
+        </label>
+        <label>
+          <span>Correo</span>
+          <input type="email" name="email" placeholder="tu@empresa.com" autocomplete="email" required />
+        </label>
+        <label>
+          <span>¿Qué necesitas?</span>
+          <select name="service" required>
+            <option value="" selected disabled>Selecciona una opción</option>
+            <option>Marca / Marketing</option>
+            <option>Sitio web</option>
+            <option>Sistema o plataforma</option>
+            <option>Automatización</option>
+            <option>Proyecto integral</option>
+          </select>
+        </label>
+        <label>
+          <span>Proyecto</span>
+          <textarea name="message" rows="4" placeholder="Háblanos de la idea, problema u objetivo..." required></textarea>
+        </label>
+        <button type="submit" class="form-submit">Preparar solicitud <span>↗</span></button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <span class="footer-x">X</span>
+      <div><strong>XARCON</strong><small>CREATIVE</small></div>
+    </div>
+    <p>Diseño, tecnología y estrategia para negocios en evolución.</p>
+    <div class="footer-right">
+      <a href="#inicio">Volver arriba ↑</a>
+      <span>© <span id="year"></span> XARCON Creative</span>
+    </div>
+  </footer>
+</body>
 </html>
