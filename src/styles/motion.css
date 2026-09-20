@@ -173,3 +173,6 @@
     display: none;
   }
 }
+
+/* Reveal delays never delay hover feedback. */
+.reveal-content .button{transition-property:opacity,translate,filter,background-color,transform;transition-duration:.7s,1s,.7s,.25s,.3s;transition-delay:calc(var(--reveal-delay,0s) + .44s),calc(var(--reveal-delay,0s) + .44s),calc(var(--reveal-delay,0s) + .44s),0s,0s}

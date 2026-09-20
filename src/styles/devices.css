@@ -1373,14 +1373,14 @@
 }
 @media (min-width: 768px) {
   .laptop-parallax {
-    width: 87%;
+    width: 80%;
     top: 95px;
     left: 1%;
   }
 }
 @media (min-width: 1700px) {
   .laptop-parallax {
-    width: 82%;
+    width: 75%;
     top: 105px;
   }
 }
@@ -1487,3 +1487,5 @@
     margin-block: 6px;
   }
 }
+
+@media(max-width:767px){.laptop-parallax{width:245px;left:12px;top:81px}}
