@@ -388,8 +388,9 @@ body:hover .cursor-glow { opacity: 1; }
 .site-footer { margin: 0 var(--pad); padding: 32px 0 40px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 30px; color: var(--muted-2); }
 .footer-brand { display:flex;align-items:center;gap:10px;color:var(--text)}.footer-x{width:34px;height:34px;border:1px solid var(--line-strong);border-radius:10px;display:grid;place-items:center;font-weight:750}.footer-brand div{display:grid;line-height:1;gap:3px}.footer-brand strong{font-size:11px;letter-spacing:.18em}.footer-brand small{font-size:7px;letter-spacing:.3em;color:var(--muted-2)}.site-footer>p{margin:0;text-align:center;font-size:10px}.footer-right{display:grid;justify-items:end;gap:8px;font-size:9px;text-transform:uppercase;letter-spacing:.1em}.footer-right a{color:#c4ccd6}
 
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal { opacity: 1; transform: translateY(0); }
+.reveal.reveal-pending { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.reveal-pending.visible { opacity: 1; transform: translateY(0); }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes spinReverse { to { transform: rotate(-360deg); } }
