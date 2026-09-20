@@ -1,0 +1,434 @@
+[
+  {
+    "path": "/",
+    "width": 1920,
+    "height": 1080,
+    "brokenImages": 0,
+    "clientWidth": 1905,
+    "h1": 1,
+    "scrollWidth": 1905
+  },
+  {
+    "path": "/",
+    "width": 1366,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1351,
+    "h1": 1,
+    "scrollWidth": 1351
+  },
+  {
+    "path": "/",
+    "width": 1024,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1009,
+    "h1": 1,
+    "scrollWidth": 1009
+  },
+  {
+    "path": "/",
+    "width": 768,
+    "height": 1024,
+    "brokenImages": 0,
+    "clientWidth": 753,
+    "h1": 1,
+    "scrollWidth": 753
+  },
+  {
+    "path": "/",
+    "width": 430,
+    "height": 932,
+    "brokenImages": 0,
+    "clientWidth": 415,
+    "h1": 1,
+    "scrollWidth": 415
+  },
+  {
+    "path": "/",
+    "width": 360,
+    "height": 800,
+    "brokenImages": 0,
+    "clientWidth": 345,
+    "h1": 1,
+    "scrollWidth": 345
+  },
+  {
+    "path": "/servicios",
+    "width": 1920,
+    "height": 1080,
+    "brokenImages": 0,
+    "clientWidth": 1905,
+    "h1": 1,
+    "scrollWidth": 1905
+  },
+  {
+    "path": "/servicios",
+    "width": 1366,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1351,
+    "h1": 1,
+    "scrollWidth": 1351
+  },
+  {
+    "path": "/servicios",
+    "width": 1024,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1009,
+    "h1": 1,
+    "scrollWidth": 1009
+  },
+  {
+    "path": "/servicios",
+    "width": 768,
+    "height": 1024,
+    "brokenImages": 0,
+    "clientWidth": 753,
+    "h1": 1,
+    "scrollWidth": 753
+  },
+  {
+    "path": "/servicios",
+    "width": 430,
+    "height": 932,
+    "brokenImages": 0,
+    "clientWidth": 415,
+    "h1": 1,
+    "scrollWidth": 415
+  },
+  {
+    "path": "/servicios",
+    "width": 360,
+    "height": 800,
+    "brokenImages": 0,
+    "clientWidth": 345,
+    "h1": 1,
+    "scrollWidth": 345
+  },
+  {
+    "path": "/soluciones",
+    "width": 1920,
+    "height": 1080,
+    "brokenImages": 0,
+    "clientWidth": 1905,
+    "h1": 1,
+    "scrollWidth": 1905
+  },
+  {
+    "path": "/soluciones",
+    "width": 1366,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1351,
+    "h1": 1,
+    "scrollWidth": 1351
+  },
+  {
+    "path": "/soluciones",
+    "width": 1024,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1009,
+    "h1": 1,
+    "scrollWidth": 1009
+  },
+  {
+    "path": "/soluciones",
+    "width": 768,
+    "height": 1024,
+    "brokenImages": 0,
+    "clientWidth": 753,
+    "h1": 1,
+    "scrollWidth": 753
+  },
+  {
+    "path": "/soluciones",
+    "width": 430,
+    "height": 932,
+    "brokenImages": 0,
+    "clientWidth": 415,
+    "h1": 1,
+    "scrollWidth": 415
+  },
+  {
+    "path": "/soluciones",
+    "width": 360,
+    "height": 800,
+    "brokenImages": 0,
+    "clientWidth": 345,
+    "h1": 1,
+    "scrollWidth": 345
+  },
+  {
+    "path": "/proceso",
+    "width": 1920,
+    "height": 1080,
+    "brokenImages": 0,
+    "clientWidth": 1905,
+    "h1": 1,
+    "scrollWidth": 1905
+  },
+  {
+    "path": "/proceso",
+    "width": 1366,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1351,
+    "h1": 1,
+    "scrollWidth": 1351
+  },
+  {
+    "path": "/proceso",
+    "width": 1024,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1009,
+    "h1": 1,
+    "scrollWidth": 1009
+  },
+  {
+    "path": "/proceso",
+    "width": 768,
+    "height": 1024,
+    "brokenImages": 0,
+    "clientWidth": 753,
+    "h1": 1,
+    "scrollWidth": 753
+  },
+  {
+    "path": "/proceso",
+    "width": 430,
+    "height": 932,
+    "brokenImages": 0,
+    "clientWidth": 415,
+    "h1": 1,
+    "scrollWidth": 415
+  },
+  {
+    "path": "/proceso",
+    "width": 360,
+    "height": 800,
+    "brokenImages": 0,
+    "clientWidth": 345,
+    "h1": 1,
+    "scrollWidth": 345
+  },
+  {
+    "path": "/nosotros",
+    "width": 1920,
+    "height": 1080,
+    "brokenImages": 0,
+    "clientWidth": 1905,
+    "h1": 1,
+    "scrollWidth": 1905
+  },
+  {
+    "path": "/nosotros",
+    "width": 1366,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1351,
+    "h1": 1,
+    "scrollWidth": 1351
+  },
+  {
+    "path": "/nosotros",
+    "width": 1024,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1009,
+    "h1": 1,
+    "scrollWidth": 1009
+  },
+  {
+    "path": "/nosotros",
+    "width": 768,
+    "height": 1024,
+    "brokenImages": 0,
+    "clientWidth": 753,
+    "h1": 1,
+    "scrollWidth": 753
+  },
+  {
+    "path": "/nosotros",
+    "width": 430,
+    "height": 932,
+    "brokenImages": 0,
+    "clientWidth": 415,
+    "h1": 1,
+    "scrollWidth": 415
+  },
+  {
+    "path": "/nosotros",
+    "width": 360,
+    "height": 800,
+    "brokenImages": 0,
+    "clientWidth": 345,
+    "h1": 1,
+    "scrollWidth": 345
+  },
+  {
+    "path": "/contacto",
+    "width": 1920,
+    "height": 1080,
+    "brokenImages": 0,
+    "clientWidth": 1905,
+    "h1": 1,
+    "scrollWidth": 1905
+  },
+  {
+    "path": "/contacto",
+    "width": 1366,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1351,
+    "h1": 1,
+    "scrollWidth": 1351
+  },
+  {
+    "path": "/contacto",
+    "width": 1024,
+    "height": 768,
+    "brokenImages": 0,
+    "clientWidth": 1009,
+    "h1": 1,
+    "scrollWidth": 1009
+  },
+  {
+    "path": "/contacto",
+    "width": 768,
+    "height": 1024,
+    "brokenImages": 0,
+    "clientWidth": 753,
+    "h1": 1,
+    "scrollWidth": 753
+  },
+  {
+    "path": "/contacto",
+    "width": 430,
+    "height": 932,
+    "brokenImages": 0,
+    "clientWidth": 415,
+    "h1": 1,
+    "scrollWidth": 415
+  },
+  {
+    "path": "/contacto",
+    "width": 360,
+    "height": 800,
+    "brokenImages": 0,
+    "clientWidth": 345,
+    "h1": 1,
+    "scrollWidth": 345
+  },
+  {
+    "path": "/",
+    "width": 390,
+    "height": 844,
+    "brokenImages": 0,
+    "clientWidth": 375,
+    "h1": 1,
+    "scrollWidth": 375
+  },
+  {
+    "path": "/servicios",
+    "width": 390,
+    "height": 844,
+    "brokenImages": 0,
+    "clientWidth": 375,
+    "h1": 1,
+    "scrollWidth": 375
+  },
+  {
+    "path": "/soluciones",
+    "width": 390,
+    "height": 844,
+    "brokenImages": 0,
+    "clientWidth": 375,
+    "h1": 1,
+    "scrollWidth": 375
+  },
+  {
+    "path": "/proceso",
+    "width": 390,
+    "height": 844,
+    "brokenImages": 0,
+    "clientWidth": 375,
+    "h1": 1,
+    "scrollWidth": 375
+  },
+  {
+    "path": "/nosotros",
+    "width": 390,
+    "height": 844,
+    "brokenImages": 0,
+    "clientWidth": 375,
+    "h1": 1,
+    "scrollWidth": 375
+  },
+  {
+    "path": "/contacto",
+    "width": 390,
+    "height": 844,
+    "brokenImages": 0,
+    "clientWidth": 375,
+    "h1": 1,
+    "scrollWidth": 375
+  },
+  {
+    "path": "/",
+    "width": 1440,
+    "height": 900,
+    "brokenImages": 0,
+    "clientWidth": 1425,
+    "h1": 1,
+    "scrollWidth": 1425
+  },
+  {
+    "path": "/servicios",
+    "width": 1440,
+    "height": 900,
+    "brokenImages": 0,
+    "clientWidth": 1425,
+    "h1": 1,
+    "scrollWidth": 1425
+  },
+  {
+    "path": "/soluciones",
+    "width": 1440,
+    "height": 900,
+    "brokenImages": 0,
+    "clientWidth": 1425,
+    "h1": 1,
+    "scrollWidth": 1425
+  },
+  {
+    "path": "/proceso",
+    "width": 1440,
+    "height": 900,
+    "brokenImages": 0,
+    "clientWidth": 1425,
+    "h1": 1,
+    "scrollWidth": 1425
+  },
+  {
+    "path": "/nosotros",
+    "width": 1440,
+    "height": 900,
+    "brokenImages": 0,
+    "clientWidth": 1425,
+    "h1": 1,
+    "scrollWidth": 1425
+  },
+  {
+    "path": "/contacto",
+    "width": 1440,
+    "height": 900,
+    "brokenImages": 0,
+    "clientWidth": 1425,
+    "h1": 1,
+    "scrollWidth": 1425
+  }
+]

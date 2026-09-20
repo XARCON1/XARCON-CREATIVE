@@ -1,0 +1,32 @@
+{
+  "home": {
+    "path": "/",
+    "title": "XARCON Creative — Ideas con forma. Negocios con futuro.",
+    "description": "Estudio de diseño, estrategia y tecnología. Creamos marcas, sitios web, sistemas digitales y automatización desde Nicaragua, con visión abierta."
+  },
+  "services": {
+    "path": "/servicios",
+    "title": "Servicios — XARCON Creative",
+    "description": "Identidad de marca, sitios web, sistemas digitales, automatización, estrategia y experiencias especiales. Soluciones a la medida de tu negocio."
+  },
+  "solutions": {
+    "path": "/soluciones",
+    "title": "Soluciones para tu siguiente etapa — XARCON Creative",
+    "description": "Diseño y tecnología para marcas en crecimiento, equipos en evolución y productos con visión de futuro. Explora el camino para tu negocio."
+  },
+  "process": {
+    "path": "/proceso",
+    "title": "Nuestro proceso — XARCON Creative",
+    "description": "Descubrimos, definimos, diseñamos, construimos, lanzamos y evolucionamos. Un camino claro y compartido para dar forma a tu idea."
+  },
+  "about": {
+    "path": "/nosotros",
+    "title": "El estudio — XARCON Creative",
+    "description": "Somos un estudio de diseño, estrategia y tecnología. Creemos en la claridad, el propósito y las ideas bien construidas. Base en Nicaragua, visión abierta."
+  },
+  "contact": {
+    "path": "/contacto",
+    "title": "Cuéntanos tu idea — XARCON Creative",
+    "description": "Cuéntanos qué quieres construir: una marca, un sitio web, un sistema digital o una nueva experiencia. Prepara tu proyecto con XARCON Creative."
+  }
+}
