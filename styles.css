@@ -1046,3 +1046,30 @@ body{
   .case-head h1{font-size:clamp(62px,17vw,92px)}
   .contact-form-page{padding:22px 20px}
 }
+
+
+.scroll-progress{
+  position:fixed;left:0;top:0;height:2px;width:0;
+  background:linear-gradient(90deg,#79c99d,#75a9ff,#c49a62);
+  z-index:220;pointer-events:none;
+  box-shadow:0 0 12px rgba(121,201,157,.45);
+}
+.page-transition{
+  position:fixed;inset:0;z-index:210;
+  background:var(--night);
+  display:grid;place-items:center;
+  transform:translateY(0);
+  transition:transform .55s var(--ease);
+}
+.page-transition span{
+  width:58px;height:58px;border:1px solid rgba(255,255,255,.14);
+  border-radius:18px;display:grid;place-items:center;
+  background:rgba(255,255,255,.035);
+  box-shadow:0 18px 45px rgba(0,0,0,.25);
+}
+.page-transition img{width:68%;height:68%;object-fit:contain}
+body.page-ready .page-transition{transform:translateY(-101%)}
+body.page-leaving .page-transition{transform:translateY(0)}
+.stage-panel,.case-thumb,.mini-live{
+  translate:0 var(--depth-y,0px);
+}
