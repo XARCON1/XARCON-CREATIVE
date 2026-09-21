@@ -7,7 +7,6 @@ import Reveal from "../components/Reveal";
 import SceneOpening from "../components/SceneOpening";
 import useSceneCamera from "../animations/useSceneCamera";
 import PointerRibbon from "../components/PointerRibbon";
-import HexSurface from "../components/HexSurface";
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const [paused, setPaused] = useState(false);
@@ -27,7 +26,6 @@ export default function Hero() {
         />
       </picture>
       <div className="hero-shade" />
-      <HexSurface paused={paused} />
       <div className="scene-light" aria-hidden="true" />
       <PointerRibbon />
       <div className="scene-grain" aria-hidden="true" />
@@ -37,15 +35,13 @@ export default function Hero() {
             <span className="eyebrow-rule" /> ESTUDIO DE DISEÑO & TECNOLOGÍA
           </div>
           <h1>
-            Ideas con forma.
+            Haz que
             <br />
-            Negocios con
-            <br />
-            <em>futuro.</em>
+            <em>te elijan.</em>
           </h1>
           <p>
-            Unimos estrategia, diseño y tecnología
-            <br className="desktop-break" /> para dar vida a lo que sigue.
+            Marcas que destacan. Webs que convencen.
+            <br className="desktop-break" /> Sistemas que hacen avanzar tu negocio.
           </p>
           <div className="hero-actions">
             <Button>Habla con nuestro equipo</Button>
