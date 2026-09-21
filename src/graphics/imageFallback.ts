@@ -21,13 +21,16 @@ export function mountImageFallback(img: HTMLImageElement, canvas: HTMLCanvasElem
           const distance = Math.hypot(x - px, y - py) / radius;
           if (distance >= 1) continue;
           const field = (1 - distance) ** 2 * power;
+          if (field < .025) continue;
           const seed = Math.abs(Math.sin(x * 127.1 + y * 311.7) * 43758.5453) % 1;
           const dx = Math.sin(distance * 24 - time * .004 + seed * 6) * field * 26;
           const dy = Math.cos(seed * 28 + time * .002) * field * 18;
-          ctx!.clearRect(x, y, cell, cell);
-          ctx!.globalAlpha = 1 - field * (seed < .5 ? .88 : .35);
           const sw = Math.min(cell, width - x), sh = Math.min(cell, height - y);
-          ctx!.drawImage(original, x, y, sw, sh, x + dx, y + dy, sw + .5, sh + .5);
+          const sx = Math.max(0, Math.min(width - sw, x + dx));
+          const sy = Math.max(0, Math.min(height - sh, y + dy));
+          ctx!.clearRect(x, y, sw, sh);
+          ctx!.globalAlpha = seed < field * .7 ? 1 - field * .94 : 1;
+          ctx!.drawImage(original, sx, sy, sw, sh, x, y, sw, sh);
           if (seed < field * .45) { ctx!.fillStyle = "#c9ffa6"; ctx!.fillRect(x + dx * 1.6, y + dy * 1.6, 1.3, 1.3); }
         }
       }

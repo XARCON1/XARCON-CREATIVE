@@ -91,7 +91,7 @@ img[data-dissolve-ready="true"] { opacity: 0; }
 .hero .laptop-crafted { transform: perspective(2400px) rotateY(-10deg) rotateZ(-2deg); transform-style: flat; }
 .hero .laptop-crafted .laptop-display { aspect-ratio: 1.78; }
 .hero .laptop-crafted .laptop-lid { transform: rotateX(-8deg); }
-.hero .laptop-deck { aspect-ratio: 1.85; transform: rotateX(58deg); transform-style: flat; }
+.hero .laptop-deck { aspect-ratio: 1.85; transform: perspective(1600px) rotateX(58deg); transform-style: flat; }
 .hero .laptop-front { transform: none; height: 5px; }
 .hero-directed .scene-objects { transform: rotateY(calc(var(--px)*3deg)) rotateX(calc(var(--py)*-1.5deg)); }
 @media (min-width: 768px) {
