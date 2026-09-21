@@ -8,6 +8,7 @@ import {
   Building2,
 } from "lucide-react";
 import Reveal from "../components/Reveal";
+import DepthReveal from "../components/DepthReveal";
 import { SystemVisual } from "../components/ServiceVisual";
 import DissolveImage from "../components/DissolveImage";
 const tabs = [
@@ -38,7 +39,8 @@ export default function ConceptLab() {
             proyectos de clientes.
           </p>
         </Reveal>
-        <Reveal className="lab-shell" variant="media">
+        <DepthReveal className="lab-depth" side={-1} strength={0.6}>
+        <div className="lab-shell">
           <div className="lab-sidebar">
             <span className="lab-label">ELIGE UNA EXPERIENCIA</span>
             <div
@@ -215,7 +217,8 @@ export default function ConceptLab() {
               </div>
             )}
           </div>
-        </Reveal>
+        </div>
+        </DepthReveal>
       </div>
     </section>
   );

@@ -1,0 +1,59 @@
+.immersive-home { overflow-x: clip; }
+.depth-reveal { perspective: 1300px; }
+.depth-plane { transform-style: preserve-3d; }
+.depth-reveal:focus-within > .depth-plane { transform: none !important; opacity: 1 !important; }
+.orbit-scene { height: 235svh; position: relative; }
+.orbit-sticky { position: sticky; top: 0; height: 100svh; min-height: 700px; padding-top: clamp(105px, 12vh, 140px); overflow: clip; }
+.orbit-sticky .section-heading { margin-bottom: 28px; }
+.orbit-sticky .section-heading h2 { font-size: clamp(38px, 3.6vw, 58px); }
+.orbit-arena { position: relative; perspective: 1500px; perspective-origin: 50% 40%; height: calc(100svh - 340px); transform-style: preserve-3d; --orbit-card-width: clamp(245px, 26vw, 380px); }
+.orbit-card { position: absolute; left: 50%; top: 0; width: var(--orbit-card-width); margin-left: calc(var(--orbit-card-width) / -2); padding-top: 0; transform-style: preserve-3d; will-change: transform; }
+.orbit-card .solution-card { height: clamp(350px, 48svh, 470px); border: 1px solid #d2f3fa38; box-shadow: 0 32px 65px #0008, 0 0 0 1px #071823; }
+.orbit-card .solution-copy { left: 26px; right: 26px; bottom: 28px; }
+.orbit-card .solution-copy h3 { font-size: clamp(24px, 2.25vw, 32px); }
+.orbit-card .solution-copy p { max-width: 245px; }
+.orbit-card:focus-within { opacity: 1 !important; z-index: 4; }
+.orbit-card.solution-0:focus-within { transform: translateX(-114%) !important; }
+.orbit-card.solution-1:focus-within { transform: translateY(55px) !important; }
+.orbit-card.solution-2:focus-within { transform: translateX(114%) !important; }
+.orbit-cue { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; color: #b4cbd2; font-size: 9px; letter-spacing: .16em; white-space: nowrap; }
+.orbit-cue > div { width: 90px; height: 1px; background: #a2d6e52a; overflow: hidden; }
+.orbit-cue i { display: block; width: 100%; height: 100%; background: #bceef4; transform-origin: left; }
+.immersive-home .process-track { grid-template-columns: 1fr 1fr; gap: 110px 18%; padding: 12px 5% 80px; }
+.immersive-home .process-track-line { left: 50%; top: 10px; bottom: 0; width: 1px; height: auto; background: linear-gradient(transparent, #7bd0da45 15%, #7bd0da45 85%, transparent); transform: none !important; }
+.immersive-home .depth-step:nth-of-type(odd) { margin-top: 135px; }
+.immersive-home .process-tile-image { width: 100%; height: clamp(190px, 18vw, 280px); border-radius: 13px; border: 1px solid #cbf5ff25; box-shadow: 0 22px 65px #0004; }
+.immersive-home .process-number { margin-top: 24px; }
+.immersive-home .process-tile h3 { font-size: clamp(24px, 2.5vw, 34px); margin-top: 19px; }
+.immersive-home .process-tile p { max-width: 340px; font-size: 15px; line-height: 1.75; }
+.capabilities-depth { min-width: 0; }
+.lab-depth { position: relative; }
+@media (max-width: 1023px) {
+  .solutions-flow .solution-grid { grid-template-columns: 1fr; gap: 80px; max-width: 600px; margin: 0 auto; }
+  .solutions-flow .solution-wrap { width: 87%; padding-top: 0; }
+  .solutions-flow .solution-1 { margin-left: auto; }
+  .solutions-flow .solution-card { height: 440px; }
+  .solutions-flow .solution-copy h3 { font-size: 32px; }
+  .capabilities-depth .capabilities-visual { width: 100%; }
+  .immersive-home .process-track { gap: 65px 12%; padding-inline: 0; }
+  .immersive-home .depth-step:nth-of-type(odd) { margin-top: 90px; }
+}
+@media (max-width: 767px) {
+  .solutions-flow .solution-grid { gap: 58px; padding-block: 15px; }
+  .solutions-flow .solution-wrap { width: 94%; }
+  .solutions-flow .solution-card { height: 365px; }
+  .solutions-flow .solution-copy h3 { font-size: 29px; }
+  .immersive-home .process-track { grid-template-columns: 1fr; gap: 52px; padding: 8px 0 0 30px; }
+  .immersive-home .process-track-line { left: 6px; }
+  .immersive-home .depth-step { display: block; }
+  .immersive-home .depth-step:nth-of-type(odd) { margin-top: 0; }
+  .depth-step .depth-plane { position: relative; display: grid; grid-template-columns: 92px 1fr; gap: 7px 20px; }
+  .immersive-home .process-tile-image { height: 115px; width: 92px; grid-column: 1; grid-row: 1 / 3; border-radius: 8px; }
+  .immersive-home .process-number { margin: 0; left: -36px; top: 0; }
+  .immersive-home .process-tile h3 { font-size: 22px; margin: 0; grid-column: 2; align-self: end; }
+  .immersive-home .process-tile p { font-size: 13px; line-height: 1.65; grid-column: 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .depth-plane { transform: none !important; opacity: 1 !important; }
+  .solutions-flow .solution-grid { gap: 24px; }
+}

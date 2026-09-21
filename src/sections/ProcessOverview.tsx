@@ -3,6 +3,7 @@ import { motion, useScroll, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
+import DepthReveal from "../components/DepthReveal";
 import { processSteps } from "../data";
 export default function ProcessOverview() {
   const ref = useRef<HTMLDivElement>(null);
@@ -28,7 +29,7 @@ export default function ProcessOverview() {
           style={reduced ? {} : { scaleX: scrollYProgress }}
         />
         {processSteps.map((s, i) => (
-          <Reveal className="process-tile" delay={i * 0.08} key={s.title}>
+          <DepthReveal className={`process-tile depth-step depth-step-${i}`} side={i % 2 ? 1 : -1} key={s.title}>
             <div className="process-tile-image">
               <img
                 src={`/images/${s.image}.webp`}
@@ -41,7 +42,7 @@ export default function ProcessOverview() {
             <span className="process-number">0{i + 1}</span>
             <h3>{s.title}</h3>
             <p>{s.text}</p>
-          </Reveal>
+          </DepthReveal>
         ))}
       </div>
     </section>

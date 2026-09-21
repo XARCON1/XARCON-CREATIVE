@@ -8,6 +8,7 @@ import Seo from "../components/Seo";
 import ImmersiveWorld from "../components/ImmersiveWorld";
 import "../styles/sections.css";
 import "../styles/immersive.css";
+import "../styles/orbit.css";
 export default function Home() {
   return (
     <div className="immersive-home">

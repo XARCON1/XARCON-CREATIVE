@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Plus, Minus, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
+import DepthReveal from "../components/DepthReveal";
 import ServiceVisual from "../components/ServiceVisual";
 import { services } from "../data";
 export default function Capabilities() {
@@ -22,11 +23,13 @@ export default function Capabilities() {
               <em>la encontramos juntos.</em>
             </h2>
           </Reveal>
-          <Reveal className="capabilities-visual" variant="media" delay={0.15}>
+          <DepthReveal className="capabilities-depth" side={-1}>
+          <div className="capabilities-visual">
             <ServiceVisual kind={services[active].id} />
-          </Reveal>
+          </div>
+          </DepthReveal>
         </div>
-        <div className="capabilities-list">
+        <DepthReveal className="capabilities-list" side={1} strength={0.65}>
           {services.map((s, i) => (
             <Reveal
               className={`capability ${i === active ? "is-active" : ""}`}
@@ -66,7 +69,7 @@ export default function Capabilities() {
             <br />
             Pensados como una sola experiencia.
           </p>
-        </div>
+        </DepthReveal>
       </div>
     </section>
   );
