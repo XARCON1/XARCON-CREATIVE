@@ -1,4 +1,5 @@
 import { useId, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { cinematicEase } from "../animations/sequence";
 
@@ -10,7 +11,7 @@ export default function SceneOpening() {
   const reduced = useReducedMotion();
   const [finished, setFinished] = useState(false);
   if (reduced || finished) return null;
-  return (
+  return createPortal(
     <motion.div
       className="scene-opening"
       aria-hidden="true"
@@ -54,6 +55,6 @@ export default function SceneOpening() {
         <strong>XARCON</strong>
         <span>CREATIVE</span>
       </motion.div>
-    </motion.div>
+    </motion.div>, document.body
   );
 }

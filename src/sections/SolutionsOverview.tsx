@@ -1,6 +1,7 @@
 import { ArrowUpRight, Compass, Layers3, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
+import DissolveImage from "../components/DissolveImage";
 const solutions = [
   {
     title: (
@@ -69,7 +70,7 @@ export default function SolutionsOverview() {
             delay={i * 0.16}
           >
             <Link className="solution-card" to={`/soluciones#${s.to}`}>
-              <img
+              <DissolveImage
                 src={`/images/${s.image}.webp`}
                 alt=""
                 loading="lazy"

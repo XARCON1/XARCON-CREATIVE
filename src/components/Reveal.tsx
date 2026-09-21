@@ -39,7 +39,6 @@ export default function Reveal({
               y: card ? 100 : 55,
               rotateX: card ? 9 : 0,
               scale: card ? 0.92 : 1,
-              clipPath: card ? "inset(0% 0% 78% 0%)" : "inset(0% 0% 100% 0%)",
             }
       }
       animate={
@@ -49,8 +48,7 @@ export default function Reveal({
               y: 0,
               rotateX: 0,
               scale: 1,
-              clipPath: "inset(0% 0% 0% 0%)",
-              transitionEnd: { clipPath: "none", transform: "none" },
+              transitionEnd: { transform: "none" },
             }
           : undefined
       }

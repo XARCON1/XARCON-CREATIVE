@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Reveal from "../components/Reveal";
 import { SystemVisual } from "../components/ServiceVisual";
+import DissolveImage from "../components/DissolveImage";
 const tabs = [
   { id: "portal", label: "Portal inmobiliario", icon: Building2 },
   { id: "sistema", label: "Sistema empresarial", icon: Layers3 },
@@ -21,7 +22,7 @@ export default function ConceptLab() {
   const [time, setTime] = useState("10:00");
   const [booked, setBooked] = useState(false);
   return (
-    <section className="concept-lab section">
+    <section id="laboratorio" className="concept-lab section">
       <div className="wrap">
         <Reveal className="section-heading">
           <div>
@@ -131,13 +132,13 @@ export default function ConceptLab() {
                     .filter((p) => filter === "Todos" || p.type === filter)
                     .map((p) => (
                       <article key={p.type}>
-                        <img
+                        <div className="portal-demo-image"><DissolveImage
                           src={`/images/${p.image}.webp`}
                           alt={p.name}
                           loading="lazy"
                           width="550"
                           height="350"
-                        />
+                        /></div>
                         <span>{p.type}</span>
                         <h4>{p.name}</h4>
                       </article>
