@@ -18,7 +18,7 @@ export function projectOrbitCard(progress: number, entry: number, index: number,
   // Three points on one helix around the sculpture's vertical axis.
   const phase = [0.10, 1.52, 2.94][index];
   const delta = phase - camera.angle;
-  const radius = 4.15;
+  const radius = Math.min(4.15, width / height * 2.3);
   const lift = [0.45, 0.20, 0.25][index];
   const pitch = Math.atan2(2, camera.distance);
   const depth = Math.hypot(camera.distance, 2) - radius * Math.cos(delta) * Math.cos(pitch) - lift * Math.sin(pitch);
@@ -30,7 +30,7 @@ export function projectOrbitCard(progress: number, entry: number, index: number,
     scale: Math.min(1.08, 10.1 / depth) * (0.88 + reveal * 0.12),
     rotateY: -Math.sin(delta) * 27,
     rotateZ: -Math.sin(delta) * 4,
-    opacity: (0.35 + reveal * 0.65) * (Math.cos(delta) < -0.2 ? 0.72 : 1),
+    opacity: (index === 2 ? Math.min(1, entry * 5) : 1) * (Math.cos(delta) < -0.2 ? 0.72 : 1),
     zIndex: Math.round(1000 - depth * 25),
   };
 }
