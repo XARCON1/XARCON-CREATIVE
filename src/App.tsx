@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useRef } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { motion, MotionConfig, useReducedMotion } from "framer-motion";
+import { MotionConfig } from "framer-motion";
 import RouteAnchor from "./components/RouteAnchor";
 import PageTransition from "./components/PageTransition";
 import "./styles/motion.css";
@@ -15,7 +15,6 @@ const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 export default function App() {
   const { pathname, hash } = useLocation();
-  const reduced = useReducedMotion();
   const first = useRef(true);
   useEffect(() => {
     if (hash) {
@@ -30,13 +29,10 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <Navigation />
       <PageTransition />
-      <motion.main
+      <main
         id="main"
         tabIndex={-1}
         key={pathname}
-        initial={reduced ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.35 }}
       >
         <Suspense
           fallback={
@@ -64,7 +60,7 @@ export default function App() {
           </Routes>
           <RouteAnchor />
         </Suspense>
-      </motion.main>
+      </main>
       <SiteFooter />
     </MotionConfig>
   );

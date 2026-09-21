@@ -190,7 +190,7 @@
 .hero-directed .scene-objects{transform:rotateY(calc(var(--px)*7deg)) rotateX(calc(var(--py)*-3deg));transform-origin:55% 55%}
 .hero-directed .laptop-parallax,.hero-directed .phone-parallax{transition:none}
 .hero-directed .laptop-parallax{transform:translate3d(calc(var(--px)*-24px),calc(var(--py)*-14px),0)}
-.hero-directed .phone-parallax{transform:translate3d(calc(var(--px)*40px),calc(var(--py)*25px),30px);animation:phone-stage-in 1.5s cubic-bezier(.16,1,.3,1) .9s both}
+.hero-directed .phone-parallax{transform:translate3d(calc(var(--px)*22px),calc(var(--py)*18px),0);animation:phone-stage-in 1.5s cubic-bezier(.16,1,.3,1) .9s both}
 .hero-directed .laptop-arrival{animation:laptop-stage-in 1.65s cubic-bezier(.16,1,.3,1) .64s both;transform-style:preserve-3d}
 .hero-directed .note-one{animation:note-stage-in 1.2s cubic-bezier(.16,1,.3,1) 1.18s both,float-note 8s ease-in-out 2.38s infinite}
 .hero-directed .note-two{animation:note-stage-in 1.2s cubic-bezier(.16,1,.3,1) 1.3s both}
@@ -218,7 +218,7 @@
 .process-tile[data-visible=true] .process-tile-image img{animation:process-image-in 1.35s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--reveal-delay,0s)}
 @keyframes process-image-in{from{scale:1.22;clip-path:inset(100% 0 0 0)}to{scale:1;clip-path:inset(0)}}
 /* A short, staggered shutter instead of a single flat cover. */
-.page-transition-panels{background:transparent;display:grid;grid-template-columns:repeat(4,1fr);overflow:visible}
+.page-transition-panels{background:transparent;display:grid;place-items:stretch;grid-template-columns:repeat(4,1fr);overflow:visible}
 .page-transition-panels:after{display:none}
 .page-transition-panels>.transition-panel{position:relative;display:flex;height:100%;align-items:center;background:var(--ink);border-right:1px solid #ffffff08;will-change:transform}
 .transition-panel:nth-child(2){justify-content:flex-end;padding-right:10px}
@@ -227,8 +227,10 @@
 @media(min-width:1024px) and (prefers-reduced-motion:no-preference){.hero-directed .hero-picture img,.hero-directed .hero-copy,.hero-directed .device-scene{will-change:transform}.hero-explore svg{animation:explore-cue 2.2s cubic-bezier(.45,0,.55,1) 2.4s 3}}
 @keyframes explore-cue{0%,100%{translate:0 0}45%{translate:0 5px}}
 @media(max-width:1023px){.hero-directed{--travel-factor:.4}.hero-directed .hero-copy{opacity:1}.hero-directed .device-scene{transform:translate3d(0,calc(var(--scene-travel)*30px),0)}.hero-directed .scene-objects{transform:none}.scene-grain{display:none}}
-@media(max-width:767px){.hero-directed{--travel-factor:.2}.hero-directed .phone-parallax{transform:translate3d(0,0,0)}.page-transition-panels .transition-panel span{font-size:8px;letter-spacing:.12em}.opening-signature{top:calc(50% + 64px)}}
+@media(max-width:767px){.hero-directed{--travel-factor:.2}.hero-directed .device-scene{transform:translate3d(-50%,calc(var(--scene-travel)*30px),0)}.hero-directed .phone-parallax{transform:translate3d(0,0,0)}.page-transition-panels .transition-panel span{font-size:8px;letter-spacing:.12em}.opening-signature{top:calc(50% + 64px)}}
 @media(prefers-reduced-motion:reduce){.scene-opening,.scene-light,.scene-grain{display:none}.hero-directed .hero-picture,.hero-directed .hero-picture img,.hero-directed .hero-copy,.hero-directed .device-scene,.hero-directed .scene-objects,.hero-directed .laptop-arrival,.hero-directed .phone-parallax,.hero-directed .floating-note,.hero-directed .hero-bottom,.hero-directed .scene-caption{animation:none!important;transform:none!important;translate:none!important;rotate:none!important;scale:none!important;opacity:1!important;filter:none!important}.reveal-card .solution-card>img,.reveal-card .solution-top,.reveal-card .solution-copy,.reveal-content .capability-title,.process-tile .process-tile-image img{animation:none!important;transition:none!important;opacity:1!important;scale:1!important;translate:none!important;clip-path:none!important}}
 
 .pointer-ribbon{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.7}
 @media(max-width:1023px),(prefers-reduced-motion:reduce){.pointer-ribbon{display:none}}
+
+@media(max-width:767px) and (prefers-reduced-motion:reduce){.hero-directed .device-scene{transform:translateX(-50%)!important}}
