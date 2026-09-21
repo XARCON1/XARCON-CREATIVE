@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { mountWorldFallback } from "./worldFallback";
+import { createBrandGeometry } from "./brandGeometry";
 
 export function mountWorld(host: HTMLDivElement, reduced: boolean) {
   const surface = document.createElement("canvas");
@@ -26,8 +27,7 @@ export function mountWorld(host: HTMLDivElement, reduced: boolean) {
 
   const sculpture = new THREE.Group();
   scene.add(sculpture);
-  const geometry = new THREE.TorusKnotGeometry(2.6, 0.34, 210, 20, 2, 3);
-  geometry.scale(1, 1.85, 1);
+  const geometry = createBrandGeometry();
   const uniforms = {
     uPointer: { value: new THREE.Vector2(4, 4) },
     uStrength: { value: 0 },

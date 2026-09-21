@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { createBrandGeometry } from "./brandGeometry";
 
 /** Project the same spatial sculpture to Canvas when hardware rendering is unavailable. */
 export function mountWorldFallback(host: HTMLDivElement, reduced: boolean) {
@@ -9,13 +10,11 @@ export function mountWorldFallback(host: HTMLDivElement, reduced: boolean) {
   canvas.className = "world-canvas";
   host.appendChild(canvas);
   const root = host.closest(".immersive-home") as HTMLElement;
-  const geometry = new THREE.TorusKnotGeometry(2.6, .34, 112, 12, 2, 3);
-  geometry.scale(1, 1.85, 1);
+  const geometry = createBrandGeometry(1.2, 3);
   const positions = geometry.getAttribute("position");
-  const indices = geometry.getIndex()!;
   const vertices = Array.from({ length: positions.count }, (_, i) => new THREE.Vector3().fromBufferAttribute(positions, i));
-  const faces = Array.from({ length: indices.count / 3 }, (_, i) => {
-    const a = indices.getX(i * 3), b = indices.getX(i * 3 + 1), c = indices.getX(i * 3 + 2);
+  const faces = Array.from({ length: positions.count / 3 }, (_, i) => {
+    const a = i * 3, b = a + 1, c = a + 2;
     const center = vertices[a].clone().add(vertices[b]).add(vertices[c]).multiplyScalar(1 / 3);
     const normal = vertices[b].clone().sub(vertices[a]).cross(vertices[c].clone().sub(vertices[a])).normalize();
     return { a, b, c, center, normal, seed: (Math.sin(i * 127.1) * 43758.5453) % 1 };

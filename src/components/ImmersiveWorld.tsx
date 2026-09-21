@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
+import { Symbol } from "./Logo";
 
 export default function ImmersiveWorld() {
   const ref = useRef<HTMLDivElement>(null);
@@ -22,7 +23,7 @@ export default function ImmersiveWorld() {
   return (
     <div className="immersive-world" ref={ref} aria-hidden="true" data-scene-state="loading">
       <div className="world-atmosphere" />
-      <div className="world-fallback"><i /><i /><i /></div>
+      <div className="world-fallback"><Symbol /></div>
       <div className="world-vignette" />
     </div>
   );
