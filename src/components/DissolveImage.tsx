@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ImgHTMLAttributes } from "react";
 import { useReducedMotion } from "framer-motion";
+import { mountImageFallback } from "../graphics/imageFallback";
 
 const vertex = `attribute vec2 aPosition; varying vec2 vUv;
 void main(){vUv=(aPosition+1.0)*.5;gl_Position=vec4(aPosition,0.,1.);}`;
@@ -44,7 +45,7 @@ export default function DissolveImage(props: ImgHTMLAttributes<HTMLImageElement>
     const surface = img?.parentElement;
     if (!img || !canvas || !surface || reduced) return;
     const gl = canvas.getContext("webgl", { alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: "low-power" });
-    if (!gl) return;
+    if (!gl) return mountImageFallback(img, canvas, setReady);
     let frame = 0, visible = false, loaded = false, disposed = false;
     let width = 1, height = 1, strength = 0, target = 0;
     let px = .5, py = .5, tx = .5, ty = .5, lastTouch = 0;

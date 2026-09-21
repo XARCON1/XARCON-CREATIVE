@@ -1,8 +1,12 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { mountWorldFallback } from "./worldFallback";
 
 export function mountWorld(host: HTMLDivElement, reduced: boolean) {
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "low-power" });
+  const surface = document.createElement("canvas");
+  const context = surface.getContext("webgl2", { alpha: true, antialias: true, powerPreference: "low-power" });
+  if (!context) return mountWorldFallback(host, reduced);
+  const renderer = new THREE.WebGLRenderer({ canvas: surface, context, alpha: true, antialias: true, powerPreference: "low-power" });
   renderer.setClearColor(0x06141f, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -181,7 +185,7 @@ export function mountWorld(host: HTMLDivElement, reduced: boolean) {
   canvas.addEventListener("webglcontextlost", lost);
   canvas.addEventListener("webglcontextrestored", restored);
   document.addEventListener("visibilitychange", visibility);
-  resize(); host.dataset.sceneState = "ready";
+  resize(); host.dataset.sceneState = "ready"; host.dataset.renderer = "webgl";
   request();
   return () => {
     disposed = true; cancelAnimationFrame(frame); observer.disconnect();
