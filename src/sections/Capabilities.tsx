@@ -22,15 +22,16 @@ export default function Capabilities() {
               <em>la encontramos juntos.</em>
             </h2>
           </Reveal>
-          <div className="capabilities-visual">
+          <Reveal className="capabilities-visual" variant="media" delay={0.15}>
             <ServiceVisual kind={services[active].id} />
-          </div>
+          </Reveal>
         </div>
         <div className="capabilities-list">
           {services.map((s, i) => (
-            <div
+            <Reveal
               className={`capability ${i === active ? "is-active" : ""}`}
               key={s.id}
+              delay={i * 0.07}
             >
               <button
                 onClick={() => setActive(i)}
@@ -58,7 +59,7 @@ export default function Capabilities() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </Reveal>
           ))}
           <p className="capabilities-note">
             Estrategia, diseño y desarrollo.

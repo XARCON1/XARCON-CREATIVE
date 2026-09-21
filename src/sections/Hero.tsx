@@ -1,40 +1,19 @@
-import { useRef, type PointerEvent } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { useReducedMotion } from "framer-motion";
 import DeviceScene from "../components/DeviceScene";
 import Button from "../components/Button";
 import Reveal from "../components/Reveal";
+import SceneOpening from "../components/SceneOpening";
+import useSceneCamera from "../animations/useSceneCamera";
+import PointerRibbon from "../components/PointerRibbon";
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  function parallax(event: PointerEvent<HTMLElement>) {
-    if (
-      reduced ||
-      event.pointerType !== "mouse" ||
-      !matchMedia("(min-width: 1025px)").matches
-    )
-      return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    ref.current?.style.setProperty(
-      "--px",
-      `${(event.clientX - rect.left) / rect.width - 0.5}`,
-    );
-    ref.current?.style.setProperty(
-      "--py",
-      `${(event.clientY - rect.top) / rect.height - 0.5}`,
-    );
-  }
+  useSceneCamera(ref);
   return (
-    <section
-      className="hero"
-      ref={ref}
-      onPointerMove={parallax}
-      onPointerLeave={() => {
-        ref.current?.style.setProperty("--px", "0");
-        ref.current?.style.setProperty("--py", "0");
-      }}
-    >
+    <>
+    <SceneOpening />
+    <section className="hero hero-directed" ref={ref}>
       <picture className="hero-picture">
         <source media="(max-width: 767px)" srcSet="/images/hero-mobile.webp" />
         <img
@@ -46,8 +25,11 @@ export default function Hero() {
         />
       </picture>
       <div className="hero-shade" />
+      <div className="scene-light" aria-hidden="true" />
+      <PointerRibbon />
+      <div className="scene-grain" aria-hidden="true" />
       <div className="hero-inner wrap">
-        <Reveal className="hero-copy" delay={0.14}>
+        <Reveal className="hero-copy" delay={0.72}>
           <div className="eyebrow light">
             <span className="eyebrow-rule" /> ESTUDIO DE DISEÑO & TECNOLOGÍA
           </div>
@@ -79,5 +61,6 @@ export default function Hero() {
         <span className="hero-edition">ESTRATEGIA / DISEÑO / DESARROLLO</span>
       </div>
     </section>
+    </>
   );
 }

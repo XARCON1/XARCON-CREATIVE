@@ -66,7 +66,7 @@ export default function SolutionsOverview() {
           <Reveal
             className={`solution-wrap solution-${i}`}
             key={s.to}
-            delay={i * 0.08}
+            delay={i * 0.16}
           >
             <Link className="solution-card" to={`/soluciones#${s.to}`}>
               <img

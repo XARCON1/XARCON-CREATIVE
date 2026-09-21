@@ -1,7 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { cinematicEase } from "../animations/sequence";
-import { Symbol } from "./Logo";
 
 export default function PageTransition() {
   const { pathname } = useLocation();
@@ -10,19 +9,25 @@ export default function PageTransition() {
   return (
     <AnimatePresence initial={false}>
       <motion.div
-        className="page-transition"
+        className="page-transition page-transition-panels"
         aria-hidden="true"
         key={pathname}
-        initial={{ y: "0%" }}
-        animate={{ y: "-102%" }}
-        exit={{ y: "-102%" }}
-        transition={{ duration: 0.68, ease: cinematicEase }}
+        initial="cover"
+        animate="open"
+        exit="open"
+        variants={{ cover: {}, open: { transition: { staggerChildren: 0.065 } } }}
       >
-        <div>
-          <Symbol />
-          <span>XARCON CREATIVE</span>
-          <i />
-        </div>
+        {[0, 1, 2, 3].map((panel) => (
+          <motion.div
+            className="transition-panel"
+            key={panel}
+            variants={{ cover: { y: "0%" }, open: { y: "-102%" } }}
+            transition={{ duration: 0.8, ease: cinematicEase }}
+          >
+            {panel === 1 && <span>XARCON</span>}
+            {panel === 2 && <span>CREATIVE</span>}
+          </motion.div>
+        ))}
       </motion.div>
     </AnimatePresence>
   );

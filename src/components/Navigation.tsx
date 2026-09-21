@@ -3,6 +3,8 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Logo from "./Logo";
+import { cinematicEase } from "../animations/sequence";
+const MotionNavLink = motion.create(NavLink);
 export const links = [
   ["/", "Inicio"],
   ["/servicios", "Servicios"],
@@ -93,22 +95,24 @@ export default function Navigation() {
         <AnimatePresence>
           {open && (
             <motion.nav
-              initial={reduce ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={reduce ? false : "closed"}
+              animate="open"
+              variants={{ closed: {}, open: { transition: { staggerChildren: 0.065, delayChildren: 0.08 } } }}
               aria-label="Navegación móvil"
             >
               {links.map(([to, label], i) => (
-                <NavLink
+                <MotionNavLink
                   to={to}
                   end={to === "/"}
                   key={to}
                   onClick={() => setOpen(false)}
+                  variants={{ closed: { y: 38, opacity: 0, clipPath: "inset(0 0 100% 0)" }, open: { y: 0, opacity: 1, clipPath: "inset(0)" } }}
+                  transition={{ duration: reduce ? 0 : 0.65, ease: cinematicEase }}
                 >
                   <span>0{i + 1}</span>
                   {label}
                   <ArrowUpRight size={25} />
-                </NavLink>
+                </MotionNavLink>
               ))}
             </motion.nav>
           )}
