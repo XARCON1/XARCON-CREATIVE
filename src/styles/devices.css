@@ -1489,3 +1489,16 @@
 }
 
 @media(max-width:767px){.laptop-parallax{width:245px;left:12px;top:81px}}
+
+/* Original motion film, fitted inside the existing laptop display. */
+.laptop-film { position: absolute; inset: 0; overflow: hidden; background: #061222; color: #e3f8ff; }
+.laptop-film video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.laptop-film:after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #061222cf, transparent 40%); pointer-events: none; }
+.laptop-film-brand { position: absolute; top: 7%; left: 6%; display: flex; align-items: center; gap: 15px; z-index: 1; }
+.laptop-film-brand > span { font-size: 15px; letter-spacing: .28em; font-weight: 600; }
+.laptop-film-brand i { font-style: normal; color: #99c7df; font-size: 6px; letter-spacing: .16em; border-left: 1px solid #84b7cc66; padding-left: 15px; }
+.laptop-film-caption { position: absolute; z-index: 1; bottom: 7%; left: 6%; right: 6%; display: flex; align-items: end; justify-content: space-between; }
+.laptop-film-caption > span { font-size: 29px; line-height: 1.05; font-weight: 400; letter-spacing: -.045em; }
+.laptop-film-caption small { font-size: 6px; letter-spacing: .15em; color: #abd1e2; padding-bottom: 2px; }
+.hero-hex-surface { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; mix-blend-mode: screen; opacity: .72; mask-image: linear-gradient(110deg, #0007, #000 50%, #000c); }
+@media (max-width: 767px) { .hero-hex-surface { opacity: .52; } .laptop-film-brand > span { font-size: 12px; } .laptop-film-caption > span { font-size: 24px; } }

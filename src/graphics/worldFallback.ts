@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { createBrandGeometry } from "./brandGeometry";
+import { sampleWorldCamera, worldCameraProgress } from "./sceneMotion";
 
 /** Project the same spatial sculpture to Canvas when hardware rendering is unavailable. */
 export function mountWorldFallback(host: HTMLDivElement, reduced: boolean) {
@@ -51,11 +52,11 @@ export function mountWorldFallback(host: HTMLDivElement, reduced: boolean) {
     const aim = !reduced && time - lastPoint < 160 ? 1 : 0;
     power += (aim - power) * ease;
     const p = reduced ? .34 : progress;
-    const angle = p * Math.PI * 2.1 + .45, y = 4.8 - p * 9.6;
-    const distance = width < 768 ? 15.8 : 12.2;
+    const { angle, targetY: y, distance, shift } = sampleWorldCamera(p, width);
     camera.position.set(Math.sin(angle) * distance, y + 2, Math.cos(angle) * distance);
     camera.lookAt(0, y, 0);
-    camera.setViewOffset(width, height, width * (width < 768 ? .23 : .26) * Math.sin(p * Math.PI * 3 + .8), 0, width, height);
+    camera.setViewOffset(width, height, shift, 0, width, height);
+    worldCameraProgress.set(p);
     camera.updateMatrixWorld();
     rotation.set(0, 0, -.14); model.makeRotationFromEuler(rotation);
     ctx.clearRect(0, 0, width, height);

@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { mountWorldFallback } from "./worldFallback";
 import { createBrandGeometry } from "./brandGeometry";
+import { sampleWorldCamera, worldCameraProgress } from "./sceneMotion";
 
 export function mountWorld(host: HTMLDivElement, reduced: boolean) {
   const surface = document.createElement("canvas");
@@ -159,12 +160,11 @@ export function mountWorld(host: HTMLDivElement, reduced: boolean) {
     uniforms.uPointer.value.set(smoothX, smoothY);
     uniforms.uTime.value = time / 1000;
     const p = reduced ? 0.34 : progress;
-    const angle = p * Math.PI * 2.1 + 0.45;
-    const targetY = 4.8 - p * 9.6;
-    const distance = width < 768 ? 15.8 : 12.2;
+    const { angle, targetY, distance, shift } = sampleWorldCamera(p, width);
     camera.position.set(Math.sin(angle) * distance, targetY + 2, Math.cos(angle) * distance);
     camera.lookAt(0, targetY, 0);
-    camera.setViewOffset(width, height, width * (width < 768 ? 0.23 : 0.26) * Math.sin(p * Math.PI * 3 + 0.8), 0, width, height);
+    camera.setViewOffset(width, height, shift, 0, width, height);
+    worldCameraProgress.set(p);
     sculpture.rotation.y = reduced ? 0 : smoothX * 0.10;
     sculpture.rotation.z = -0.14 + (reduced ? 0 : smoothY * 0.035);
     const step = Math.round(progress * 100);

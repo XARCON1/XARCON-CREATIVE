@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronUp, Headphones, Pause, Play, VolumeX, X } from "lucide-react";
 import type { SoundscapeEngine } from "../audio/soundscapes";
+import { tracks } from "../audio/tracks";
 import "../styles/soundscape.css";
-
-const tracks = [{ name: "Órbita", mood: "Pulso digital · 72 BPM" }, { name: "Umbral", mood: "Atmósfera inmersiva · 56 BPM" }];
 
 export default function Soundscape() {
   const [open, setOpen] = useState(false);

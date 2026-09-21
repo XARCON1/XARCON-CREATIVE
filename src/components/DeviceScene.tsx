@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react";
 import {
   AnimatePresence,
   motion,
@@ -146,9 +146,8 @@ function MobileInterface({ index }: { index: number }) {
     </div>
   );
 }
-export default function DeviceScene() {
+export default function DeviceScene({ paused, setPaused }: { paused: boolean; setPaused: Dispatch<SetStateAction<boolean>> }) {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.15 });
@@ -171,7 +170,7 @@ export default function DeviceScene() {
     >
       <div className="scene-objects" aria-hidden="true">
         <div className="laptop-parallax">
-          <Laptop />
+          <Laptop paused={paused} active={inView && visible} />
         </div>
         <div className="phone-parallax">
           <div className="phone">

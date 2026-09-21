@@ -4,19 +4,21 @@
 .depth-reveal:focus-within > .depth-plane { transform: none !important; opacity: 1 !important; }
 .orbit-scene { height: 235svh; position: relative; }
 .orbit-sticky { position: sticky; top: 0; height: 100svh; min-height: 700px; padding-top: clamp(105px, 12vh, 140px); overflow: clip; }
+.orbit-sticky > .wrap { position: relative; z-index: 1100; pointer-events: none; }
 .orbit-sticky .section-heading { margin-bottom: 28px; }
+.orbit-sticky .text-link { pointer-events: auto; }
 .orbit-sticky .section-heading h2 { font-size: clamp(38px, 3.6vw, 58px); }
-.orbit-arena { position: relative; perspective: 1500px; perspective-origin: 50% 40%; height: calc(100svh - 340px); transform-style: preserve-3d; --orbit-card-width: clamp(245px, 26vw, 380px); }
-.orbit-card { position: absolute; left: 50%; top: 0; width: var(--orbit-card-width); margin-left: calc(var(--orbit-card-width) / -2); padding-top: 0; transform-style: preserve-3d; will-change: transform; }
-.orbit-card .solution-card { height: clamp(350px, 48svh, 470px); border: 1px solid #d2f3fa38; box-shadow: 0 32px 65px #0008, 0 0 0 1px #071823; }
+.orbit-arena { position: absolute; inset: 0; perspective: 1500px; perspective-origin: 50% 50%; --orbit-card-width: clamp(260px, 24vw, 350px); --orbit-card-height: clamp(350px, 46svh, 450px); pointer-events: none; }
+.orbit-card { position: absolute; left: 50%; top: 50%; width: var(--orbit-card-width); margin-left: calc(var(--orbit-card-width) / -2); margin-top: calc(var(--orbit-card-height) / -2); padding-top: 0; will-change: transform; pointer-events: auto; }
+.orbit-card .solution-card { height: var(--orbit-card-height); border: 1px solid #d2f3fa38; box-shadow: 0 32px 65px #0008, 0 0 0 1px #071823; }
 .orbit-card .solution-copy { left: 26px; right: 26px; bottom: 28px; }
 .orbit-card .solution-copy h3 { font-size: clamp(24px, 2.25vw, 32px); }
 .orbit-card .solution-copy p { max-width: 245px; }
-.orbit-card:focus-within { opacity: 1 !important; z-index: 4; }
-.orbit-card.solution-0:focus-within { transform: translateX(-114%) !important; }
-.orbit-card.solution-1:focus-within { transform: translateY(55px) !important; }
-.orbit-card.solution-2:focus-within { transform: translateX(114%) !important; }
-.orbit-cue { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; color: #b4cbd2; font-size: 9px; letter-spacing: .16em; white-space: nowrap; }
+.orbit-card:focus-within { opacity: 1 !important; z-index: 1200 !important; }
+.orbit-card.solution-0:focus-within { transform: translate(-110%, 65px) !important; }
+.orbit-card.solution-1:focus-within { transform: translateY(65px) !important; }
+.orbit-card.solution-2:focus-within { transform: translate(110%, 65px) !important; }
+.orbit-cue { z-index: 1100; position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; color: #b4cbd2; font-size: 9px; letter-spacing: .16em; white-space: nowrap; }
 .orbit-cue > div { width: 90px; height: 1px; background: #a2d6e52a; overflow: hidden; }
 .orbit-cue i { display: block; width: 100%; height: 100%; background: #bceef4; transform-origin: left; }
 .immersive-home .process-track { grid-template-columns: 1fr 1fr; gap: 110px 18%; padding: 12px 5% 80px; }

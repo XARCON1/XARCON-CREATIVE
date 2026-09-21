@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import DeviceScene from "../components/DeviceScene";
@@ -7,8 +7,10 @@ import Reveal from "../components/Reveal";
 import SceneOpening from "../components/SceneOpening";
 import useSceneCamera from "../animations/useSceneCamera";
 import PointerRibbon from "../components/PointerRibbon";
+import HexSurface from "../components/HexSurface";
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const [paused, setPaused] = useState(false);
   useSceneCamera(ref);
   return (
     <>
@@ -25,6 +27,7 @@ export default function Hero() {
         />
       </picture>
       <div className="hero-shade" />
+      <HexSurface paused={paused} />
       <div className="scene-light" aria-hidden="true" />
       <PointerRibbon />
       <div className="scene-grain" aria-hidden="true" />
@@ -51,7 +54,7 @@ export default function Hero() {
             </Link>
           </div>
         </Reveal>
-        <DeviceScene />
+        <DeviceScene paused={paused} setPaused={setPaused} />
       </div>
       <div className="hero-bottom wrap">
         <a href="#soluciones" className="hero-explore">

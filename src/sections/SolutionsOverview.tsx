@@ -1,10 +1,11 @@
-import { useRef, useSyncExternalStore } from "react";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
+import { useEffect, useRef, useSyncExternalStore } from "react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, useMotionValue, type MotionValue } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Compass, Layers3, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
 import DepthReveal from "../components/DepthReveal";
 import DissolveImage from "../components/DissolveImage";
+import { projectOrbitCard, worldCameraProgress } from "../graphics/sceneMotion";
 
 const solutions = [
   { title: <>Para marcas<br />en crecimiento.</>, description: "Una identidad que conecta. Una presencia que abre puertas.", tags: ["Identidad", "Experiencia web"], image: "mountain", icon: Sprout, to: "marcas" },
@@ -39,21 +40,23 @@ function SolutionCard({ index }: { index: number }) {
   </Link>;
 }
 
-const paths = [
-  { x: ["-149%", "-119%", "-115%", "-126%"], y: [100, 12, 0, -50], z: [-380, 35, 0, -80], yaw: [38, -8, -7, 12], roll: [-8, -2, 0, -3], opacity: [0.65, 1, 1, 1] },
-  { x: ["18%", "7%", "0%", "-3%"], y: [240, 135, 65, 15], z: [-800, -230, 45, 15], yaw: [-38, 22, 0, -9], roll: [7, 3, 0, 1], opacity: [0, 0.8, 1, 1] },
-  { x: ["166%", "136%", "115%", "120%"], y: [-50, -12, 10, -48], z: [-680, -200, -30, 15], yaw: [-52, -22, 8, 12], roll: [9, 3, 0, 3], opacity: [0.15, 0.75, 1, 1] },
-];
 function OrbitCard({ index, progress }: { index: number; progress: MotionValue<number> }) {
-  const path = paths[index];
-  const stops = [0, 0.3, 0.65, 1];
-  const x = useTransform(progress, stops, path.x);
-  const y = useTransform(progress, stops, path.y);
-  const z = useTransform(progress, stops, path.z);
-  const rotateY = useTransform(progress, stops, path.yaw);
-  const rotateZ = useTransform(progress, stops, path.roll);
-  const opacity = useTransform(progress, stops, path.opacity);
-  return <motion.div className={`orbit-card solution-wrap solution-${index}`} style={{ x, y, z, rotateY, rotateZ, opacity }}>
+  const width = useMotionValue(window.innerWidth);
+  const height = useMotionValue(window.innerHeight);
+  useEffect(() => {
+    const resize = () => { width.set(window.innerWidth); height.set(window.innerHeight); };
+    window.addEventListener("resize", resize, { passive: true });
+    return () => window.removeEventListener("resize", resize);
+  }, [width, height]);
+  const pose = useTransform(() => projectOrbitCard(worldCameraProgress.get(), progress.get(), index, width.get(), height.get()));
+  const x = useTransform(pose, value => value.x);
+  const y = useTransform(pose, value => value.y);
+  const scale = useTransform(pose, value => value.scale);
+  const rotateY = useTransform(pose, value => value.rotateY);
+  const rotateZ = useTransform(pose, value => value.rotateZ);
+  const opacity = useTransform(pose, value => value.opacity);
+  const zIndex = useTransform(pose, value => value.zIndex);
+  return <motion.div className={`orbit-card solution-wrap solution-${index}`} style={{ x, y, scale, rotateY, rotateZ, opacity, zIndex }}>
     <SolutionCard index={index} />
   </motion.div>;
 }
@@ -65,7 +68,7 @@ function OrbitScene() {
   return <section ref={ref} id="soluciones" className="solutions-overview orbit-scene">
     <div className="orbit-sticky">
       <div className="wrap"><Heading /></div>
-      <div className="orbit-arena wrap">
+      <div className="orbit-arena">
         {solutions.map((s, i) => <OrbitCard index={i} progress={progress} key={s.to} />)}
       </div>
       <div className="orbit-cue" aria-hidden="true"><span>EXPLORA LAS POSIBILIDADES</span><div><motion.i style={{ scaleX: progress }} /></div><ArrowDown size={14} /></div>
