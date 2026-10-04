@@ -1,0 +1,327 @@
+.client-showcase {
+  position: relative;
+  overflow: hidden;
+  padding: 104px 0 112px;
+  color: var(--paper);
+  background:
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(75, 138, 205, 0.18),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 82% 78%,
+      rgba(63, 118, 184, 0.12),
+      transparent 32%
+    ),
+    linear-gradient(180deg, #071727 0%, #0a2138 52%, #071727 100%);
+  border-top: 1px solid rgba(158, 201, 255, 0.1);
+  border-bottom: 1px solid rgba(158, 201, 255, 0.1);
+  isolation: isolate;
+}
+
+.client-showcase::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      rgba(255, 255, 255, 0.014) 1px,
+      transparent 1px
+    );
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+  opacity: 0.34;
+  z-index: -1;
+}
+
+.client-showcase-head {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 44px;
+}
+
+.client-showcase-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 22px;
+  color: rgba(202, 222, 239, 0.72);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.17em;
+}
+
+.client-showcase-kicker::before {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: rgba(158, 201, 255, 0.55);
+}
+
+.client-showcase-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);
+  gap: clamp(40px, 8vw, 120px);
+  align-items: end;
+}
+
+.client-showcase-copy h2 {
+  max-width: 820px;
+  margin: 0;
+  font-size: clamp(36px, 4vw, 58px);
+  font-weight: 470;
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+}
+
+.client-showcase-copy h2 em {
+  color: var(--blue);
+  font-style: normal;
+  font-weight: inherit;
+}
+
+.client-showcase-copy p {
+  max-width: 390px;
+  margin: 0 0 5px;
+  color: rgba(218, 230, 239, 0.68);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.client-marquee-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+}
+
+.client-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: client-marquee-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.client-marquee-group {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 18px;
+  padding-right: 18px;
+}
+
+.client-logo-card {
+  position: relative;
+  width: clamp(220px, 18vw, 278px);
+  height: 132px;
+  display: grid;
+  place-items: center;
+  padding: 24px 28px;
+  overflow: hidden;
+  border: 1px solid rgba(158, 201, 255, 0.18);
+  border-radius: 14px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(80, 144, 210, 0.18),
+      rgba(16, 47, 79, 0.5)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    0 18px 45px rgba(0, 0, 0, 0.12);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  transition:
+    transform 0.38s var(--ease),
+    border-color 0.38s,
+    background 0.38s,
+    box-shadow 0.38s;
+}
+
+.client-logo-card::after {
+  content: "";
+  position: absolute;
+  inset: -45% -20%;
+  background: radial-gradient(
+    circle,
+    rgba(158, 201, 255, 0.12),
+    transparent 54%
+  );
+  opacity: 0;
+  transition: opacity 0.38s;
+  pointer-events: none;
+}
+
+.client-logo-card img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 190px;
+  max-height: 78px;
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+}
+
+.client-logo-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(158, 201, 255, 0.36);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(89, 154, 222, 0.24),
+      rgba(18, 54, 91, 0.6)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 22px 55px rgba(0, 0, 0, 0.18);
+}
+
+.client-logo-card:hover::after {
+  opacity: 1;
+}
+
+.client-marquee-viewport:hover .client-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes client-marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (max-width: 1023px) {
+  .client-showcase {
+    padding: 88px 0 94px;
+  }
+
+  .client-showcase-copy {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .client-showcase-copy p {
+    max-width: 520px;
+  }
+
+  .client-logo-card {
+    width: 238px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .client-showcase {
+    padding: 72px 0 78px;
+  }
+
+  .client-showcase-head {
+    margin-bottom: 32px;
+  }
+
+  .client-showcase-kicker {
+    margin-bottom: 17px;
+    font-size: 9px;
+  }
+
+  .client-showcase-copy {
+    gap: 15px;
+  }
+
+  .client-showcase-copy h2 {
+    font-size: clamp(34px, 11vw, 44px);
+  }
+
+  .client-showcase-copy p {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .client-marquee-viewport {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 4%,
+      #000 96%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 4%,
+      #000 96%,
+      transparent 100%
+    );
+  }
+
+  .client-marquee-track {
+    animation-duration: 24s;
+  }
+
+  .client-marquee-group {
+    gap: 12px;
+    padding-right: 12px;
+  }
+
+  .client-logo-card {
+    width: 205px;
+    height: 108px;
+    padding: 18px 20px;
+    border-radius: 12px;
+  }
+
+  .client-logo-card img {
+    max-width: 170px;
+    max-height: 70px;
+  }
+
+  .client-logo-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-marquee-viewport {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+    scrollbar-width: thin;
+  }
+
+  .client-marquee-track {
+    animation: none;
+  }
+
+  .client-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .client-logo-card {
+    transition: none;
+  }
+}

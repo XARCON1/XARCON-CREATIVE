@@ -3,6 +3,7 @@ import SolutionsOverview from "../sections/SolutionsOverview";
 import Capabilities from "../sections/Capabilities";
 import ProcessOverview from "../sections/ProcessOverview";
 import ConceptLab from "../sections/ConceptLab";
+import ClientMarquee from "../sections/ClientMarquee";
 import Closing from "../sections/Closing";
 import Seo from "../components/Seo";
 import ImmersiveWorld from "../components/ImmersiveWorld";
@@ -20,6 +21,7 @@ export default function Home() {
       <Capabilities />
       <ProcessOverview />
       <ConceptLab />
+      <ClientMarquee />
       <div className="origin-line wrap">
         <span>UNA MIRADA LOCAL. POSIBILIDADES GLOBALES.</span>
         <p>
