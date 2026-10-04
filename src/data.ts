@@ -77,23 +77,23 @@ export const services: {
 ];
 export const processSteps = [
   {
-    title: "Descubrimiento",
-    text: "Escuchamos la idea. Encontramos el verdadero reto.",
+    title: "Nos conocemos",
+    text: "Nos contás qué hacés, qué necesitás y qué querés mejorar.",
     image: "mountain",
   },
   {
-    title: "Estrategia",
-    text: "Un propósito claro y una ruta compartida.",
+    title: "Trazamos la ruta",
+    text: "Definimos prioridades, alcance y una solución clara antes de construir.",
     image: "studio",
   },
   {
-    title: "Diseño",
-    text: "La idea toma forma, se prueba y se afina.",
+    title: "Lo construimos",
+    text: "Diseñamos, desarrollamos y te mostramos avances para decidir juntos.",
     image: "future",
   },
   {
-    title: "Lanzamiento",
-    text: "Construimos, comprobamos y ponemos todo en marcha.",
+    title: "Lo ponemos a funcionar",
+    text: "Probamos, ajustamos y dejamos tu proyecto listo para usar de verdad.",
     image: "hero",
   },
 ];

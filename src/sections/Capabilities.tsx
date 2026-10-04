@@ -16,11 +16,11 @@ export default function Capabilities() {
           <Reveal>
             <span className="eyebrow light">02 / EN QUÉ TE AYUDAMOS</span>
             <h2>
-              La idea es tuya.
+              Tu negocio ya tiene una historia.
               <br />
-              La forma,
+              Nosotros te ayudamos
               <br />
-              <em>la encontramos juntos.</em>
+              <em>a llevarla más lejos.</em>
             </h2>
           </Reveal>
           <DepthReveal className="capabilities-depth" side={-1}>
@@ -65,9 +65,9 @@ export default function Capabilities() {
             </Reveal>
           ))}
           <p className="capabilities-note">
-            Estrategia, diseño y desarrollo.
+            Diseño, tecnología y acompañamiento.
             <br />
-            Pensados como una sola experiencia.
+            Todo pensado alrededor de tu negocio.
           </p>
         </DepthReveal>
       </div>
