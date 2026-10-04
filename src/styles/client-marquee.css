@@ -1,7 +1,7 @@
 .client-showcase {
   position: relative;
   overflow: hidden;
-  padding: 50px 0 54px;
+  padding: 34px 0 38px;
   color: var(--paper);
   background:
     radial-gradient(
@@ -44,7 +44,7 @@
 .client-showcase-head {
   position: relative;
   z-index: 2;
-  margin-bottom: 22px;
+  margin-bottom: 14px;
 }
 
 .client-showcase-kicker {
@@ -132,7 +132,7 @@
 .client-logo-card {
   position: relative;
   width: clamp(220px, 18vw, 278px);
-  height: 116px;
+  height: 104px;
   display: grid;
   place-items: center;
   padding: 18px 24px;
@@ -217,7 +217,7 @@
 
 @media (max-width: 1023px) {
   .client-showcase {
-    padding: 46px 0 50px;
+    padding: 32px 0 36px;
   }
 
   .client-showcase-copy {
@@ -231,17 +231,17 @@
 
   .client-logo-card {
     width: 238px;
-    height: 98px;
+    height: 96px;
   }
 }
 
 @media (max-width: 767px) {
   .client-showcase {
-    padding: 42px 0 46px;
+    padding: 30px 0 34px;
   }
 
   .client-showcase-head {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
 
   .client-showcase-kicker {
@@ -290,7 +290,7 @@
 
   .client-logo-card {
     width: 205px;
-    height: 108px;
+    height: 94px;
     padding: 14px 18px;
     border-radius: 12px;
   }
@@ -327,46 +327,47 @@
 }
 
 
-/* Germina: preserve the full wide lockup, including its subtitle. */
+/* Germina: compensate for transparent margins in the supplied artwork without distorting it. */
 .client-logo-card[data-brand="germina"] {
-  width: clamp(286px, 22vw, 340px);
-  height: 124px;
-  padding: 12px 18px;
+  width: clamp(286px, 22vw, 332px);
+  height: 104px;
+  padding: 8px 12px;
 }
 
 .client-logo-card[data-brand="germina"] img {
   display: block;
-  width: auto;
+  width: 250px;
   height: auto;
-  max-width: 292px;
-  max-height: 92px;
+  max-width: none;
+  max-height: none;
   object-fit: contain;
   object-position: center;
-  transform: none;
+  transform: translate(-3.5%, 8%) scale(1.28);
+  transform-origin: center;
 }
 
 @media (max-width: 1023px) {
   .client-logo-card[data-brand="germina"] {
-    width: 278px;
-    height: 116px;
-    padding: 12px 16px;
+    width: 276px;
+    height: 96px;
+    padding: 8px 10px;
   }
 
   .client-logo-card[data-brand="germina"] img {
-    max-width: 246px;
-    max-height: 82px;
+    width: 226px;
+    transform: translate(-3.5%, 8%) scale(1.27);
   }
 }
 
 @media (max-width: 767px) {
   .client-logo-card[data-brand="germina"] {
-    width: 242px;
-    height: 108px;
-    padding: 10px 14px;
+    width: 232px;
+    height: 94px;
+    padding: 6px 8px;
   }
 
   .client-logo-card[data-brand="germina"] img {
-    max-width: 214px;
-    max-height: 72px;
+    width: 190px;
+    transform: translate(-3.5%, 8%) scale(1.25);
   }
 }
