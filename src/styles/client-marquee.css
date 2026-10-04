@@ -327,47 +327,46 @@
 }
 
 
-/* Germina: compensate for transparent margins in the supplied artwork without distorting it. */
+/* Germina: use the new tightly-cropped artwork with no CSS zoom or distortion. */
 .client-logo-card[data-brand="germina"] {
   width: clamp(286px, 22vw, 332px);
   height: 104px;
-  padding: 8px 12px;
+  padding: 10px 16px;
 }
 
 .client-logo-card[data-brand="germina"] img {
   display: block;
-  width: 250px;
+  width: auto;
   height: auto;
-  max-width: none;
-  max-height: none;
+  max-width: 252px;
+  max-height: 82px;
   object-fit: contain;
   object-position: center;
-  transform: translate(-3.5%, 8%) scale(1.28);
-  transform-origin: center;
+  transform: none;
 }
 
 @media (max-width: 1023px) {
   .client-logo-card[data-brand="germina"] {
-    width: 276px;
+    width: 272px;
     height: 96px;
-    padding: 8px 10px;
+    padding: 8px 14px;
   }
 
   .client-logo-card[data-brand="germina"] img {
-    width: 226px;
-    transform: translate(-3.5%, 8%) scale(1.27);
+    max-width: 230px;
+    max-height: 76px;
   }
 }
 
 @media (max-width: 767px) {
   .client-logo-card[data-brand="germina"] {
-    width: 232px;
+    width: 230px;
     height: 94px;
-    padding: 6px 8px;
+    padding: 8px 12px;
   }
 
   .client-logo-card[data-brand="germina"] img {
-    width: 190px;
-    transform: translate(-3.5%, 8%) scale(1.25);
+    max-width: 196px;
+    max-height: 68px;
   }
 }
