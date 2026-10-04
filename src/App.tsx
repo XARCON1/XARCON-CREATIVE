@@ -6,7 +6,6 @@ import PageTransition from "./components/PageTransition";
 import "./styles/motion.css";
 import Navigation from "./components/Navigation";
 import SiteFooter from "./components/SiteFooter";
-import Soundscape from "./components/Soundscape";
 import Home from "./pages/Home";
 import "./styles/global.css";
 const Services = lazy(() => import("./pages/Services"));
@@ -63,7 +62,6 @@ export default function App() {
         </Suspense>
       </main>
       <SiteFooter />
-      <Soundscape />
     </MotionConfig>
   );
 }
