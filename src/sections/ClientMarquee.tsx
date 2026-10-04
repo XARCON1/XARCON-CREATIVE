@@ -1,11 +1,11 @@
 import "../styles/client-marquee.css";
 
 const clients = [
-  { name: "Diamantes Realty Group", logo: "/brands/clients/diamantes-realty-group.webp" },
-  { name: "GeoCampo", logo: "/brands/clients/geocampo.webp" },
-  { name: "Amy Blandón", logo: "/brands/clients/amy-blandon.webp" },
-  { name: "Pequeños Escritores", logo: "/brands/clients/pequenos-escritores.webp" },
-  { name: "Germina", logo: "/brands/clients/germina.webp" },
+  { name: "Diamantes Realty Group", logo: "/brands/clients/diamantes-realty-group.webp", slug: "diamantes" },
+  { name: "GeoCampo", logo: "/brands/clients/geocampo.webp", slug: "geocampo" },
+  { name: "Amy Blandón", logo: "/brands/clients/amy-blandon.webp", slug: "amy" },
+  { name: "Pequeños Escritores", logo: "/brands/clients/pequenos-escritores.webp", slug: "pequenos-escritores" },
+  { name: "Germina", logo: "/brands/clients/germina.webp", slug: "germina" },
 ];
 
 function ClientGroup({ duplicate = false }: { duplicate?: boolean }) {
@@ -18,6 +18,7 @@ function ClientGroup({ duplicate = false }: { duplicate?: boolean }) {
       {clients.map((client) => (
         <div
           className="client-logo-card"
+          data-brand={client.slug}
           role={duplicate ? undefined : "listitem"}
           key={client.name}
         >
