@@ -327,19 +327,19 @@
 }
 
 
-/* Germina: use the new tightly-cropped artwork with no CSS zoom or distortion. */
+/* Germina: same treatment as the other collaborator logos. */
 .client-logo-card[data-brand="germina"] {
-  width: clamp(286px, 22vw, 332px);
+  width: clamp(240px, 19vw, 292px);
   height: 104px;
-  padding: 10px 16px;
+  padding: 14px 18px;
 }
 
 .client-logo-card[data-brand="germina"] img {
   display: block;
   width: auto;
   height: auto;
-  max-width: 252px;
-  max-height: 82px;
+  max-width: 236px;
+  max-height: 74px;
   object-fit: contain;
   object-position: center;
   transform: none;
@@ -347,26 +347,24 @@
 
 @media (max-width: 1023px) {
   .client-logo-card[data-brand="germina"] {
-    width: 272px;
+    width: 244px;
     height: 96px;
-    padding: 8px 14px;
   }
 
   .client-logo-card[data-brand="germina"] img {
-    max-width: 230px;
-    max-height: 76px;
+    max-width: 212px;
+    max-height: 68px;
   }
 }
 
 @media (max-width: 767px) {
   .client-logo-card[data-brand="germina"] {
-    width: 230px;
+    width: 214px;
     height: 94px;
-    padding: 8px 12px;
   }
 
   .client-logo-card[data-brand="germina"] img {
-    max-width: 196px;
-    max-height: 68px;
+    max-width: 184px;
+    max-height: 62px;
   }
 }
