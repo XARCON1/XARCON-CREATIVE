@@ -5,7 +5,7 @@ const clients = [
   { name: "GeoCampo", logo: "/brands/clients/geocampo.webp", slug: "geocampo" },
   { name: "Amy Blandón", logo: "/brands/clients/amy-blandon.webp", slug: "amy" },
   { name: "Pequeños Escritores", logo: "/brands/clients/pequenos-escritores.webp", slug: "pequenos-escritores" },
-  { name: "Germina", logo: "/brands/clients/germina-v2.webp", slug: "germina" },
+  { name: "Germina", logo: "/brands/clients/germina-final.webp", slug: "germina" },
 ];
 
 function ClientGroup({ duplicate = false }: { duplicate?: boolean }) {
@@ -18,7 +18,6 @@ function ClientGroup({ duplicate = false }: { duplicate?: boolean }) {
       {clients.map((client) => (
         <div
           className="client-logo-card"
-          data-brand={client.slug}
           role={duplicate ? undefined : "listitem"}
           key={client.name}
         >
