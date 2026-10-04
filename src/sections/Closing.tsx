@@ -1,5 +1,6 @@
 import Button from "../components/Button";
 import Reveal from "../components/Reveal";
+
 export default function Closing() {
   return (
     <section className="closing">
@@ -13,17 +14,20 @@ export default function Closing() {
       <div className="closing-overlay" />
       <div className="wrap closing-inner">
         <Reveal>
-          <span className="eyebrow light">EL SIGUIENTE CAPÍTULO</span>
+          <span className="eyebrow light">HABLEMOS</span>
           <h2>
-            Hagamos realidad
+            ¿Tenés una idea?
             <br />
-            lo que sigue.
+            Conversemos.
           </h2>
-          <p>Las buenas conversaciones son el principio de algo grande.</p>
-          <Button />
+          <p>
+            Contanos qué querés mejorar, construir o poner en marcha. Nosotros
+            te ayudamos a encontrar una forma clara de hacerlo.
+          </p>
+          <Button>Contanos tu idea</Button>
         </Reveal>
         <span className="closing-origin">
-          Base en Nicaragua · visión abierta.
+          Nicaragua · trabajo cercano · visión grande.
         </span>
       </div>
     </section>

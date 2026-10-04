@@ -8,9 +8,9 @@ import DissolveImage from "../components/DissolveImage";
 import { projectOrbitCard, worldCameraProgress } from "../graphics/sceneMotion";
 
 const solutions = [
-  { title: <>Para marcas<br />en crecimiento.</>, description: "Una identidad que conecta. Una presencia que abre puertas.", tags: ["Identidad", "Experiencia web"], image: "mountain", icon: Sprout, to: "marcas" },
-  { title: <>Para equipos<br />en evolución.</>, description: "Menos tareas sueltas. Más claridad para avanzar juntos.", tags: ["Sistemas", "Automatización"], image: "studio", icon: Layers3, to: "equipos" },
-  { title: <>Para productos<br />con futuro.</>, description: "Del primer concepto a una experiencia lista para crecer.", tags: ["Producto digital", "Estrategia"], image: "future", icon: Compass, to: "productos" },
+  { title: <>Para marcas<br />en crecimiento.</>, description: "Una marca clara, una web que te representa y una presencia que genera confianza.", tags: ["Identidad", "Experiencia web"], image: "mountain", icon: Sprout, to: "marcas" },
+  { title: <>Para equipos<br />en evolución.</>, description: "Herramientas que ponen orden, conectan al equipo y hacen más fácil el trabajo diario.", tags: ["Sistemas", "Automatización"], image: "studio", icon: Layers3, to: "equipos" },
+  { title: <>Para productos<br />con futuro.</>, description: "Convertimos una buena idea en un producto digital útil, entendible y listo para crecer.", tags: ["Producto digital", "Estrategia"], image: "future", icon: Compass, to: "productos" },
 ];
 const desktopQuery = "(min-width: 1024px) and (min-height: 700px)";
 const subscribe = (callback: () => void) => {
@@ -22,8 +22,8 @@ const desktopSnapshot = () => window.matchMedia(desktopQuery).matches;
 
 function Heading() {
   return <Reveal className="section-heading">
-    <div><span className="eyebrow">01 / SOLUCIONES A TU MEDIDA</span><h2>Tres enfoques,<br />un mismo propósito.</h2></div>
-    <Link className="text-link" to="/soluciones">Encuentra tu siguiente paso <ArrowUpRight size={18} /></Link>
+    <div><span className="eyebrow">01 / SOLUCIONES PARA TU NEGOCIO</span><h2>Distintas necesidades,<br />una solución a tu medida.</h2></div>
+    <Link className="text-link" to="/soluciones">Mirá lo que podemos construir <ArrowUpRight size={18} /></Link>
   </Reveal>;
 }
 
@@ -71,7 +71,7 @@ function OrbitScene() {
       <div className="orbit-arena">
         {solutions.map((s, i) => <OrbitCard index={i} progress={progress} key={s.to} />)}
       </div>
-      <div className="orbit-cue" aria-hidden="true"><span>EXPLORA LAS POSIBILIDADES</span><div><motion.i style={{ scaleX: progress }} /></div><ArrowDown size={14} /></div>
+      <div className="orbit-cue" aria-hidden="true"><span>MIRÁ LO QUE PODEMOS HACER</span><div><motion.i style={{ scaleX: progress }} /></div><ArrowDown size={14} /></div>
     </div>
   </section>;
 }

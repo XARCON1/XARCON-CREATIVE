@@ -980,3 +980,81 @@ a:focus-visible {
     --py: 0 !important;
   }
 }
+
+
+/* Commercial pass: warmer copy, tighter closing and a more practical footer. */
+.hero-copy > p {
+  max-width: 555px;
+}
+.closing {
+  min-height: 450px;
+}
+.closing-inner {
+  padding-block: 76px;
+}
+.closing h2 {
+  margin: 16px 0 18px;
+}
+.closing p {
+  max-width: 470px;
+  margin-bottom: 24px;
+}
+.footer-top {
+  padding-top: 42px;
+  gap: 32px;
+}
+.footer-top > span {
+  font-size: 18px;
+}
+.footer-conversation {
+  font-size: 18px;
+  line-height: 1.4;
+}
+.footer-wordmark {
+  margin-top: 28px;
+  font-size: clamp(52px, 8.2vw, 118px);
+  line-height: 1;
+}
+.footer-wordmark > .symbol {
+  width: .58em;
+  height: .58em;
+}
+.footer-bottom {
+  padding: 16px 0 18px;
+}
+@media (max-width: 1023px) {
+  .closing {
+    min-height: 430px;
+  }
+  .closing-inner {
+    padding-block: 64px;
+  }
+  .footer-top {
+    padding-top: 36px;
+  }
+  .footer-wordmark {
+    margin-top: 24px;
+  }
+}
+@media (max-width: 767px) {
+  .closing {
+    min-height: 420px;
+  }
+  .closing-inner {
+    padding-block: 56px;
+  }
+  .footer-top {
+    padding-top: 30px;
+    gap: 20px;
+  }
+  .footer-top > span {
+    font-size: 18px;
+  }
+  .footer-wordmark {
+    margin-top: 22px;
+    font-size: 15vw;
+  }
+  .footer-bottom {
+    padding: 14px 0 16px;
+  }
+}

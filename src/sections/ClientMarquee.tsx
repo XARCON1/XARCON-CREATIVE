@@ -1,26 +1,11 @@
 import "../styles/client-marquee.css";
 
 const clients = [
-  {
-    name: "Diamantes Realty Group",
-    logo: "/brands/clients/diamantes-realty-group.webp",
-  },
-  {
-    name: "GeoCampo",
-    logo: "/brands/clients/geocampo.webp",
-  },
-  {
-    name: "Amy Blandón",
-    logo: "/brands/clients/amy-blandon.webp",
-  },
-  {
-    name: "Pequeños Escritores",
-    logo: "/brands/clients/pequenos-escritores.webp",
-  },
-  {
-    name: "Germina",
-    logo: "/brands/clients/germina.webp",
-  },
+  { name: "Diamantes Realty Group", logo: "/brands/clients/diamantes-realty-group.webp" },
+  { name: "GeoCampo", logo: "/brands/clients/geocampo.webp" },
+  { name: "Amy Blandón", logo: "/brands/clients/amy-blandon.webp" },
+  { name: "Pequeños Escritores", logo: "/brands/clients/pequenos-escritores.webp" },
+  { name: "Germina", logo: "/brands/clients/germina.webp" },
 ];
 
 function ClientGroup({ duplicate = false }: { duplicate?: boolean }) {
@@ -53,15 +38,14 @@ export default function ClientMarquee() {
   return (
     <section className="client-showcase" aria-labelledby="client-showcase-title">
       <div className="client-showcase-head wrap">
-        <span className="client-showcase-kicker">COLABORACIONES</span>
-
+        <span className="client-showcase-kicker">TRABAJO QUE YA EXISTE</span>
         <div className="client-showcase-copy">
           <h2 id="client-showcase-title">
-            Empresas y marcas con las que <em>hemos colaborado.</em>
+            Marcas y proyectos con los que <em>ya hemos trabajado.</em>
           </h2>
           <p>
-            Trabajo real, soluciones reales y experiencia que hoy impulsa
-            XARCON Creative.
+            Detrás de XARCON hay proyectos reales, necesidades reales y
+            personas que confiaron en nuestro trabajo.
           </p>
         </div>
       </div>

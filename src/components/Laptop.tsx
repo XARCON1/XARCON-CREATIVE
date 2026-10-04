@@ -1,5 +1,3 @@
-import { useEffect, useRef } from "react";
-import { useReducedMotion } from "framer-motion";
 const rows = [
   ["esc", "", "", "", "", "", "", "", "", "", "", "", "", "◯"],
   ["~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "−", "+", "⌫"],
@@ -8,33 +6,43 @@ const rows = [
   ["shift", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "shift"],
   ["fn", "ctrl", "opt", "cmd", "space", "cmd", "opt", "←", "↑", "→"],
 ];
-export default function Laptop({ paused, active }: { paused: boolean; active: boolean }) {
-  const video = useRef<HTMLVideoElement>(null);
-  const reduced = useReducedMotion();
-  useEffect(() => {
-    const element = video.current;
-    if (!element) return;
-    if (paused || reduced || !active) element.pause();
-    else void element.play().catch(() => { element.dataset.videoState = "poster"; });
-  }, [paused, reduced, active]);
+
+export default function Laptop({ paused: _paused, active: _active }: { paused: boolean; active: boolean }) {
   return (
     <div className="laptop-arrival">
       <div className="laptop laptop-crafted">
         <div className="laptop-lid">
           <span className="laptop-camera" />
           <div className="laptop-display">
-            <div className="laptop-film">
-              <video ref={video} muted loop playsInline preload="metadata" poster="/media/xarcon-future-poster.webp"
-                onPlaying={event => { event.currentTarget.dataset.videoState = "playing"; }}
-                onPause={event => { event.currentTarget.dataset.videoState = "paused"; }}>
-                <source src="/media/xarcon-future.mp4" type="video/mp4" />
-              </video>
-              <div className="laptop-film-brand"><span>XARCON</span><i>CREATIVE / MOTION LAB</i></div>
-              <div className="laptop-film-caption"><span>El futuro<br />toma forma.</span><small>DISEÑO × TECNOLOGÍA</small></div>
+            <div className="laptop-film laptop-local-ad">
+              <img src="/images/mountain.webp" alt="" />
+              <div className="laptop-local-shade" />
+
+              <div className="laptop-film-brand">
+                <span>XARCON</span>
+                <i>DESDE NICARAGUA</i>
+              </div>
+
+              <div className="laptop-local-copy">
+                <small>PARA NEGOCIOS QUE QUIEREN DAR EL SIGUIENTE PASO</small>
+                <strong>
+                  Ideas de aquí.
+                  <br />
+                  <em>Hechas para crecer.</em>
+                </strong>
+                <p>Web · sistemas · marca</p>
+              </div>
+
+              <div className="laptop-local-proof">
+                <span>Trabajo real</span>
+                <span>Soluciones a medida</span>
+                <b>Nicaragua</b>
+              </div>
             </div>
           </div>
           <span className="laptop-screen-label">XARCON / CREATIVE</span>
         </div>
+
         <div className="laptop-deck">
           <div className="laptop-hinge" />
           <div className="laptop-speaker speaker-left" />

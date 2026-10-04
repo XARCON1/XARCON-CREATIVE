@@ -9,7 +9,7 @@ export const services: {
   {
     id: "identity",
     name: "Identidad de marca",
-    line: "Que se reconozca. Que se recuerde.",
+    line: "Una marca que se siente tuya y la gente recuerda.",
     description:
       "Transformamos lo que hace único a tu negocio en una identidad con carácter, de la primera impresión al último detalle.",
     deliverables: ["Dirección de marca", "Identidad visual", "Guía de uso"],
@@ -17,7 +17,7 @@ export const services: {
   {
     id: "web",
     name: "Sitios web",
-    line: "Tu mejor primera impresión.",
+    line: "Una web clara, rápida y hecha para representar bien tu negocio.",
     description:
       "Diseñamos y desarrollamos espacios digitales que cuentan tu historia, hacen fácil explorar y convierten el interés en conversación.",
     deliverables: [
@@ -29,7 +29,7 @@ export const services: {
   {
     id: "systems",
     name: "Sistemas digitales",
-    line: "Más claridad. Menos fricción.",
+    line: "Menos enredos. Más control sobre lo que pasa en tu negocio.",
     description:
       "Reunimos información, personas y tareas en herramientas pensadas para la forma en que trabaja tu equipo.",
     deliverables: [
@@ -41,7 +41,7 @@ export const services: {
   {
     id: "automation",
     name: "Automatización",
-    line: "Tu tiempo, donde más importa.",
+    line: "Menos tareas repetidas. Más tiempo para lo importante.",
     description:
       "Conectamos herramientas y simplificamos tareas repetitivas para que puedas concentrarte en las decisiones que hacen crecer tu negocio.",
     deliverables: [
@@ -53,7 +53,7 @@ export const services: {
   {
     id: "strategy",
     name: "Estrategia digital",
-    line: "Una dirección antes de acelerar.",
+    line: "Primero entendemos qué necesitás. Después trazamos la ruta.",
     description:
       "Aclaramos a quién quieres llegar, qué necesitas comunicar y qué acciones tienen sentido para tu siguiente etapa.",
     deliverables: [
@@ -65,7 +65,7 @@ export const services: {
   {
     id: "special",
     name: "Experiencias especiales",
-    line: "Hay ideas que piden algo distinto.",
+    line: "Cuando una idea no cabe en una plantilla, la construimos a medida.",
     description:
       "Micrositios, lanzamientos y experiencias interactivas que dan espacio a una idea que no cabe en lo habitual.",
     deliverables: [

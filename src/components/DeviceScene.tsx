@@ -24,11 +24,12 @@ import Laptop from "./Laptop";
 import "../styles/devices.css";
 
 const experiences = [
-  "Portal inmobiliario",
-  "Sitio corporativo",
-  "Panel empresarial",
+  "Propiedades",
+  "Web para negocios",
+  "Panel de trabajo",
   "Producto digital",
 ];
+
 function MobileInterface({ index }: { index: number }) {
   if (index === 2)
     return (
@@ -37,7 +38,7 @@ function MobileInterface({ index }: { index: number }) {
           <Symbol />
           <Menu size={14} />
         </div>
-        <small>TU ESPACIO DE TRABAJO</small>
+        <small>TODO TU NEGOCIO, MÁS CLARO</small>
         <h3>Todo, en su lugar.</h3>
         <div className="mobile-mini-tabs">
           <b>Resumen</b>
@@ -66,9 +67,10 @@ function MobileInterface({ index }: { index: number }) {
             Nuevo sitio web<small>En diseño</small>
           </span>
         </div>
-        <div className="mobile-ui-footer">Datos ilustrativos · concepto</div>
+        <div className="mobile-ui-footer">Una herramienta pensada para tu equipo</div>
       </div>
     );
+
   if (index === 3)
     return (
       <div className="mobile-ui mobile-product">
@@ -76,22 +78,23 @@ function MobileInterface({ index }: { index: number }) {
           <Symbol />
           <Menu size={14} />
         </div>
-        <small>OBJETOS CON OTRA MIRADA</small>
+        <small>IDEAS QUE SE VUELVEN PRODUCTOS</small>
         <h3>
-          Menos ruido.
+          De una idea
           <br />
-          Más intención.
+          a algo real.
         </h3>
         <img src="/images/future.webp" alt="" />
         <div className="mobile-product-label">
-          <span>Forma / Colección 01</span>
+          <span>Producto digital / A medida</span>
           <Plus size={16} />
         </div>
         <span className="mobile-ui-pill">
-          Explorar la colección <ArrowUpRight size={13} />
+          Ver posibilidades <ArrowUpRight size={13} />
         </span>
       </div>
     );
+
   if (index === 1)
     return (
       <div className="mobile-ui mobile-corporate">
@@ -99,79 +102,91 @@ function MobileInterface({ index }: { index: number }) {
           <Symbol />
           <Menu size={14} />
         </div>
-        <small>IDEAS QUE NOS CONECTAN</small>
+        <small>UNA WEB QUE SÍ TE REPRESENTA</small>
         <h3>
-          El futuro
+          Que te vean.
           <br />
-          se construye
+          Que confíen.
           <br />
-          <em>en equipo.</em>
+          <em>Que te elijan.</em>
         </h3>
         <img src="/images/studio.webp" alt="" />
         <div className="mobile-corporate-bottom">
           <span>
-            Una visión compartida.
+            Diseño cercano.
             <br />
-            Nuevas posibilidades.
+            Tecnología que funciona.
           </span>
           <ArrowUpRight size={20} />
         </div>
       </div>
     );
+
   return (
     <div className="mobile-ui mobile-property">
       <div className="mobile-ui-header">
         <Symbol />
         <Menu size={14} />
       </div>
-      <small>HABITAR, A TU MANERA</small>
+      <small>ENCONTRÁ TU PRÓXIMO ESPACIO</small>
       <h3>
-        Tu próximo
+        Buscar puede
         <br />
-        comienzo.
+        ser más fácil.
       </h3>
       <div className="mobile-property-image">
         <img src="/images/hero.webp" alt="" />
-        <span>Espacios para vivir</span>
+        <span>Propiedades claras, decisiones simples</span>
       </div>
       <div className="mobile-search">
         <Search size={13} />
-        <span>Encuentra tu espacio</span>
+        <span>Buscar propiedades</span>
         <ArrowUpRight size={13} />
       </div>
       <div className="mobile-property-bottom">
-        <span>Arquitectura que inspira.</span>
+        <span>Hecho para personas reales.</span>
         <span>01 / 04</span>
       </div>
     </div>
   );
 }
-export default function DeviceScene({ paused, setPaused }: { paused: boolean; setPaused: Dispatch<SetStateAction<boolean>> }) {
+
+export default function DeviceScene({
+  paused,
+  setPaused,
+}: {
+  paused: boolean;
+  setPaused: Dispatch<SetStateAction<boolean>>;
+}) {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.15 });
   const reduced = useReducedMotion();
+
   useEffect(() => {
     const fn = () => setVisible(!document.hidden);
     document.addEventListener("visibilitychange", fn);
     return () => document.removeEventListener("visibilitychange", fn);
   }, []);
+
   useEffect(() => {
     if (reduced || paused || !inView || !visible) return;
     const timer = window.setInterval(() => setIndex((i) => (i + 1) % 4), 4400);
     return () => window.clearInterval(timer);
   }, [reduced, paused, inView, visible]);
+
   return (
     <div
       ref={ref}
       className="device-scene"
-      aria-label="Experiencias digitales conceptuales de XARCON"
+      aria-label="Ejemplos de soluciones digitales de XARCON"
     >
       <div className="scene-objects" aria-hidden="true">
         <div className="laptop-parallax">
           <Laptop paused={paused} active={inView && visible} />
         </div>
+
         <div className="phone-parallax">
           <div className="phone">
             <span className="phone-side side-one" />
@@ -205,22 +220,25 @@ export default function DeviceScene({ paused, setPaused }: { paused: boolean; se
             </div>
           </div>
         </div>
+
         <div className="floating-note note-one">
           <Compass size={21} />
           <span>
-            Diseño con<b>intención.</b>
+            Hecho para<b>tu negocio.</b>
           </span>
           <span className="note-plus">+</span>
         </div>
+
         <div className="floating-note note-two">
           <BarChart3 size={20} />
           <span>
-            Ideas listas<b>para avanzar.</b>
+            Más orden.<b>Más avance.</b>
           </span>
         </div>
       </div>
+
       <div className="scene-caption">
-        <span>EXPERIENCIAS CONCEPTUALES</span>
+        <span>IDEAS QUE PUEDEN SER TUYAS</span>
         <div className="scene-controls">
           {experiences.map((label, i) => (
             <button
@@ -237,7 +255,7 @@ export default function DeviceScene({ paused, setPaused }: { paused: boolean; se
           <button
             className="scene-pause"
             aria-label={
-              paused ? "Reproducir experiencias" : "Pausar experiencias"
+              paused ? "Reproducir ejemplos" : "Pausar ejemplos"
             }
             onClick={() => setPaused((p) => !p)}
           >

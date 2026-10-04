@@ -14,7 +14,7 @@ export default function Capabilities() {
       <div className="wrap capabilities-layout">
         <div className="capabilities-intro">
           <Reveal>
-            <span className="eyebrow light">02 / LO QUE HACEMOS</span>
+            <span className="eyebrow light">02 / EN QUÉ TE AYUDAMOS</span>
             <h2>
               La idea es tuya.
               <br />
@@ -57,7 +57,7 @@ export default function Capabilities() {
                   >
                     <p>{s.line}</p>
                     <Link to={`/servicios#${s.id}`}>
-                      Explorar servicio <ArrowUpRight size={15} />
+                      Ver cómo te ayudamos <ArrowUpRight size={15} />
                     </Link>
                   </motion.div>
                 )}

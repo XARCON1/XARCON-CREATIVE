@@ -16,11 +16,11 @@ export default function ProcessOverview() {
     <section className="section wrap process-overview">
       <Reveal className="section-heading">
         <div>
-          <span className="eyebrow">03 / UN CAMINO COMPARTIDO</span>
-          <h2>De la idea al impacto.</h2>
+          <span className="eyebrow">03 / ASÍ TRABAJAMOS CONTIGO</span>
+          <h2>De tu idea a algo que funciona.</h2>
         </div>
         <Link className="text-link" to="/proceso">
-          Así trabajamos <ArrowUpRight size={18} />
+          Conocé nuestro proceso <ArrowUpRight size={18} />
         </Link>
       </Reveal>
       <div ref={ref} className="process-track">

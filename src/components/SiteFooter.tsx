@@ -2,16 +2,18 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { Symbol } from "./Logo";
 import { links } from "./Navigation";
+
 export default function SiteFooter() {
   return (
     <footer className="footer">
       <div className="wrap">
         <div className="footer-top">
           <span>
-            Una buena idea
+            Diseño y tecnología
             <br />
-            <b>merece tomar forma.</b>
+            <b>hechos para negocios reales.</b>
           </span>
+
           <nav aria-label="Navegación de pie de página">
             {links.slice(1).map(([to, label]) => (
               <Link to={to} key={to}>
@@ -19,12 +21,14 @@ export default function SiteFooter() {
               </Link>
             ))}
           </nav>
+
           <Link className="footer-conversation" to="/contacto">
-            Empecemos
+            ¿Tenés una idea?
             <br />
-            una conversación <ArrowUpRight size={27} />
+            Hablemos <ArrowUpRight size={25} />
           </Link>
         </div>
+
         <Link
           className="footer-wordmark"
           to="/"
@@ -33,10 +37,11 @@ export default function SiteFooter() {
           XARCON
           <Symbol />
         </Link>
+
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} XARCON Creative</span>
-          <span>Base en Nicaragua · visión abierta.</span>
-          <span>ESTRATEGIA. DISEÑO. TECNOLOGÍA.</span>
+          <span>Hecho en Nicaragua.</span>
+          <span>DISEÑO. WEB. SISTEMAS.</span>
         </div>
       </div>
     </footer>
