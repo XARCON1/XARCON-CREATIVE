@@ -325,3 +325,24 @@
     transition: none;
   }
 }
+
+
+/* AVALNIC: stable vector sizing inside the client carousel */
+.client-logo-card--avalnic img {
+  width: 148px;
+  height: 88px;
+  max-width: 148px;
+  max-height: 88px;
+  object-fit: contain;
+  object-position: center;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 767px) {
+  .client-logo-card--avalnic img {
+    width: 132px;
+    height: 82px;
+    max-width: 132px;
+    max-height: 82px;
+  }
+}
