@@ -26,25 +26,24 @@ export default function AdminApp() {
   const [error, setError] = useState("");
   const workspace = useWorkspace();
 
-  const checkSession = async () => {
-    try {
-      const response = await fetch("/api/admin-session", { credentials: "include" });
-      if (response.status === 503) {
-        setAuth("unconfigured");
-        return;
-      }
-      if (!response.ok) {
-        setAuth("unauthenticated");
-        return;
-      }
-      const data = (await response.json()) as { authenticated?: boolean };
-      setAuth(data.authenticated ? "authenticated" : "unauthenticated");
-    } catch {
-      setAuth(import.meta.env.DEV ? "unauthenticated" : "unconfigured");
-    }
-  };
-
   useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const response = await fetch("/api/admin-session", { credentials: "include" });
+        if (response.status === 503) {
+          setAuth("unconfigured");
+          return;
+        }
+        if (!response.ok) {
+          setAuth("unauthenticated");
+          return;
+        }
+        const data = (await response.json()) as { authenticated?: boolean };
+        setAuth(data.authenticated ? "authenticated" : "unauthenticated");
+      } catch {
+        setAuth(import.meta.env.DEV ? "unauthenticated" : "unconfigured");
+      }
+    };
     void checkSession();
   }, []);
 
@@ -141,22 +140,22 @@ export default function AdminApp() {
   return (
     <AdminShell onLogout={logout}>
       <Routes>
-        <Route index element={<Navigate to="/admin/dashboard" replace />} />
-        <Route path="dashboard" element={<DashboardView workspace={workspace} />} />
-        <Route path="clients" element={<ClientsView workspace={workspace} />} />
-        <Route path="clients/:id" element={<ClientsView workspace={workspace} />} />
-        <Route path="projects" element={<ProjectsView workspace={workspace} />} />
-        <Route path="projects/:id" element={<ProjectsView workspace={workspace} />} />
-        <Route path="finance" element={<FinanceView workspace={workspace} />} />
-        <Route path="receivables" element={<ReceivablesView workspace={workspace} />} />
-        <Route path="sales" element={<SalesView workspace={workspace} />} />
-        <Route path="quotes" element={<QuotesView />} />
-        <Route path="tasks" element={<TasksView workspace={workspace} />} />
-        <Route path="calendar" element={<CalendarView />} />
-        <Route path="documents" element={<DocumentsView />} />
-        <Route path="marketing" element={<MarketingView />} />
-        <Route path="team" element={<TeamView />} />
-        <Route path="settings" element={<SettingsView workspace={workspace} />} />
+        <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+        <Route path="/admin/dashboard" element={<DashboardView workspace={workspace} />} />
+        <Route path="/admin/clients" element={<ClientsView workspace={workspace} />} />
+        <Route path="/admin/clients/:id" element={<ClientsView workspace={workspace} />} />
+        <Route path="/admin/projects" element={<ProjectsView workspace={workspace} />} />
+        <Route path="/admin/projects/:id" element={<ProjectsView workspace={workspace} />} />
+        <Route path="/admin/finance" element={<FinanceView workspace={workspace} />} />
+        <Route path="/admin/receivables" element={<ReceivablesView workspace={workspace} />} />
+        <Route path="/admin/sales" element={<SalesView workspace={workspace} />} />
+        <Route path="/admin/quotes" element={<QuotesView />} />
+        <Route path="/admin/tasks" element={<TasksView workspace={workspace} />} />
+        <Route path="/admin/calendar" element={<CalendarView />} />
+        <Route path="/admin/documents" element={<DocumentsView />} />
+        <Route path="/admin/marketing" element={<MarketingView />} />
+        <Route path="/admin/team" element={<TeamView />} />
+        <Route path="/admin/settings" element={<SettingsView workspace={workspace} />} />
         <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
       </Routes>
     </AdminShell>
