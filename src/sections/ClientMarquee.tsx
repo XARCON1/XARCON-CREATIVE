@@ -18,7 +18,7 @@ function ClientGroup({ duplicate = false }: { duplicate?: boolean }) {
     >
       {clients.map((client) => (
         <div
-          className="client-logo-card"
+          className={`client-logo-card client-logo-card--${client.slug}`}
           role={duplicate ? undefined : "listitem"}
           key={client.name}
         >
