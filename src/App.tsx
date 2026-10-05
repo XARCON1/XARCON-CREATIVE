@@ -8,37 +8,43 @@ import Navigation from "./components/Navigation";
 import SiteFooter from "./components/SiteFooter";
 import Home from "./pages/Home";
 import "./styles/global.css";
+
 const Services = lazy(() => import("./pages/Services"));
 const Solutions = lazy(() => import("./pages/Solutions"));
 const Process = lazy(() => import("./pages/Process"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
+const AdminApp = lazy(() => import("./admin/AdminApp"));
+
 export default function App() {
   const { pathname, hash } = useLocation();
   const first = useRef(true);
+  const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
+
   useEffect(() => {
-    if (hash) {
-      return;
-    }
+    if (hash) return;
     window.scrollTo({ top: 0, behavior: "instant" });
     if (!first.current)
-      document.getElementById("main")?.focus({ preventScroll: true });
+      document.getElementById(isAdmin ? "hq-main" : "main")?.focus({ preventScroll: true });
     first.current = false;
-  }, [pathname, hash]);
+  }, [pathname, hash, isAdmin]);
+
+  if (isAdmin) {
+    return (
+      <MotionConfig reducedMotion="user">
+        <Suspense fallback={<div className="route-loading" aria-label="Cargando XARCON HQ" />}>
+          <AdminApp />
+        </Suspense>
+      </MotionConfig>
+    );
+  }
+
   return (
     <MotionConfig reducedMotion="user">
       <Navigation />
       <PageTransition />
-      <main
-        id="main"
-        tabIndex={-1}
-        key={pathname}
-      >
-        <Suspense
-          fallback={
-            <div className="route-loading" aria-label="Cargando página" />
-          }
-        >
+      <main id="main" tabIndex={-1} key={pathname}>
+        <Suspense fallback={<div className="route-loading" aria-label="Cargando página" />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/servicios" element={<Services />} />
