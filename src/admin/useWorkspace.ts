@@ -1,35 +1,53 @@
 import { useEffect, useMemo, useState } from "react";
 import {
+  clients as seedClients,
+  movements as seedMovements,
   opportunities as seedOpportunities,
   receivables as seedReceivables,
   tasks as seedTasks,
+  type Client,
+  type FinanceMovement,
   type Opportunity,
   type Receivable,
   type Task,
 } from "./data";
 
-const STORAGE_KEY = "xarcon-admin-workspace-v1";
+const STORAGE_KEY = "xarcon-admin-workspace-v2";
 
 type WorkspaceSnapshot = {
+  clients: Client[];
   tasks: Task[];
   receivables: Receivable[];
   opportunities: Opportunity[];
+  movements: FinanceMovement[];
 };
 
+const seedSnapshot = (): WorkspaceSnapshot => ({
+  clients: seedClients,
+  tasks: seedTasks,
+  receivables: seedReceivables,
+  opportunities: seedOpportunities,
+  movements: seedMovements,
+});
+
 function readSnapshot(): WorkspaceSnapshot {
-  if (typeof window === "undefined") {
-    return { tasks: seedTasks, receivables: seedReceivables, opportunities: seedOpportunities };
-  }
+  if (typeof window === "undefined") return seedSnapshot();
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) throw new Error("empty");
     const parsed = JSON.parse(raw) as WorkspaceSnapshot;
-    if (!Array.isArray(parsed.tasks) || !Array.isArray(parsed.receivables) || !Array.isArray(parsed.opportunities)) {
+    if (
+      !Array.isArray(parsed.clients) ||
+      !Array.isArray(parsed.tasks) ||
+      !Array.isArray(parsed.receivables) ||
+      !Array.isArray(parsed.opportunities) ||
+      !Array.isArray(parsed.movements)
+    ) {
       throw new Error("invalid");
     }
     return parsed;
   } catch {
-    return { tasks: seedTasks, receivables: seedReceivables, opportunities: seedOpportunities };
+    return seedSnapshot();
   }
 }
 
@@ -88,8 +106,25 @@ export function useWorkspace() {
           ),
         }));
       },
+      addClient(input: Omit<Client, "id" | "joinedAt" | "billed" | "pending" | "notes">) {
+        const next: Client = {
+          ...input,
+          id: `cli-${Date.now()}`,
+          joinedAt: new Date().toISOString().slice(0, 10),
+          billed: 0,
+          pending: 0,
+          notes: "Registro creado desde XARCON HQ demo.",
+        };
+        setState((current) => ({ ...current, clients: [next, ...current.clients] }));
+        return next;
+      },
+      addMovement(input: Omit<FinanceMovement, "id">) {
+        const next: FinanceMovement = { ...input, id: `mov-${Date.now()}` };
+        setState((current) => ({ ...current, movements: [next, ...current.movements] }));
+        return next;
+      },
       resetDemo() {
-        setState({ tasks: seedTasks, receivables: seedReceivables, opportunities: seedOpportunities });
+        setState(seedSnapshot());
       },
     }),
     [],
