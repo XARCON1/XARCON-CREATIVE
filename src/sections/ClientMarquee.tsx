@@ -6,6 +6,7 @@ const clients = [
   { name: "Amy Blandón", logo: "/brands/clients/amy-blandon.webp", slug: "amy" },
   { name: "Pequeños Escritores", logo: "/brands/clients/pequenos-escritores.webp", slug: "pequenos-escritores" },
   { name: "Germina", logo: "/brands/clients/germina.svg", slug: "germina" },
+  { name: "AVALNIC", logo: "/brands/clients/avalnic-white.webp", slug: "avalnic" },
 ];
 
 function ClientGroup({ duplicate = false }: { duplicate?: boolean }) {
