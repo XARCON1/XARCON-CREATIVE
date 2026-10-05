@@ -8,10 +8,8 @@ import {
 } from "lucide-react";
 import {
   activities,
-  clients,
   divisionMeta,
   formatMoney,
-  movements,
   projects,
   type Division,
 } from "./data";
@@ -22,8 +20,8 @@ type Props = {
 };
 
 export default function DashboardView({ workspace }: Props) {
-  const income = movements.filter((item) => item.kind === "income").reduce((sum, item) => sum + item.amount, 0);
-  const expenses = movements.filter((item) => item.kind === "expense").reduce((sum, item) => sum + item.amount, 0);
+  const income = workspace.movements.filter((item) => item.kind === "income").reduce((sum, item) => sum + item.amount, 0);
+  const expenses = workspace.movements.filter((item) => item.kind === "expense").reduce((sum, item) => sum + item.amount, 0);
   const outstanding = workspace.receivables.reduce((sum, item) => sum + Math.max(0, item.total - item.paid), 0);
   const activeProjects = projects.filter((item) => ["Activo", "En revisión"].includes(item.status)).length;
   const criticalTasks = workspace.tasks.filter((item) => item.status !== "Terminada" && item.priority === "critical").length;
@@ -207,7 +205,7 @@ export default function DashboardView({ workspace }: Props) {
           </div>
           <div className="hq-client-count">
             <Users size={18} />
-            <div><strong>{clients.filter((client) => client.status === "Activo").length}</strong><span>clientes activos demo</span></div>
+            <div><strong>{workspace.clients.filter((client) => client.status === "Activo").length}</strong><span>clientes activos demo</span></div>
           </div>
         </aside>
       </section>
