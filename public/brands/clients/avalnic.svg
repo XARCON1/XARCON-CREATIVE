@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 220" role="img" aria-labelledby="title">
+  <title id="title">AVALNIC</title>
+  <g fill="#fff">
+    <path d="M210 18 292 96v92h-62v-74l-20-19-72 68v-62l72-68Z"/>
+    <path d="M218 26 300 104v84h38v-69l-28-27-10 10v-10Z"/>
+    <path d="M206 83 138 148v40h44l56-53v-80Z"/>
+  </g>
+  <text x="260" y="214" fill="#fff" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="300" letter-spacing="12">AVALNIC</text>
+</svg>
