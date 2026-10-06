@@ -25,11 +25,12 @@ import {
 } from "lucide-react";
 import { Symbol } from "../components/Logo";
 import type { AdminIdentity } from "./firebaseAuth";
-import { clients, projects, quotes, tasks } from "./data";
+import type { ReturnTypeWorkspace } from "./workspaceTypes";
 
 type Props = {
   children: ReactNode;
   identity: AdminIdentity;
+  workspace: ReturnTypeWorkspace;
   workspaceStatus: "idle" | "connecting" | "live" | "error";
   workspaceError: string | null;
   onLogout: () => Promise<void>;
@@ -73,7 +74,7 @@ type SearchItem = {
   path: string;
 };
 
-export default function AdminShell({ children, identity, workspaceStatus, workspaceError, onLogout }: Props) {
+export default function AdminShell({ children, identity, workspace, workspaceStatus, workspaceError, onLogout }: Props) {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -82,32 +83,26 @@ export default function AdminShell({ children, identity, workspaceStatus, worksp
 
   const searchItems = useMemo<SearchItem[]>(
     () => [
-      ...clients.map((item) => ({
+      ...workspace.clients.map((item) => ({
         id: `client-${item.id}`,
         title: item.name,
         meta: `Cliente · ${item.company ?? item.type}`,
         path: `/admin/clients?focus=${item.id}`,
       })),
-      ...projects.map((item) => ({
+      ...workspace.projects.map((item) => ({
         id: `project-${item.id}`,
         title: item.name,
         meta: `Proyecto · ${item.status}`,
         path: `/admin/projects?focus=${item.id}`,
       })),
-      ...tasks.map((item) => ({
+      ...workspace.tasks.map((item) => ({
         id: `task-${item.id}`,
         title: item.title,
         meta: `Tarea · ${item.status}`,
         path: "/admin/tasks",
       })),
-      ...quotes.map((item) => ({
-        id: `quote-${item.id}`,
-        title: item.service,
-        meta: `Cotización · ${item.clientName}`,
-        path: "/admin/quotes",
-      })),
     ],
-    [],
+    [workspace.clients, workspace.projects, workspace.tasks],
   );
 
   const results = useMemo(() => {
