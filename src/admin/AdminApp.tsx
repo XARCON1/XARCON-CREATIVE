@@ -4,6 +4,7 @@ import { ArrowRight, LoaderCircle, LockKeyhole, ShieldCheck } from "lucide-react
 import { Symbol } from "../components/Logo";
 import AdminShell from "./AdminShell";
 import DashboardView from "./DashboardView";
+import ConversationsView from "./ConversationsView";
 import { ClientsView, ProjectsView, TasksView } from "./OperationsViews";
 import {
   CalendarView,
@@ -186,6 +187,7 @@ export default function AdminApp() {
       <Routes>
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/dashboard" element={<DashboardView workspace={workspace} />} />
+        <Route path="/admin/conversations" element={<ConversationsView workspace={workspace} ownerName={identity.displayName} />} />
         <Route path="/admin/clients" element={<ClientsView workspace={workspace} />} />
         <Route path="/admin/clients/:id" element={<ClientsView workspace={workspace} />} />
         <Route path="/admin/projects" element={<ProjectsView workspace={workspace} />} />
