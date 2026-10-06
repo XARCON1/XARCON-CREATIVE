@@ -30,6 +30,8 @@ import { clients, projects, quotes, tasks } from "./data";
 type Props = {
   children: ReactNode;
   identity: AdminIdentity;
+  workspaceStatus: "idle" | "connecting" | "live" | "error";
+  workspaceError: string | null;
   onLogout: () => Promise<void>;
 };
 
@@ -71,7 +73,7 @@ type SearchItem = {
   path: string;
 };
 
-export default function AdminShell({ children, identity, onLogout }: Props) {
+export default function AdminShell({ children, identity, workspaceStatus, workspaceError, onLogout }: Props) {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -179,7 +181,7 @@ export default function AdminShell({ children, identity, onLogout }: Props) {
         <div className="hq-rail-foot">
           <div className="hq-system-status">
             <span className="hq-live-dot" />
-            <div><strong>Sistema operativo</strong><small>Datos demo · capa local</small></div>
+            <div><strong>Sistema operativo</strong><small>{workspaceStatus === "live" ? "Firestore · XARCON" : workspaceStatus === "error" ? "Error de datos" : "Sincronizando…"}</small></div>
           </div>
           <button className="hq-logout" onClick={() => void onLogout()}>
             <LogOut size={16} /> Cerrar sesión
@@ -217,8 +219,10 @@ export default function AdminShell({ children, identity, onLogout }: Props) {
         </header>
 
         <div className="hq-demo-strip">
-          <span>ENTORNO DEMO</span>
-          La interfaz usa registros de demostración centralizados. No representa contabilidad oficial ni datos productivos.
+          <span>{workspaceStatus === "live" ? "FIRESTORE LIVE" : workspaceStatus === "error" ? "SINCRONIZACIÓN INTERRUMPIDA" : "CONECTANDO"}</span>
+          {workspaceStatus === "error"
+            ? workspaceError || "No fue posible sincronizar los datos."
+            : "Workspace empresarial XARCON · cambios sincronizados en tiempo real."}
         </div>
 
         <main className="hq-main" id="hq-main">
