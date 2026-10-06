@@ -13,6 +13,7 @@ import {
   FolderKanban,
   LayoutDashboard,
   LogOut,
+  MessageSquareText,
   Megaphone,
   Menu,
   Search,
@@ -41,6 +42,7 @@ const navGroups = [
     label: "OPERACIONES",
     items: [
       ["/admin/dashboard", "Centro", LayoutDashboard],
+      ["/admin/conversations", "Conversaciones", MessageSquareText],
       ["/admin/clients", "Clientes", Users],
       ["/admin/projects", "Proyectos", FolderKanban],
       ["/admin/tasks", "Tareas", Activity],
@@ -101,8 +103,14 @@ export default function AdminShell({ children, identity, workspace, workspaceSta
         meta: `Tarea · ${item.status}`,
         path: "/admin/tasks",
       })),
+      ...workspace.conversations.map((item) => ({
+        id: `conversation-${item.id}`,
+        title: item.contactName,
+        meta: `Conversación · ${item.subject}`,
+        path: `/admin/conversations?focus=${item.id}`,
+      })),
     ],
-    [workspace.clients, workspace.projects, workspace.tasks],
+    [workspace.clients, workspace.projects, workspace.tasks, workspace.conversations],
   );
 
   const results = useMemo(() => {
@@ -166,6 +174,9 @@ export default function AdminShell({ children, identity, workspace, workspaceSta
                 >
                   <Icon size={17} strokeWidth={1.7} />
                   <span>{label}</span>
+                  {to === "/admin/conversations" && workspace.conversations.reduce((sum, item) => sum + item.unreadCount, 0) > 0 && (
+                    <b className="hq-nav-badge">{workspace.conversations.reduce((sum, item) => sum + item.unreadCount, 0)}</b>
+                  )}
                   <ChevronRight className="hq-nav-chevron" size={14} />
                 </NavLink>
               ))}
@@ -198,6 +209,13 @@ export default function AdminShell({ children, identity, workspace, workspaceSta
             </div>
           </div>
           <div className="hq-top-actions">
+            <button className="hq-conversations-top" onClick={() => go("/admin/conversations")}>
+              <MessageSquareText size={16} />
+              <span>Conversaciones</span>
+              {workspace.conversations.reduce((sum, item) => sum + item.unreadCount, 0) > 0 && (
+                <b>{workspace.conversations.reduce((sum, item) => sum + item.unreadCount, 0)}</b>
+              )}
+            </button>
             <button className="hq-command-trigger" onClick={() => setPaletteOpen(true)}>
               <Search size={16} />
               <span>Buscar o ejecutar</span>
