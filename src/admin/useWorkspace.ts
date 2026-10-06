@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type {
   Client,
+  CrmConversationStatus,
   FinanceMovement,
   Opportunity,
   Project,
@@ -9,13 +10,17 @@ import type {
 } from "./data";
 import {
   createClient,
+  addConversationNote,
   createMovement,
   createOpportunity,
   createProject,
   createReceivable,
   createTask,
+  markConversationRead,
   registerPayment,
+  setConversationStatus,
   subscribeWorkspace,
+  updateConversation,
   updateOpportunityStage,
   updateTaskStatus,
   type WorkspaceConnection,
@@ -29,6 +34,8 @@ const emptySnapshot = (): WorkspaceLiveSnapshot => ({
   receivables: [],
   opportunities: [],
   movements: [],
+  conversations: [],
+  crmMessages: [],
 });
 
 export function useWorkspace(enabled: boolean) {
@@ -88,6 +95,30 @@ export function useWorkspace(enabled: boolean) {
   };
 
   const api = {
+    async markConversationRead(id: string) {
+      ensureEnabled();
+      await markConversationRead(id);
+    },
+
+    async setConversationStatus(id: string, status: CrmConversationStatus) {
+      ensureEnabled();
+      await setConversationStatus(id, status);
+    },
+
+    async linkConversationToClient(id: string, clientId: string) {
+      ensureEnabled();
+      await updateConversation(id, {
+        clientId,
+        updatedAt: new Date().toISOString(),
+      });
+    },
+
+    async addConversationNote(conversationId: string, body: string, authorName: string) {
+      ensureEnabled();
+      if (!body.trim()) return;
+      await addConversationNote(conversationId, body, authorName);
+    },
+
     async toggleTask(id: string) {
       ensureEnabled();
       const task = state.tasks.find((item) => item.id === id);
