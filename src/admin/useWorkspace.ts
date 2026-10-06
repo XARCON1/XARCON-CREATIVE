@@ -39,7 +39,7 @@ export function useWorkspace(enabled: boolean) {
 
   useEffect(() => {
     let active = true;
-    let unsubscribe = () => undefined;
+    let unsubscribe: () => void = () => undefined;
 
     if (!enabled) {
       setState(emptySnapshot());
