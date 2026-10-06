@@ -1,6 +1,6 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { ArrowRight, KeyRound, LoaderCircle, LockKeyhole, ShieldCheck } from "lucide-react";
+import { ArrowRight, LoaderCircle, LockKeyhole, ShieldCheck } from "lucide-react";
 import { Symbol } from "../components/Logo";
 import AdminShell from "./AdminShell";
 import DashboardView from "./DashboardView";
@@ -16,69 +16,107 @@ import {
   SettingsView,
   TeamView,
 } from "./BusinessViews";
+import {
+  observeAdminAuth,
+  signInAdminWithGoogle,
+  signOutAdmin,
+  type AdminIdentity,
+} from "./firebaseAuth";
 import { useWorkspace } from "./useWorkspace";
 import "./admin.css";
 
-type AuthState = "checking" | "authenticated" | "unauthenticated" | "unconfigured";
+type AuthState = "checking" | "authenticated" | "unauthenticated" | "unconfigured" | "signing-in";
 
 export default function AdminApp() {
   const [auth, setAuth] = useState<AuthState>("checking");
+  const [identity, setIdentity] = useState<AdminIdentity | null>(null);
   const [error, setError] = useState("");
   const workspace = useWorkspace();
 
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await fetch("/api/admin-session", { credentials: "include" });
-        if (response.status === 503) {
-          setAuth("unconfigured");
-          return;
-        }
-        if (!response.ok) {
-          setAuth("unauthenticated");
-          return;
-        }
-        const data = (await response.json()) as { authenticated?: boolean };
-        setAuth(data.authenticated ? "authenticated" : "unauthenticated");
-      } catch {
-        setAuth(import.meta.env.DEV ? "unauthenticated" : "unconfigured");
-      }
-    };
-    void checkSession();
-  }, []);
+    let active = true;
+    let unsubscribe = () => undefined;
 
-  const login = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError("");
-    const form = new FormData(event.currentTarget);
-    const accessKey = String(form.get("accessKey") || "");
-    try {
-      const response = await fetch("/api/admin-auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ accessKey }),
-      });
-      if (response.status === 503) {
+    void observeAdminAuth((snapshot) => {
+      if (!active) return;
+
+      if (snapshot.status === "unconfigured") {
+        setIdentity(null);
         setAuth("unconfigured");
         return;
       }
-      if (!response.ok) {
-        setError("Credencial no válida.");
+
+      if (snapshot.status === "authorized") {
+        setError("");
+        setIdentity(snapshot.user);
+        setAuth("authenticated");
         return;
       }
-      setAuth("authenticated");
-    } catch {
-      setError("No fue posible validar la sesión.");
+
+      if (snapshot.status === "forbidden") {
+        setIdentity(null);
+        setError("Esta cuenta de Google no está autorizada para XARCON HQ.");
+        setAuth("unauthenticated");
+        return;
+      }
+
+      setIdentity(null);
+      setAuth("unauthenticated");
+    })
+      .then((cleanup) => {
+        if (!active) {
+          cleanup();
+          return;
+        }
+        unsubscribe = cleanup;
+      })
+      .catch(() => {
+        if (!active) return;
+        setIdentity(null);
+        setAuth("unconfigured");
+      });
+
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
+
+  const login = async () => {
+    setError("");
+    setAuth("signing-in");
+
+    try {
+      const user = await signInAdminWithGoogle();
+      if (user) {
+        setIdentity(user);
+        setAuth("authenticated");
+      }
+    } catch (loginError) {
+      const code =
+        typeof loginError === "object" && loginError && "code" in loginError
+          ? String((loginError as { code?: unknown }).code)
+          : "";
+
+      if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
+        setError("Inicio de sesión cancelado.");
+      } else if (loginError instanceof Error && loginError.message === "owner-only") {
+        setError("Esta cuenta de Google no está autorizada para XARCON HQ.");
+      } else if (loginError instanceof Error && loginError.message === "firebase-unconfigured") {
+        setAuth("unconfigured");
+        return;
+      } else {
+        setError("No fue posible completar el acceso con Google.");
+      }
+
+      setAuth("unauthenticated");
     }
   };
 
   const logout = async () => {
-    try {
-      await fetch("/api/admin-logout", { method: "POST", credentials: "include" });
-    } finally {
-      setAuth("unauthenticated");
-    }
+    await signOutAdmin();
+    setIdentity(null);
+    setAuth("unauthenticated");
   };
 
   if (auth === "checking") {
@@ -87,13 +125,13 @@ export default function AdminApp() {
         <div className="hq-auth-loading">
           <span className="hq-mark"><Symbol /></span>
           <LoaderCircle className="spin" size={22} />
-          <p>Validando entorno privado…</p>
+          <p>Validando identidad de Google…</p>
         </div>
       </div>
     );
   }
 
-  if (auth !== "authenticated") {
+  if (auth !== "authenticated" || !identity) {
     return (
       <div className="hq-auth-screen">
         <div className="hq-auth-atmosphere" aria-hidden="true" />
@@ -105,32 +143,38 @@ export default function AdminApp() {
 
           <div className="hq-login-copy">
             <span className="hq-kicker">PRIVATE BUSINESS CONTROL</span>
-            <h1>Entrá al centro<br />operativo de XARCON.</h1>
-            <p>CRM, proyectos, finanzas y decisiones ejecutivas dentro de una superficie privada.</p>
+            <h1>Acceso privado<br />mediante Google.</h1>
+            <p>La identidad se valida con Firebase Authentication antes de habilitar el centro operativo.</p>
           </div>
 
           {auth === "unconfigured" ? (
             <div className="hq-auth-warning">
               <ShieldCheck size={20} />
               <div>
-                <strong>Acceso bloqueado por configuración</strong>
-                <p>Definí <code>XARCON_ADMIN_ACCESS_KEY</code> y <code>XARCON_ADMIN_SESSION_SECRET</code> en Vercel para habilitar el acceso. El sistema falla cerrado por seguridad.</p>
+                <strong>Firebase todavía no está conectado</strong>
+                <p>
+                  El flujo de Google ya está implementado, pero el deployment necesita las variables
+                  públicas de configuración del proyecto Firebase para activar Authentication.
+                </p>
               </div>
             </div>
           ) : (
-            <form className="hq-login-form" onSubmit={login}>
-              <label>
-                <span>CLAVE DE ACCESO</span>
-                <div><KeyRound size={17} /><input name="accessKey" type="password" autoComplete="current-password" required autoFocus /></div>
-              </label>
+            <div className="hq-login-form">
+              <button
+                type="button"
+                onClick={() => void login()}
+                disabled={auth === "signing-in"}
+              >
+                <span>{auth === "signing-in" ? "Validando cuenta…" : "Continuar con Google"}</span>
+                {auth === "signing-in" ? <LoaderCircle className="spin" size={17} /> : <ArrowRight size={17} />}
+              </button>
               {error && <p className="hq-login-error">{error}</p>}
-              <button type="submit">Acceder al HQ <ArrowRight size={17} /></button>
-            </form>
+            </div>
           )}
 
           <div className="hq-login-foot">
             <LockKeyhole size={14} />
-            <span>Sesión protegida mediante cookie HttpOnly · acceso sin indexación pública</span>
+            <span>Solo la identidad Owner autorizada puede abrir XARCON HQ.</span>
           </div>
         </section>
       </div>
