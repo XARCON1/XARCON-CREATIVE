@@ -7,7 +7,6 @@ import {
   Circle,
   Clock3,
   Filter,
-  FolderKanban,
   Mail,
   MapPin,
   Plus,
@@ -18,9 +17,10 @@ import {
 import {
   divisionMeta,
   formatMoney,
-  projects,
-  type Client,
   type Division,
+  type Priority,
+  type Project,
+  type Task,
 } from "./data";
 import type { ReturnTypeWorkspace } from "./workspaceTypes";
 
@@ -65,13 +65,14 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
     );
   }, [query, workspace.clients]);
 
-  const createClient = (event: FormEvent<HTMLFormElement>) => {
+  const createClient = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
     const name = String(form.get("name") || "").trim();
     const email = String(form.get("email") || "").trim();
     if (!name || !email) return;
-    const client = workspace.addClient({
+
+    const client = await workspace.addClient({
       name,
       company: String(form.get("company") || "").trim() || undefined,
       phone: String(form.get("phone") || "—"),
@@ -83,6 +84,7 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
       status: "Activo",
       nextAction: String(form.get("nextAction") || "Definir próxima acción"),
     });
+
     setSelectedId(client.id);
     setCreating(false);
     setParams({ focus: client.id });
@@ -93,7 +95,7 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
       <ViewHeader
         kicker="CRM / CLIENTES"
         title="Expedientes que mantienen contexto."
-        description="Relaciones, proyectos, valor histórico, saldo y próxima acción en una sola vista operativa."
+        description="Relaciones, proyectos, valor histórico, saldo y próxima acción sincronizados con Firestore."
         action={
           <button className="hq-primary-button" onClick={() => setCreating(true)}>
             <Plus size={16} /> Nuevo cliente
@@ -115,6 +117,7 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
             <span>Cliente</span><span>División</span><span>Facturado</span><span>Saldo</span><span>Estado</span>
           </div>
           <div className="hq-data-list">
+            {filtered.length === 0 && <p className="hq-empty-state">Todavía no hay clientes registrados en XARCON.</p>}
             {filtered.map((client) => (
               <button
                 key={client.id}
@@ -137,7 +140,7 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
           </div>
         </div>
 
-        {selected && (
+        {selected ? (
           <aside className="hq-record-panel">
             <div className="hq-record-identity">
               <span className="hq-record-avatar">{selected.name.slice(0, 2).toUpperCase()}</span>
@@ -164,8 +167,8 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
             <div className="hq-timeline">
               <span className="hq-record-label">LÍNEA DE RELACIÓN</span>
               {["Contacto", "Reunión", "Cotización", "Contrato", "Pago", "Proyecto", "Entrega", "Seguimiento"].map((step, index) => (
-                <div className={index < 6 ? "done" : ""} key={step}>
-                  <i>{index < 6 ? <Check size={11} /> : null}</i><span>{step}</span>
+                <div className={index < 2 ? "done" : ""} key={step}>
+                  <i>{index < 2 ? <Check size={11} /> : null}</i><span>{step}</span>
                 </div>
               ))}
             </div>
@@ -174,18 +177,20 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
               <p>{selected.notes}</p>
             </div>
           </aside>
+        ) : (
+          <aside className="hq-record-panel"><p className="hq-empty-state">Creá el primer cliente para iniciar el CRM.</p></aside>
         )}
       </section>
 
       {creating && (
         <div className="hq-modal-layer" onMouseDown={() => setCreating(false)}>
-          <form className="hq-modal" onSubmit={createClient} onMouseDown={(event) => event.stopPropagation()}>
+          <form className="hq-modal" onSubmit={(event) => void createClient(event)} onMouseDown={(event) => event.stopPropagation()}>
             <div className="hq-modal-head">
               <div><span className="hq-kicker">NUEVO REGISTRO</span><h2>Crear cliente</h2></div>
               <button type="button" onClick={() => setCreating(false)} aria-label="Cerrar"><X size={18} /></button>
             </div>
             <div className="hq-form-grid">
-              <label><span>Nombre</span><input name="name" required /></label>
+              <label><span>Nombre</span><input name="name" required autoFocus /></label>
               <label><span>Empresa</span><input name="company" /></label>
               <label><span>Correo</span><input name="email" type="email" required /></label>
               <label><span>Teléfono</span><input name="phone" /></label>
@@ -202,7 +207,7 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
             </div>
             <div className="hq-modal-actions">
               <button type="button" className="hq-quiet-button" onClick={() => setCreating(false)}>Cancelar</button>
-              <button className="hq-primary-button" type="submit">Guardar cliente</button>
+              <button className="hq-primary-button" type="submit">Guardar en Firestore</button>
             </div>
           </form>
         </div>
@@ -213,21 +218,60 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
 
 export function ProjectsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
   const [params, setParams] = useSearchParams();
+  const [creating, setCreating] = useState(params.get("new") === "1");
   const focus = params.get("focus");
-  const [selectedId, setSelectedId] = useState(focus || projects[0]?.id || "");
-  const selected = projects.find((item) => item.id === selectedId) ?? projects[0];
+  const [selectedId, setSelectedId] = useState(focus || workspace.projects[0]?.id || "");
+  const selected = workspace.projects.find((item) => item.id === selectedId) ?? workspace.projects[0];
   const client = workspace.clients.find((item) => item.id === selected?.clientId);
+
+  const createProject = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const name = String(form.get("name") || "").trim();
+    if (!name) return;
+
+    const contracted = Number(form.get("contracted") || 0);
+    const advance = Number(form.get("advance") || 0);
+    const progress = Math.min(100, Math.max(0, Number(form.get("progress") || 0)));
+    const technologies = String(form.get("technologies") || "")
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    const project = await workspace.addProject({
+      name,
+      clientId: String(form.get("clientId") || ""),
+      division: String(form.get("division") || "creative") as Division,
+      description: String(form.get("description") || "").trim(),
+      owner: String(form.get("owner") || "Norvin").trim() || "Norvin",
+      contracted: Number.isFinite(contracted) ? contracted : 0,
+      advance: Number.isFinite(advance) ? advance : 0,
+      targetAt: String(form.get("targetAt") || new Date().toISOString().slice(0, 10)),
+      progress,
+      priority: String(form.get("priority") || "medium") as Priority,
+      status: String(form.get("status") || "Activo") as Project["status"],
+      technologies,
+      githubUrl: String(form.get("githubUrl") || "").trim() || undefined,
+      productionUrl: String(form.get("productionUrl") || "").trim() || undefined,
+    });
+
+    setSelectedId(project.id);
+    setCreating(false);
+    setParams({ focus: project.id });
+  };
 
   return (
     <div className="hq-view">
       <ViewHeader
         kicker="PROJECT CONTROL"
         title="Proyectos como unidades de negocio."
-        description="Alcance, cliente, avance, dinero, responsables y enlaces técnicos conectados en una misma ficha."
+        description="Alcance, cliente, avance, dinero, responsables y enlaces técnicos sincronizados en tiempo real."
+        action={<button className="hq-primary-button" onClick={() => setCreating(true)}><Plus size={16} /> Nuevo proyecto</button>}
       />
       <section className="hq-project-board">
         <div className="hq-project-index">
-          {projects.map((project) => (
+          {workspace.projects.length === 0 && <p className="hq-empty-state">No hay proyectos registrados todavía.</p>}
+          {workspace.projects.map((project) => (
             <button
               key={project.id}
               onClick={() => {
@@ -244,7 +288,7 @@ export function ProjectsView({ workspace }: { workspace: ReturnTypeWorkspace }) 
             </button>
           ))}
         </div>
-        {selected && (
+        {selected ? (
           <div className="hq-project-detail">
             <div className="hq-project-detail-head">
               <div>
@@ -281,27 +325,89 @@ export function ProjectsView({ workspace }: { workspace: ReturnTypeWorkspace }) 
               </div>
             )}
           </div>
+        ) : (
+          <div className="hq-project-detail"><p className="hq-empty-state">Creá el primer proyecto para iniciar el control operativo.</p></div>
         )}
       </section>
+
+      {creating && (
+        <div className="hq-modal-layer" onMouseDown={() => setCreating(false)}>
+          <form className="hq-modal" onSubmit={(event) => void createProject(event)} onMouseDown={(event) => event.stopPropagation()}>
+            <div className="hq-modal-head">
+              <div><span className="hq-kicker">NUEVO PROYECTO</span><h2>Registrar proyecto</h2></div>
+              <button type="button" onClick={() => setCreating(false)}><X size={18} /></button>
+            </div>
+            <div className="hq-form-grid">
+              <label className="wide"><span>Nombre</span><input name="name" required autoFocus /></label>
+              <label><span>Cliente</span>
+                <select name="clientId" defaultValue="">
+                  <option value="">Interno XARCON</option>
+                  {workspace.clients.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+                </select>
+              </label>
+              <label><span>División</span><select name="division"><option value="creative">Creative</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
+              <label><span>Responsable</span><input name="owner" defaultValue="Norvin" /></label>
+              <label><span>Estado</span><select name="status" defaultValue="Activo"><option>Prospecto</option><option>Propuesta</option><option>Aprobado</option><option>Activo</option><option>En pausa</option><option>En revisión</option><option>Terminado</option><option>Entregado</option><option>Cancelado</option></select></label>
+              <label><span>Prioridad</span><select name="priority" defaultValue="medium"><option value="low">Baja</option><option value="medium">Media</option><option value="high">Alta</option><option value="critical">Crítica</option></select></label>
+              <label><span>Fecha objetivo</span><input name="targetAt" type="date" required /></label>
+              <label><span>Contratado USD</span><input name="contracted" type="number" min="0" step="0.01" defaultValue="0" /></label>
+              <label><span>Anticipo USD</span><input name="advance" type="number" min="0" step="0.01" defaultValue="0" /></label>
+              <label><span>Avance %</span><input name="progress" type="number" min="0" max="100" defaultValue="0" /></label>
+              <label className="wide"><span>Descripción</span><input name="description" /></label>
+              <label className="wide"><span>Tecnologías, separadas por coma</span><input name="technologies" placeholder="React, Firebase, Vercel" /></label>
+              <label><span>GitHub</span><input name="githubUrl" type="url" /></label>
+              <label><span>Producción</span><input name="productionUrl" type="url" /></label>
+            </div>
+            <div className="hq-modal-actions">
+              <button type="button" className="hq-quiet-button" onClick={() => setCreating(false)}>Cancelar</button>
+              <button type="submit" className="hq-primary-button">Guardar proyecto</button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
 
 export function TasksView({ workspace }: { workspace: ReturnTypeWorkspace }) {
+  const [params, setParams] = useSearchParams();
   const [scope, setScope] = useState<"all" | "open" | "critical">("open");
+  const [creating, setCreating] = useState(params.get("new") === "1");
+
   const visible = workspace.tasks.filter((task) => {
     if (scope === "open") return task.status !== "Terminada";
     if (scope === "critical") return task.priority === "critical" && task.status !== "Terminada";
     return true;
   });
 
+  const createTask = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const title = String(form.get("title") || "").trim();
+    if (!title) return;
+
+    await workspace.addTask({
+      title,
+      projectId: String(form.get("projectId") || "") || undefined,
+      division: String(form.get("division") || "creative") as Division,
+      owner: String(form.get("owner") || "Norvin").trim() || "Norvin",
+      priority: String(form.get("priority") || "medium") as Priority,
+      status: String(form.get("status") || "Pendiente") as Task["status"],
+      deadline: String(form.get("deadline") || new Date().toISOString().slice(0, 10)),
+      description: String(form.get("description") || "").trim(),
+    });
+
+    setCreating(false);
+    setParams({});
+  };
+
   return (
     <div className="hq-view">
       <ViewHeader
         kicker="TASK SYSTEM"
         title="Prioridad antes que volumen."
-        description="Trabajo operativo conectado a proyecto, división, responsable, estado y deadline."
-        action={<button className="hq-primary-button"><Plus size={16} /> Nueva tarea</button>}
+        description="Trabajo operativo real conectado a proyecto, división, responsable, estado y deadline."
+        action={<button className="hq-primary-button" onClick={() => setCreating(true)}><Plus size={16} /> Nueva tarea</button>}
       />
       <div className="hq-segmented" role="tablist" aria-label="Filtro de tareas">
         {([["open", "Abiertas"], ["critical", "Críticas"], ["all", "Todas"]] as const).map(([value, label]) => (
@@ -309,11 +415,12 @@ export function TasksView({ workspace }: { workspace: ReturnTypeWorkspace }) {
         ))}
       </div>
       <section className="hq-task-stack">
+        {visible.length === 0 && <p className="hq-empty-state">No hay tareas en este filtro.</p>}
         {visible.map((task) => {
-          const project = projects.find((item) => item.id === task.projectId);
+          const project = workspace.projects.find((item) => item.id === task.projectId);
           return (
             <article className={`hq-task-row ${task.status === "Terminada" ? "done" : ""}`} key={task.id}>
-              <button className="hq-task-check" onClick={() => workspace.toggleTask(task.id)} aria-label="Cambiar estado de tarea">
+              <button className="hq-task-check" onClick={() => void workspace.toggleTask(task.id)} aria-label="Cambiar estado de tarea">
                 {task.status === "Terminada" ? <CheckCircle2 size={20} /> : <Circle size={20} />}
               </button>
               <div className="hq-task-copy">
@@ -328,6 +435,31 @@ export function TasksView({ workspace }: { workspace: ReturnTypeWorkspace }) {
           );
         })}
       </section>
+
+      {creating && (
+        <div className="hq-modal-layer" onMouseDown={() => setCreating(false)}>
+          <form className="hq-modal compact" onSubmit={(event) => void createTask(event)} onMouseDown={(event) => event.stopPropagation()}>
+            <div className="hq-modal-head">
+              <div><span className="hq-kicker">NUEVA TAREA</span><h2>Registrar trabajo</h2></div>
+              <button type="button" onClick={() => setCreating(false)}><X size={18} /></button>
+            </div>
+            <div className="hq-form-grid">
+              <label className="wide"><span>Tarea</span><input name="title" required autoFocus /></label>
+              <label><span>Proyecto</span><select name="projectId" defaultValue=""><option value="">Operación interna</option>{workspace.projects.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
+              <label><span>División</span><select name="division"><option value="creative">Creative</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
+              <label><span>Responsable</span><input name="owner" defaultValue="Norvin" /></label>
+              <label><span>Prioridad</span><select name="priority" defaultValue="medium"><option value="low">Baja</option><option value="medium">Media</option><option value="high">Alta</option><option value="critical">Crítica</option></select></label>
+              <label><span>Estado</span><select name="status" defaultValue="Pendiente"><option>Pendiente</option><option>En curso</option><option>Bloqueada</option><option>En revisión</option><option>Terminada</option></select></label>
+              <label><span>Deadline</span><input name="deadline" type="date" required /></label>
+              <label className="wide"><span>Descripción</span><input name="description" /></label>
+            </div>
+            <div className="hq-modal-actions">
+              <button type="button" className="hq-quiet-button" onClick={() => setCreating(false)}>Cancelar</button>
+              <button type="submit" className="hq-primary-button">Guardar tarea</button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
