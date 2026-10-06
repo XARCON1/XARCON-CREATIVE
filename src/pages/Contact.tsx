@@ -284,7 +284,7 @@ export default function Contact() {
                       No necesitas tener todo resuelto.
                     </span>
                   )}
-                  <button className="button dark" type="submit">
+                  <button className="button dark" type="submit" disabled={sending}>
                     {step === 2 ? (sending ? "Enviando…" : "Enviar a XARCON") : "Continuar"}{" "}
                     <span>
                       <ArrowRight size={17} />
