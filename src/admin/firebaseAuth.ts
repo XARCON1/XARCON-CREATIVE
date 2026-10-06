@@ -1,15 +1,7 @@
+import { XARCON_FIREBASE_APP_NAME, XARCON_FIREBASE_CONFIG } from "../firebaseConfig";
+
 const FIREBASE_SDK_VERSION = "12.19.0";
 export const XARCON_OWNER_EMAIL = "norvingarcia220@gmail.com";
-
-export const XARCON_FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDXWiU7W6J2zbTcwOqyE52YuFoO-3bvuAY",
-  authDomain: "xarcon.firebaseapp.com",
-  projectId: "xarcon",
-  storageBucket: "xarcon.firebasestorage.app",
-  messagingSenderId: "565689407659",
-  appId: "1:565689407659:web:60838a4733e36a95c53fee",
-  measurementId: "G-98537BQ6F7",
-} as const;
 
 export type AdminIdentity = {
   uid: string;
@@ -130,7 +122,7 @@ async function loadFirebase(): Promise<FirebaseCompat | null> {
     if (!firebase) throw new Error("firebase-sdk-unavailable");
 
     const config = firebaseConfig();
-    const appName = "xarcon-admin";
+    const appName = XARCON_FIREBASE_APP_NAME;
     const existingApp = firebase.apps.find((candidate) => candidate.name === appName);
     const app = existingApp ? firebase.app(appName) : firebase.initializeApp(config, appName);
     const auth = firebase.auth(app);
@@ -145,7 +137,7 @@ async function loadFirebase(): Promise<FirebaseCompat | null> {
 async function getAuth() {
   const firebase = await loadFirebase();
   if (!firebase) return null;
-  return firebase.auth(firebase.app("xarcon-admin"));
+  return firebase.auth(firebase.app(XARCON_FIREBASE_APP_NAME));
 }
 
 function isOwner(user: FirebaseUser) {
@@ -199,7 +191,7 @@ export async function signInAdminWithGoogle() {
   const firebase = await loadFirebase();
   if (!firebase) throw new Error("firebase-unconfigured");
 
-  const auth = firebase.auth(firebase.app("xarcon-admin"));
+  const auth = firebase.auth(firebase.app(XARCON_FIREBASE_APP_NAME));
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: "select_account" });
 
