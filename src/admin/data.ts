@@ -1,6 +1,43 @@
 export type Division = "creative" | "realty" | "construction";
 export type Priority = "low" | "medium" | "high" | "critical";
 
+export type CrmChannel = "web_form" | "whatsapp" | "email" | "internal";
+export type CrmConversationStatus = "new" | "open" | "pending" | "resolved" | "archived";
+
+export interface CrmConversation {
+  id: string;
+  source: "website" | "whatsapp" | "manual";
+  channel: CrmChannel;
+  status: CrmConversationStatus;
+  contactName: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  clientId?: string;
+  subject: string;
+  initialMessage: string;
+  preview: string;
+  budget?: string;
+  assignedTo: string;
+  unreadCount: number;
+  automationEligible: boolean;
+  externalConversationId?: string;
+  externalContactId?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CrmMessage {
+  id: string;
+  conversationId: string;
+  direction: "inbound" | "outbound" | "internal";
+  channel: CrmChannel;
+  body: string;
+  authorName: string;
+  deliveryStatus: "received" | "draft" | "sent" | "failed" | "internal";
+  createdAt: string;
+}
+
 export interface Client {
   id: string;
   name: string;
