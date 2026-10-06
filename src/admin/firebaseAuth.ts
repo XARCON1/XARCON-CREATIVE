@@ -69,9 +69,11 @@ async function loadFirebase(): Promise<FirebaseSdk | null> {
     const authModule = await import(/* @vite-ignore */ authUrl);
 
     const config = firebaseConfig();
-    const app = appModule.getApps().length
-      ? appModule.getApp()
-      : appModule.initializeApp(config);
+    const appName = "xarcon-admin";
+    const existingApp = appModule
+      .getApps()
+      .find((candidate: { name?: string }) => candidate.name === appName);
+    const app = existingApp ?? appModule.initializeApp(config, appName);
 
     const auth = authModule.getAuth(app);
     await authModule.setPersistence(auth, authModule.browserLocalPersistence);
