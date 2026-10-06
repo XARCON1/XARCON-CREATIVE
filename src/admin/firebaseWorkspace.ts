@@ -67,12 +67,6 @@ type FirebaseCompat = {
   firestore(app?: unknown): FirestoreDb;
 };
 
-declare global {
-  interface Window {
-    firebase?: FirebaseCompat & Window["firebase"];
-  }
-}
-
 let firestorePromise: Promise<FirestoreDb> | null = null;
 
 const emptySnapshot = (): WorkspaceLiveSnapshot => ({
@@ -121,7 +115,7 @@ async function getFirestore() {
       `https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-firestore-compat.js`,
     );
 
-    const firebase = window.firebase;
+    const firebase = (window as Window & { firebase?: FirebaseCompat }).firebase;
     if (!firebase) throw new Error("firebase-sdk-unavailable");
 
     const existingApp = firebase.apps.find((candidate) => candidate.name === APP_NAME);
