@@ -1,7 +1,7 @@
 const FIREBASE_SDK_VERSION = "12.19.0";
 export const XARCON_OWNER_EMAIL = "norvingarcia220@gmail.com";
 
-const XARCON_FIREBASE_CONFIG = {
+export const XARCON_FIREBASE_CONFIG = {
   apiKey: "AIzaSyDXWiU7W6J2zbTcwOqyE52YuFoO-3bvuAY",
   authDomain: "xarcon.firebaseapp.com",
   projectId: "xarcon",
