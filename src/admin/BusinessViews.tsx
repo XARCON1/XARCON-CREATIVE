@@ -545,7 +545,9 @@ export function SettingsView({ workspace }: { workspace: ReturnTypeWorkspace }) 
   const items = [
     ["Persistencia", "Firestore en workspaces/xarcon con listeners en tiempo real.", live ? "Activa" : "Conectando"],
     ["Autenticación", "Firebase Auth + Google Sign-In con allowlist Owner y correo verificado.", "Activa"],
-    ["Firestore Rules", "Reglas Owner-only versionadas en el repositorio.", "Preparadas"],
+    ["CRM Conversaciones", "Bandeja unificada con formularios web, hilos, estados, notas y vínculo a clientes.", "Activa"],
+    ["WhatsApp", "Contrato de canal preparado para webhook, mensajes inbound/outbound y automatización futura.", "Preparado"],
+    ["Firestore Rules", "Reglas Owner-only y entrada pública validada versionadas en el repositorio.", "Preparadas"],
     ["Storage", "Reglas Owner-only preparadas; archivos se conectarán con Documentos.", "Preparado"],
     ["Google Calendar", "Calendario interno ya deriva fechas de Firestore; sincronización Google pendiente.", "Preparado"],
     ["Google Drive", "Siguiente integración para documentos empresariales.", "Preparado"],
