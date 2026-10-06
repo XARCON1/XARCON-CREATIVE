@@ -9,6 +9,70 @@ service cloud.firestore {
         && request.auth.token.firebase.sign_in_provider == "google.com";
     }
 
+    function isValidWebsiteConversation() {
+      return request.resource.data.keys().hasOnly([
+          "source",
+          "channel",
+          "status",
+          "contactName",
+          "email",
+          "phone",
+          "company",
+          "clientId",
+          "subject",
+          "initialMessage",
+          "preview",
+          "budget",
+          "assignedTo",
+          "unreadCount",
+          "automationEligible",
+          "externalConversationId",
+          "externalContactId",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.source == "website"
+        && request.resource.data.channel == "web_form"
+        && request.resource.data.status == "new"
+        && request.resource.data.contactName is string
+        && request.resource.data.contactName.size() >= 2
+        && request.resource.data.contactName.size() <= 100
+        && request.resource.data.email is string
+        && request.resource.data.email.size() >= 5
+        && request.resource.data.email.size() <= 200
+        && request.resource.data.subject is string
+        && request.resource.data.subject.size() >= 2
+        && request.resource.data.subject.size() <= 120
+        && request.resource.data.initialMessage is string
+        && request.resource.data.initialMessage.size() >= 10
+        && request.resource.data.initialMessage.size() <= 4000
+        && request.resource.data.preview is string
+        && request.resource.data.preview.size() <= 180
+        && request.resource.data.company is string
+        && request.resource.data.company.size() <= 150
+        && request.resource.data.phone is string
+        && request.resource.data.phone.size() <= 40
+        && request.resource.data.budget is string
+        && request.resource.data.budget.size() <= 100
+        && request.resource.data.clientId == ""
+        && request.resource.data.assignedTo == ""
+        && request.resource.data.unreadCount == 1
+        && request.resource.data.automationEligible == false
+        && request.resource.data.externalConversationId == ""
+        && request.resource.data.externalContactId == ""
+        && request.resource.data.createdAt is string
+        && request.resource.data.updatedAt == request.resource.data.createdAt;
+    }
+
+    match /crmConversations/{conversationId} {
+      allow create: if isValidWebsiteConversation() || isXarconOwner();
+      allow read, update, delete: if isXarconOwner();
+    }
+
+    match /crmMessages/{messageId} {
+      allow read, write: if isXarconOwner();
+    }
+
     match /{document=**} {
       allow read, write: if isXarconOwner();
     }
