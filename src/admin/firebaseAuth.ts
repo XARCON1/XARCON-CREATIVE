@@ -23,23 +23,39 @@ type FirebaseUser = {
   providerData: Array<{ providerId?: string | null }>;
 };
 
-type FirebaseSdk = {
-  auth: unknown;
-  browserLocalPersistence: unknown;
-  GoogleAuthProvider: new () => {
-    setCustomParameters(parameters: Record<string, string>): void;
-  };
-  onAuthStateChanged(
-    auth: unknown,
-    observer: (user: FirebaseUser | null) => void | Promise<void>,
-  ): () => void;
-  setPersistence(auth: unknown, persistence: unknown): Promise<void>;
-  signInWithPopup(auth: unknown, provider: unknown): Promise<{ user: FirebaseUser }>;
-  signInWithRedirect(auth: unknown, provider: unknown): Promise<void>;
-  signOut(auth: unknown): Promise<void>;
+type CompatAuth = {
+  currentUser: FirebaseUser | null;
+  onAuthStateChanged(observer: (user: FirebaseUser | null) => void | Promise<void>): () => void;
+  setPersistence(persistence: unknown): Promise<void>;
+  signInWithPopup(provider: unknown): Promise<{ user: FirebaseUser }>;
+  signInWithRedirect(provider: unknown): Promise<void>;
+  signOut(): Promise<void>;
 };
 
-let sdkPromise: Promise<FirebaseSdk | null> | null = null;
+type FirebaseCompat = {
+  apps: Array<{ name: string }>;
+  initializeApp(config: Record<string, string | undefined>, name?: string): unknown;
+  app(name?: string): unknown;
+  auth: {
+    (app?: unknown): CompatAuth;
+    GoogleAuthProvider: new () => {
+      setCustomParameters(parameters: Record<string, string>): void;
+    };
+    Auth: {
+      Persistence: {
+        LOCAL: unknown;
+      };
+    };
+  };
+};
+
+declare global {
+  interface Window {
+    firebase?: FirebaseCompat;
+  }
+}
+
+let firebasePromise: Promise<FirebaseCompat | null> | null = null;
 
 function firebaseConfig() {
   return {
@@ -57,40 +73,64 @@ export function isFirebaseAuthConfigured() {
   return Boolean(config.apiKey && config.authDomain && config.projectId && config.appId);
 }
 
-async function loadFirebase(): Promise<FirebaseSdk | null> {
+function loadScript(src: string) {
+  return new Promise<void>((resolve, reject) => {
+    const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`);
+    if (existing?.dataset.loaded === "true") {
+      resolve();
+      return;
+    }
+    if (existing) {
+      existing.addEventListener("load", () => resolve(), { once: true });
+      existing.addEventListener("error", () => reject(new Error("firebase-sdk-load-failed")), { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    script.addEventListener("load", () => {
+      script.dataset.loaded = "true";
+      resolve();
+    }, { once: true });
+    script.addEventListener("error", () => reject(new Error("firebase-sdk-load-failed")), { once: true });
+    document.head.appendChild(script);
+  });
+}
+
+async function loadFirebase(): Promise<FirebaseCompat | null> {
   if (!isFirebaseAuthConfigured()) return null;
-  if (sdkPromise) return sdkPromise;
+  if (firebasePromise) return firebasePromise;
 
-  sdkPromise = (async () => {
-    const appUrl = `https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-app.js`;
-    const authUrl = `https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-auth.js`;
+  firebasePromise = (async () => {
+    await loadScript(
+      `https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-app-compat.js`,
+    );
+    await loadScript(
+      `https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-auth-compat.js`,
+    );
 
-    const appModule = await import(/* @vite-ignore */ appUrl);
-    const authModule = await import(/* @vite-ignore */ authUrl);
+    const firebase = window.firebase;
+    if (!firebase) throw new Error("firebase-sdk-unavailable");
 
     const config = firebaseConfig();
     const appName = "xarcon-admin";
-    const existingApp = appModule
-      .getApps()
-      .find((candidate: { name?: string }) => candidate.name === appName);
-    const app = existingApp ?? appModule.initializeApp(config, appName);
+    const existingApp = firebase.apps.find((candidate) => candidate.name === appName);
+    const app = existingApp ? firebase.app(appName) : firebase.initializeApp(config, appName);
+    const auth = firebase.auth(app);
+    await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-    const auth = authModule.getAuth(app);
-    await authModule.setPersistence(auth, authModule.browserLocalPersistence);
-
-    return {
-      auth,
-      browserLocalPersistence: authModule.browserLocalPersistence,
-      GoogleAuthProvider: authModule.GoogleAuthProvider,
-      onAuthStateChanged: authModule.onAuthStateChanged,
-      setPersistence: authModule.setPersistence,
-      signInWithPopup: authModule.signInWithPopup,
-      signInWithRedirect: authModule.signInWithRedirect,
-      signOut: authModule.signOut,
-    } satisfies FirebaseSdk;
+    return firebase;
   })();
 
-  return sdkPromise;
+  return firebasePromise;
+}
+
+async function getAuth() {
+  const firebase = await loadFirebase();
+  if (!firebase) return null;
+  return firebase.auth(firebase.app("xarcon-admin"));
 }
 
 function isOwner(user: FirebaseUser) {
@@ -116,14 +156,14 @@ function toIdentity(user: FirebaseUser): AdminIdentity {
 export async function observeAdminAuth(
   observer: (snapshot: AdminAuthSnapshot) => void,
 ): Promise<() => void> {
-  const sdk = await loadFirebase();
+  const auth = await getAuth();
 
-  if (!sdk) {
+  if (!auth) {
     observer({ status: "unconfigured" });
     return () => undefined;
   }
 
-  return sdk.onAuthStateChanged(sdk.auth, async (user) => {
+  return auth.onAuthStateChanged(async (user) => {
     if (!user) {
       observer({ status: "signed-out" });
       return;
@@ -132,7 +172,7 @@ export async function observeAdminAuth(
     if (!isOwner(user)) {
       const attemptedEmail = user.email;
       observer({ status: "forbidden", attemptedEmail });
-      await sdk.signOut(sdk.auth);
+      await auth.signOut();
       return;
     }
 
@@ -141,17 +181,18 @@ export async function observeAdminAuth(
 }
 
 export async function signInAdminWithGoogle() {
-  const sdk = await loadFirebase();
-  if (!sdk) throw new Error("firebase-unconfigured");
+  const firebase = await loadFirebase();
+  if (!firebase) throw new Error("firebase-unconfigured");
 
-  const provider = new sdk.GoogleAuthProvider();
+  const auth = firebase.auth(firebase.app("xarcon-admin"));
+  const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: "select_account" });
 
   try {
-    const result = await sdk.signInWithPopup(sdk.auth, provider);
+    const result = await auth.signInWithPopup(provider);
 
     if (!isOwner(result.user)) {
-      await sdk.signOut(sdk.auth);
+      await auth.signOut();
       throw new Error("owner-only");
     }
 
@@ -163,7 +204,7 @@ export async function signInAdminWithGoogle() {
         : "";
 
     if (code === "auth/popup-blocked") {
-      await sdk.signInWithRedirect(sdk.auth, provider);
+      await auth.signInWithRedirect(provider);
       return null;
     }
 
@@ -172,7 +213,7 @@ export async function signInAdminWithGoogle() {
 }
 
 export async function signOutAdmin() {
-  const sdk = await loadFirebase();
-  if (!sdk) return;
-  await sdk.signOut(sdk.auth);
+  const auth = await getAuth();
+  if (!auth) return;
+  await auth.signOut();
 }
