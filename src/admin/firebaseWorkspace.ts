@@ -1,6 +1,9 @@
 import { XARCON_FIREBASE_APP_NAME, XARCON_FIREBASE_CONFIG } from "../firebaseConfig";
 import type {
   Client,
+  CrmConversation,
+  CrmConversationStatus,
+  CrmMessage,
   FinanceMovement,
   Opportunity,
   Project,
@@ -19,6 +22,8 @@ export type WorkspaceLiveSnapshot = {
   receivables: Receivable[];
   opportunities: Opportunity[];
   movements: FinanceMovement[];
+  conversations: CrmConversation[];
+  crmMessages: CrmMessage[];
 };
 
 export type WorkspaceConnection = "idle" | "connecting" | "live" | "error";
@@ -29,9 +34,7 @@ type FirestoreDoc = {
   data(): Record<string, unknown> | undefined;
 };
 
-type FirestoreQuerySnapshot = {
-  docs: FirestoreDoc[];
-};
+type FirestoreQuerySnapshot = { docs: FirestoreDoc[] };
 
 type FirestoreDocumentRef = {
   id: string;
@@ -74,6 +77,8 @@ const emptySnapshot = (): WorkspaceLiveSnapshot => ({
   receivables: [],
   opportunities: [],
   movements: [],
+  conversations: [],
+  crmMessages: [],
 });
 
 function loadScript(src: string) {
@@ -127,7 +132,7 @@ async function getFirestore() {
   return firestorePromise;
 }
 
-function collectionPath(name: string) {
+function workspacePath(name: string) {
   return `workspaces/${WORKSPACE_ID}/${name}`;
 }
 
@@ -147,17 +152,21 @@ function sortWorkspace(snapshot: WorkspaceLiveSnapshot): WorkspaceLiveSnapshot {
     receivables: [...snapshot.receivables].sort((a, b) => a.dueDate.localeCompare(b.dueDate)),
     opportunities: [...snapshot.opportunities].sort((a, b) => a.date.localeCompare(b.date)),
     movements: [...snapshot.movements].sort((a, b) => b.date.localeCompare(a.date)),
+    conversations: [...snapshot.conversations].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)),
+    crmMessages: [...snapshot.crmMessages].sort((a, b) => a.createdAt.localeCompare(b.createdAt)),
   };
 }
 
-const collectionKeys = {
-  clients: "clients",
-  projects: "projects",
-  tasks: "tasks",
-  receivables: "receivables",
-  opportunities: "opportunities",
-  movements: "financeMovements",
-} as const;
+const collectionPaths: Record<keyof WorkspaceLiveSnapshot, string> = {
+  clients: workspacePath("clients"),
+  projects: workspacePath("projects"),
+  tasks: workspacePath("tasks"),
+  receivables: workspacePath("receivables"),
+  opportunities: workspacePath("opportunities"),
+  movements: workspacePath("financeMovements"),
+  conversations: "crmConversations",
+  crmMessages: "crmMessages",
+};
 
 export async function subscribeWorkspace(
   onData: (snapshot: WorkspaceLiveSnapshot, ready: boolean) => void,
@@ -169,77 +178,113 @@ export async function subscribeWorkspace(
   const unsubscribers: Array<() => void> = [];
 
   const attach = <K extends keyof WorkspaceLiveSnapshot>(key: K) => {
-    const unsubscribe = db
-      .collection(collectionPath(collectionKeys[key]))
-      .onSnapshot(
-        (snapshot) => {
-          current[key] = fromDocs<WorkspaceLiveSnapshot[K][number]>(snapshot) as WorkspaceLiveSnapshot[K];
-          readyKeys.add(key);
-          onData(sortWorkspace(current), readyKeys.size === Object.keys(collectionKeys).length);
-        },
-        (cause) => {
-          const error = cause instanceof Error ? cause : new Error("firestore-listener-error");
-          onError(error);
-        },
-      );
+    const unsubscribe = db.collection(collectionPaths[key]).onSnapshot(
+      (snapshot) => {
+        current[key] = fromDocs<WorkspaceLiveSnapshot[K][number]>(snapshot) as WorkspaceLiveSnapshot[K];
+        readyKeys.add(key);
+        onData(sortWorkspace(current), readyKeys.size === Object.keys(collectionPaths).length);
+      },
+      (cause) => {
+        onError(cause instanceof Error ? cause : new Error("firestore-listener-error"));
+      },
+    );
     unsubscribers.push(unsubscribe);
   };
 
-  (Object.keys(collectionKeys) as Array<keyof WorkspaceLiveSnapshot>).forEach(attach);
-
+  (Object.keys(collectionPaths) as Array<keyof WorkspaceLiveSnapshot>).forEach(attach);
   return () => unsubscribers.forEach((unsubscribe) => unsubscribe());
 }
 
-async function createRecord<T extends { id: string }>(
+async function createWorkspaceRecord<T extends { id: string }>(
   collectionName: string,
   input: Omit<T, "id">,
 ): Promise<T> {
   const db = await getFirestore();
-  const ref = db.collection(collectionPath(collectionName)).doc();
+  const ref = db.collection(workspacePath(collectionName)).doc();
   const next = { ...input, id: ref.id } as T;
   await ref.set(cleanObject(input));
   return next;
 }
 
-export function createClient(input: Omit<Client, "id">) {
-  return createRecord<Client>(collectionKeys.clients, input);
+async function createRootRecord<T extends { id: string }>(
+  collectionName: string,
+  input: Omit<T, "id">,
+): Promise<T> {
+  const db = await getFirestore();
+  const ref = db.collection(collectionName).doc();
+  const next = { ...input, id: ref.id } as T;
+  await ref.set(cleanObject(input));
+  return next;
 }
 
-export function createProject(input: Omit<Project, "id">) {
-  return createRecord<Project>(collectionKeys.projects, input);
-}
-
-export function createTask(input: Omit<Task, "id">) {
-  return createRecord<Task>(collectionKeys.tasks, input);
-}
-
-export function createReceivable(input: Omit<Receivable, "id">) {
-  return createRecord<Receivable>(collectionKeys.receivables, input);
-}
-
-export function createOpportunity(input: Omit<Opportunity, "id">) {
-  return createRecord<Opportunity>(collectionKeys.opportunities, input);
-}
-
-export function createMovement(input: Omit<FinanceMovement, "id">) {
-  return createRecord<FinanceMovement>(collectionKeys.movements, input);
-}
+export const createClient = (input: Omit<Client, "id">) =>
+  createWorkspaceRecord<Client>("clients", input);
+export const createProject = (input: Omit<Project, "id">) =>
+  createWorkspaceRecord<Project>("projects", input);
+export const createTask = (input: Omit<Task, "id">) =>
+  createWorkspaceRecord<Task>("tasks", input);
+export const createReceivable = (input: Omit<Receivable, "id">) =>
+  createWorkspaceRecord<Receivable>("receivables", input);
+export const createOpportunity = (input: Omit<Opportunity, "id">) =>
+  createWorkspaceRecord<Opportunity>("opportunities", input);
+export const createMovement = (input: Omit<FinanceMovement, "id">) =>
+  createWorkspaceRecord<FinanceMovement>("financeMovements", input);
+export const createCrmMessage = (input: Omit<CrmMessage, "id">) =>
+  createRootRecord<CrmMessage>("crmMessages", input);
 
 export async function updateTaskStatus(id: string, status: Task["status"]) {
   const db = await getFirestore();
-  await db.collection(collectionPath(collectionKeys.tasks)).doc(id).update({ status });
+  await db.collection(workspacePath("tasks")).doc(id).update({ status });
 }
 
 export async function updateOpportunityStage(id: string, stage: Opportunity["stage"]) {
   const db = await getFirestore();
-  await db.collection(collectionPath(collectionKeys.opportunities)).doc(id).update({ stage });
+  await db.collection(workspacePath("opportunities")).doc(id).update({ stage });
+}
+
+export async function updateConversation(
+  id: string,
+  patch: Partial<Pick<CrmConversation, "status" | "unreadCount" | "assignedTo" | "clientId" | "preview" | "updatedAt">>,
+) {
+  const db = await getFirestore();
+  await db.collection("crmConversations").doc(id).update(cleanObject(patch));
+}
+
+export async function addConversationNote(conversationId: string, body: string, authorName: string) {
+  const now = new Date().toISOString();
+  const message = await createCrmMessage({
+    conversationId,
+    direction: "internal",
+    channel: "internal",
+    body: body.trim(),
+    authorName,
+    deliveryStatus: "internal",
+    createdAt: now,
+  });
+  await updateConversation(conversationId, {
+    preview: body.trim().slice(0, 180),
+    updatedAt: now,
+  });
+  return message;
+}
+
+export async function setConversationStatus(id: string, status: CrmConversationStatus) {
+  await updateConversation(id, { status, updatedAt: new Date().toISOString() });
+}
+
+export async function markConversationRead(id: string) {
+  await updateConversation(id, {
+    unreadCount: 0,
+    status: "open",
+    updatedAt: new Date().toISOString(),
+  });
 }
 
 export async function registerPayment(receivableId: string, amount: number, note = "Abono manual") {
   if (!Number.isFinite(amount) || amount <= 0) return;
 
   const db = await getFirestore();
-  const ref = db.collection(collectionPath(collectionKeys.receivables)).doc(receivableId);
+  const ref = db.collection(workspacePath("receivables")).doc(receivableId);
 
   await db.runTransaction(async (transaction) => {
     const snapshot = await transaction.get(ref);
