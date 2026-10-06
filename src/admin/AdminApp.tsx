@@ -182,7 +182,7 @@ export default function AdminApp() {
   }
 
   return (
-    <AdminShell identity={identity} workspaceStatus={workspace.connection} workspaceError={workspace.error} onLogout={logout}>
+    <AdminShell identity={identity} workspace={workspace} workspaceStatus={workspace.connection} workspaceError={workspace.error} onLogout={logout}>
       <Routes>
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/dashboard" element={<DashboardView workspace={workspace} />} />
@@ -195,7 +195,7 @@ export default function AdminApp() {
         <Route path="/admin/sales" element={<SalesView workspace={workspace} />} />
         <Route path="/admin/quotes" element={<QuotesView />} />
         <Route path="/admin/tasks" element={<TasksView workspace={workspace} />} />
-        <Route path="/admin/calendar" element={<CalendarView />} />
+        <Route path="/admin/calendar" element={<CalendarView workspace={workspace} />} />
         <Route path="/admin/documents" element={<DocumentsView />} />
         <Route path="/admin/marketing" element={<MarketingView />} />
         <Route path="/admin/team" element={<TeamView />} />
