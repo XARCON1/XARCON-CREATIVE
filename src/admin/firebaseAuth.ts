@@ -1,6 +1,16 @@
 const FIREBASE_SDK_VERSION = "12.19.0";
 export const XARCON_OWNER_EMAIL = "norvingarcia220@gmail.com";
 
+const XARCON_FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDXWiU7W6J2zbTcwOqyE52YuFoO-3bvuAY",
+  authDomain: "xarcon.firebaseapp.com",
+  projectId: "xarcon",
+  storageBucket: "xarcon.firebasestorage.app",
+  messagingSenderId: "565689407659",
+  appId: "1:565689407659:web:60838a4733e36a95c53fee",
+  measurementId: "G-98537BQ6F7",
+} as const;
+
 export type AdminIdentity = {
   uid: string;
   email: string;
@@ -59,12 +69,17 @@ let firebasePromise: Promise<FirebaseCompat | null> | null = null;
 
 function firebaseConfig() {
   return {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY || XARCON_FIREBASE_CONFIG.apiKey,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || XARCON_FIREBASE_CONFIG.authDomain,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || XARCON_FIREBASE_CONFIG.projectId,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || XARCON_FIREBASE_CONFIG.storageBucket,
+    messagingSenderId:
+      import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ||
+      XARCON_FIREBASE_CONFIG.messagingSenderId,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID || XARCON_FIREBASE_CONFIG.appId,
+    measurementId:
+      import.meta.env.VITE_FIREBASE_MEASUREMENT_ID ||
+      XARCON_FIREBASE_CONFIG.measurementId,
   };
 }
 
