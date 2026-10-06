@@ -440,7 +440,7 @@ export function TeamView() {
 export function SettingsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
   const items = [
     ["Persistencia", "Repository/service layer listo para conectar Firebase, Supabase o API propia.", "Pendiente"],
-    ["Autenticación", "Sesión privada mediante función server-side y cookie HttpOnly.", "Activa"],
+    ["Autenticación", "Firebase Auth + Google Sign-In con allowlist Owner y correo verificado.", "Activa"],
     ["Google Calendar", "Punto de integración reservado para agenda empresarial.", "Preparado"],
     ["Google Drive", "Modelo documental preparado para asociar archivos.", "Preparado"],
     ["XARCON AI", "Command surface y acciones separadas de UI para añadir agente.", "Preparado"],
