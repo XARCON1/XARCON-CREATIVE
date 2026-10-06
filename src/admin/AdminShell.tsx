@@ -24,10 +24,12 @@ import {
   X,
 } from "lucide-react";
 import { Symbol } from "../components/Logo";
+import type { AdminIdentity } from "./firebaseAuth";
 import { clients, projects, quotes, tasks } from "./data";
 
 type Props = {
   children: ReactNode;
+  identity: AdminIdentity;
   onLogout: () => Promise<void>;
 };
 
@@ -69,7 +71,7 @@ type SearchItem = {
   path: string;
 };
 
-export default function AdminShell({ children, onLogout }: Props) {
+export default function AdminShell({ children, identity, onLogout }: Props) {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -207,9 +209,9 @@ export default function AdminShell({ children, onLogout }: Props) {
             <button className="hq-ai-preview" type="button" title="Arquitectura preparada para XARCON AI">
               <Sparkles size={16} /> <span>AI ready</span>
             </button>
-            <div className="hq-owner-chip" aria-label="Sesión Owner">
-              <span>NG</span>
-              <div><strong>Owner</strong><small>Acceso total</small></div>
+            <div className="hq-owner-chip" aria-label={`Sesión Owner · ${identity.email}`}>
+              <span>{identity.displayName.split(" ").map((part) => part[0]).slice(0, 2).join("").toUpperCase()}</span>
+              <div><strong>{identity.displayName}</strong><small>Owner · Google</small></div>
             </div>
           </div>
         </header>
