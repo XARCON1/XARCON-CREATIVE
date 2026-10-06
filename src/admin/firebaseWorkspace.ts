@@ -1,6 +1,4 @@
-import {
-  XARCON_FIREBASE_CONFIG,
-} from "./firebaseAuth";
+import { XARCON_FIREBASE_APP_NAME, XARCON_FIREBASE_CONFIG } from "../firebaseConfig";
 import type {
   Client,
   FinanceMovement,
@@ -11,7 +9,7 @@ import type {
 } from "./data";
 
 const FIREBASE_SDK_VERSION = "12.19.0";
-const APP_NAME = "xarcon-admin";
+const APP_NAME = XARCON_FIREBASE_APP_NAME;
 const WORKSPACE_ID = "xarcon";
 
 export type WorkspaceLiveSnapshot = {
