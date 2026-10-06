@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Seo from "../components/Seo";
 import Reveal from "../components/Reveal";
+import { submitPublicInquiry } from "../crm/publicInquiry";
 import "../styles/pages.css";
 const options = [
   { name: "Identidad de marca", label: "Marca", icon: PenTool },
@@ -49,6 +50,9 @@ export default function Contact() {
   const [ready, setReady] = useState(false);
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [crmSent, setCrmSent] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const heading = useRef<HTMLHeadingElement>(null);
   const update = (field: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [field]: value }));
@@ -56,15 +60,41 @@ export default function Contact() {
   const channel = whatsapp
     ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`
     : `mailto:${email}?subject=${encodeURIComponent("Nuevo proyecto · " + selected)}&body=${encodeURIComponent(text)}`;
-  function advance(e: FormEvent) {
+  async function advance(e: FormEvent) {
     e.preventDefault();
     if (step === 0 && !selected) return;
     if (step < 2) {
       setStep(step + 1);
-    } else {
-      setReady(true);
+      setTimeout(() => heading.current?.focus(), 0);
+      return;
     }
-    setTimeout(() => heading.current?.focus(), 0);
+
+    setSending(true);
+    setSubmitError("");
+    try {
+      await submitPublicInquiry({
+        name: form.name,
+        email: form.email,
+        company: form.company,
+        need: selected,
+        budget: form.budget,
+        message: form.message,
+      });
+      setCrmSent(true);
+      setReady(true);
+    } catch (error) {
+      setCrmSent(false);
+      const code = error instanceof Error ? error.message : "";
+      setSubmitError(
+        code === "submission-rate-limited"
+          ? "Ya recibimos una solicitud hace poco desde este dispositivo. Esperá un momento antes de enviar otra."
+          : "No pudimos registrar la solicitud en el CRM. Podés conservar el resumen y contactarnos por el canal disponible.",
+      );
+      setReady(true);
+    } finally {
+      setSending(false);
+      setTimeout(() => heading.current?.focus(), 0);
+    }
   }
   function download() {
     const url = URL.createObjectURL(
@@ -255,16 +285,14 @@ export default function Contact() {
                     </span>
                   )}
                   <button className="button dark" type="submit">
-                    {step === 2 ? "Preparar resumen" : "Continuar"}{" "}
+                    {step === 2 ? (sending ? "Enviando…" : "Enviar a XARCON") : "Continuar"}{" "}
                     <span>
                       <ArrowRight size={17} />
                     </span>
                   </button>
                 </div>
                 <p className="form-privacy">
-                  {connected
-                    ? "Tus datos permanecen en este dispositivo hasta que decidas compartir el resumen."
-                    : "Prepara y descarga tu resumen. El envío directo todavía no está disponible."}
+                  En el último paso, tu solicitud se registra de forma segura en el CRM privado de XARCON.
                 </p>
               </form>
             </>
@@ -280,11 +308,9 @@ export default function Contact() {
                 un punto de partida.
               </h2>
               <p>
-                Tu resumen está preparado.{" "}
-                {connected
-                  ? "Revísalo y abre tu aplicación para compartirlo."
-                  : "Puedes descargarlo o copiarlo para conservarlo."}{" "}
-                No se ha enviado ninguna solicitud.
+                {crmSent
+                  ? "Tu solicitud ya fue enviada al equipo de XARCON y quedó registrada en nuestra bandeja CRM."
+                  : "Tu resumen está preparado, pero la entrega al CRM no pudo completarse. Podés conservarlo o usar un canal alternativo."}
               </p>
               <dl>
                 <div>
@@ -304,6 +330,7 @@ export default function Contact() {
                   <dd>{form.message}</dd>
                 </div>
               </dl>
+              {submitError && <p role="status">{submitError}</p>}
               {connected && (
                 <a
                   className="button dark"
@@ -329,10 +356,10 @@ export default function Contact() {
                 </p>
               )}
               <p className="summary-status" aria-live="polite">
-                {copied
-                  ? "Resumen copiado."
-                  : !connected
-                    ? "El canal de envío está en preparación. Este resumen permanece contigo."
+                {crmSent
+                  ? "Solicitud recibida por XARCON."
+                  : copied
+                    ? "Resumen copiado."
                     : ""}
               </p>
               <button
