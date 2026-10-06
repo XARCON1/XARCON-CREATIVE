@@ -182,7 +182,7 @@ export default function AdminApp() {
   }
 
   return (
-    <AdminShell onLogout={logout}>
+    <AdminShell identity={identity} onLogout={logout}>
       <Routes>
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/dashboard" element={<DashboardView workspace={workspace} />} />
