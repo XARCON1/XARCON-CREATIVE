@@ -1,0 +1,16 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isXarconOwner() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == "norvingarcia220@gmail.com"
+        && request.auth.token.firebase.sign_in_provider == "google.com";
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if isXarconOwner();
+    }
+  }
+}
