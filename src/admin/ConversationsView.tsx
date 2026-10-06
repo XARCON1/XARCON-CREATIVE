@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   Bot,
   Building2,
@@ -32,9 +33,10 @@ export default function ConversationsView({
   workspace: ReturnTypeWorkspace;
   ownerName: string;
 }) {
+  const [params] = useSearchParams();
   const [query, setQuery] = useState("");
   const [scope, setScope] = useState<"all" | "unread" | "open">("all");
-  const [selectedId, setSelectedId] = useState(workspace.conversations[0]?.id || "");
+  const [selectedId, setSelectedId] = useState(params.get("focus") || workspace.conversations[0]?.id || "");
 
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase();
