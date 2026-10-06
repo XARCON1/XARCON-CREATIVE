@@ -31,7 +31,7 @@ export default function AdminApp() {
   const [auth, setAuth] = useState<AuthState>("checking");
   const [identity, setIdentity] = useState<AdminIdentity | null>(null);
   const [error, setError] = useState("");
-  const workspace = useWorkspace();
+  const workspace = useWorkspace(auth === "authenticated" && Boolean(identity));
 
   useEffect(() => {
     let active = true;
@@ -182,7 +182,7 @@ export default function AdminApp() {
   }
 
   return (
-    <AdminShell identity={identity} onLogout={logout}>
+    <AdminShell identity={identity} workspaceStatus={workspace.connection} workspaceError={workspace.error} onLogout={logout}>
       <Routes>
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/dashboard" element={<DashboardView workspace={workspace} />} />
