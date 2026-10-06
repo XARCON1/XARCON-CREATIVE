@@ -11,21 +11,19 @@ Admin cuando la identidad cumple simultáneamente:
 
 Cualquier otra cuenta se cierra inmediatamente.
 
-## Configuración pendiente en Firebase
+## Proyecto Firebase conectado
 
-1. Registrar una Web App para XARCON HQ.
-2. Habilitar Authentication > Sign-in method > Google.
-3. Añadir `xarcon-creative.vercel.app` a Authentication > Settings > Authorized domains.
-4. Copiar la configuración pública de la Web App a Vercel usando:
-   - `VITE_FIREBASE_API_KEY`
-   - `VITE_FIREBASE_AUTH_DOMAIN`
-   - `VITE_FIREBASE_PROJECT_ID`
-   - `VITE_FIREBASE_STORAGE_BUCKET`
-   - `VITE_FIREBASE_MESSAGING_SENDER_ID`
-   - `VITE_FIREBASE_APP_ID`
+El repositorio está enlazado al proyecto Firebase `xarcon` mediante `.firebaserc` y usa la
+configuración pública de su Web App como valor por defecto.
 
-Estas variables son configuración cliente. Nunca usar aquí service-account JSON, private keys
-ni credenciales de Firebase Admin SDK.
+Pendiente únicamente en Firebase Console:
+
+1. Habilitar Authentication > Sign-in method > Google.
+2. Añadir `xarcon-creative.vercel.app` a Authentication > Settings > Authorized domains.
+3. Publicar `firestore.rules` y `storage.rules` en el proyecto `xarcon`.
+
+Las variables `VITE_FIREBASE_*` siguen disponibles solo como overrides opcionales. Nunca usar
+service-account JSON, private keys ni credenciales de Firebase Admin SDK en el frontend.
 
 ## Reglas: principio obligatorio
 
