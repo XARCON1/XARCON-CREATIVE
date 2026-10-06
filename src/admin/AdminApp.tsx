@@ -35,7 +35,7 @@ export default function AdminApp() {
 
   useEffect(() => {
     let active = true;
-    let unsubscribe = () => undefined;
+    let unsubscribe: () => void = () => undefined;
 
     void observeAdminAuth((snapshot) => {
       if (!active) return;
