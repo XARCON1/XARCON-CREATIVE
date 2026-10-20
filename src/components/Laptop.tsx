@@ -15,7 +15,7 @@ export default function Laptop({ paused: _paused, active: _active }: { paused: b
           <span className="laptop-camera" />
           <div className="laptop-display">
             <div className="laptop-film laptop-local-ad">
-              <img src="/images/mountain.webp" alt="" />
+              <img src="/images/ocean.webp" alt="" />
               <div className="laptop-local-shade" />
 
               <div className="laptop-film-brand">
