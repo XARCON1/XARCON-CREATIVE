@@ -327,22 +327,21 @@
 }
 
 
-/* AVALNIC: stable vector sizing inside the client carousel */
+/* AVALNIC: fit the full vertical logo within the centered card content area. */
 .client-logo-card--avalnic img {
-  width: 148px;
-  height: 88px;
-  max-width: 148px;
-  max-height: 88px;
+  width: 100px;
+  height: 62px;
+  max-width: 100px;
+  max-height: 62px;
   object-fit: contain;
   object-position: center;
-  flex: 0 0 auto;
 }
 
 @media (max-width: 767px) {
   .client-logo-card--avalnic img {
-    width: 132px;
-    height: 82px;
-    max-width: 132px;
-    max-height: 82px;
+    width: 96px;
+    height: 60px;
+    max-width: 96px;
+    max-height: 60px;
   }
 }
