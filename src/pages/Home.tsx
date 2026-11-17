@@ -1,4 +1,6 @@
 import Hero from "../sections/Hero";
+import CommercialSections, { WhyXarcon } from "../sections/CommercialSections";
+import "../styles/commercial.css";
 import SolutionsOverview from "../sections/SolutionsOverview";
 import Capabilities from "../sections/Capabilities";
 import ProcessOverview from "../sections/ProcessOverview";
@@ -20,6 +22,8 @@ export default function Home() {
         <ClientMarquee />
         <SolutionsOverview />
         <Capabilities />
+        <CommercialSections />
+        <WhyXarcon />
         <ProcessOverview />
         <div className="origin-line wrap">
           <span>HECHO DESDE NICARAGUA.</span>
@@ -28,7 +32,7 @@ export default function Home() {
             <br />
             <b>para negocios reales.</b>
           </p>
-          <span>DISEÑO / WEB / SISTEMAS</span>
+          <span>SOFTWARE / WEB / IA</span>
         </div>
         <Closing />
       </div>

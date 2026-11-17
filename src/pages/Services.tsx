@@ -33,15 +33,12 @@ export default function Services() {
         <Reveal className="services-intro-copy">
           <span className="eyebrow">SERVICIOS / UNA VISIÓN COMPLETA</span>
           <h1>
-            Buenas ideas.
+            Tecnología para
             <br />
-            Todas las formas
-            <br />
-            <em>de hacerlas realidad.</em>
+            <em>cada reto empresarial.</em>
           </h1>
           <p>
-            De la personalidad de tu marca a las herramientas que hacen
-            funcionar tu negocio.
+            Software, sistemas de gestión, web corporativa, automatización e integraciones adaptadas a tu operación.
           </p>
           <a className="text-link" href="#explorar-servicios">
             Explora nuestras capacidades <ArrowUpRight size={17} />
@@ -97,6 +94,7 @@ export default function Services() {
                 <span className="eyebrow">{service.name}</span>
                 <h3>{service.line}</h3>
                 <p>{service.description}</p>
+                <p><strong>Para:</strong> {service.audience}</p>
                 <ul>
                   {service.deliverables.map((d) => (
                     <li key={d}>
@@ -109,7 +107,7 @@ export default function Services() {
                   to={`/contacto?servicio=${encodeURIComponent(service.name)}`}
                   variant="dark"
                 >
-                  Hablemos de tu proyecto
+                  Solicitar cotización
                 </Button>
               </div>
             </div>

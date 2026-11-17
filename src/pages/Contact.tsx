@@ -18,14 +18,10 @@ import Seo from "../components/Seo";
 import Reveal from "../components/Reveal";
 import { submitPublicInquiry } from "../crm/publicInquiry";
 import "../styles/pages.css";
-const options = [
-  { name: "Identidad de marca", label: "Marca", icon: PenTool },
-  { name: "Sitios web", label: "Sitio web", icon: Monitor },
-  { name: "Sistemas digitales", label: "Sistema digital", icon: Layers3 },
-  { name: "Automatización", label: "Automatización", icon: Zap },
-  { name: "Estrategia digital", label: "Estrategia", icon: Compass },
-  { name: "No estoy seguro", label: "No estoy seguro", icon: HelpCircle },
-];
+import { services } from "../data";
+const serviceIcons = [Layers3, Monitor, Layers3, Zap, Monitor, Compass, Zap, PenTool];
+const options = [...services.map((service, i) => ({ name: service.name, label: service.name, icon: serviceIcons[i % serviceIcons.length] })), { name: "No estoy seguro", label: "Necesito asesoría", icon: HelpCircle }];
+const aliases: Record<string,string> = { "Sitios web": "Web corporativa", "Sistemas digitales": "Sistemas administrativos y de gestión", "Automatización": "Automatización empresarial con IA", "Estrategia digital": "Marketing digital y soluciones creativas", "Experiencias especiales": "Integraciones tecnológicas" };
 const email = import.meta.env.VITE_CONTACT_EMAIL?.trim() || "";
 const whatsapp = (import.meta.env.VITE_CONTACT_WHATSAPP || "").replace(
   /\D/g,
@@ -34,16 +30,14 @@ const whatsapp = (import.meta.env.VITE_CONTACT_WHATSAPP || "").replace(
 const connected = Boolean(email || whatsapp);
 export default function Contact() {
   const [params] = useSearchParams();
-  const [selected, setSelected] = useState(
-    options.some((o) => o.name === params.get("servicio"))
-      ? params.get("servicio")!
-      : "",
-  );
+  const requested = params.get("servicio") || "";
+  const [selected, setSelected] = useState(options.some((o) => o.name === (aliases[requested] || requested)) ? (aliases[requested] || requested) : "");
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
     name: "",
     email: "",
     company: "",
+    phone: "",
     budget: "",
     message: "",
   });
@@ -56,7 +50,7 @@ export default function Contact() {
   const heading = useRef<HTMLHeadingElement>(null);
   const update = (field: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [field]: value }));
-  const text = `PROYECTO · XARCON CREATIVE\n\nNecesidad: ${selected}\nNombre: ${form.name}\nCorreo: ${form.email}\nEmpresa: ${form.company || "No indicada"}\nPresupuesto: ${form.budget || "Por definir"}\n\n${form.message}`;
+  const text = `PROYECTO · XARCON CREATIVE\n\nNecesidad: ${selected}\nNombre: ${form.name}\nCorreo: ${form.email}\nTeléfono: ${form.phone}\nEmpresa: ${form.company || "No indicada"}\nPresupuesto: ${form.budget || "Por definir"}\n\n${form.message}`;
   const channel = whatsapp
     ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`
     : `mailto:${email}?subject=${encodeURIComponent("Nuevo proyecto · " + selected)}&body=${encodeURIComponent(text)}`;
@@ -75,6 +69,7 @@ export default function Contact() {
       await submitPublicInquiry({
         name: form.name,
         email: form.email,
+        phone: form.phone,
         company: form.company,
         need: selected,
         budget: form.budget,
@@ -123,11 +118,9 @@ export default function Contact() {
           <Reveal>
             <span className="eyebrow">CONTACTO / EL PRIMER PASO</span>
             <h1>
-              Cuéntanos
+              Solicita una
               <br />
-              qué quieres
-              <br />
-              <em>construir.</em>
+              <em>propuesta.</em>
             </h1>
             <p>
               Una idea, una pregunta o un reto.
@@ -135,6 +128,7 @@ export default function Contact() {
               Hay muchas formas de empezar.
             </p>
           </Reveal>
+          {whatsapp && <a className="text-link" href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer">Contactar por WhatsApp <ArrowUpRight size={17} /></a>}
           <div className="contact-side-note">
             <span>BASE EN NICARAGUA</span>
             <p>
@@ -256,10 +250,15 @@ export default function Contact() {
                       />
                     </label>
                     <label>
-                      Empresa <span>(opcional)</span>
+                      Teléfono
+                      <input name="phone" type="tel" required minLength={7} maxLength={40} autoComplete="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="+505 0000 0000" />
+                    </label>
+                    <label>
+                      Empresa
                       <input
                         value={form.company}
                         onChange={(e) => update("company", e.target.value)}
+                        required
                         maxLength={150}
                         autoComplete="organization"
                         placeholder="Nombre de tu negocio"
@@ -299,13 +298,11 @@ export default function Contact() {
           ) : (
             <div className="project-summary">
               <span className="summary-check">
-                <Check size={26} />
+                {crmSent ? <Check size={26} /> : <HelpCircle size={26} />}
               </span>
               <span className="eyebrow">TU IDEA, UN POCO MÁS CERCA</span>
               <h2 tabIndex={-1} ref={heading}>
-                Ya tiene
-                <br />
-                un punto de partida.
+                {crmSent ? "Solicitud recibida." : "Solicitud no enviada."}
               </h2>
               <p>
                 {crmSent
@@ -324,6 +321,10 @@ export default function Contact() {
                 <div>
                   <dt>Correo</dt>
                   <dd>{form.email}</dd>
+                </div>
+                <div>
+                  <dt>Teléfono</dt>
+                  <dd>{form.phone}</dd>
                 </div>
                 <div>
                   <dt>Tu idea</dt>

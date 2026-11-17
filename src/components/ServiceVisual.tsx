@@ -15,7 +15,7 @@ import {
 import { Symbol } from "./Logo";
 import { WebInterface } from "./WebInterface";
 export type ServiceKind =
-  "identity" | "web" | "systems" | "automation" | "strategy" | "special";
+  "identity" | "web" | "systems" | "automation" | "strategy" | "special" | "software" | "commerce";
 export function AutomationFlow() {
   const [running, setRunning] = useState(false);
   return (
@@ -184,8 +184,8 @@ export default function ServiceVisual({ kind }: { kind: ServiceKind }) {
   const [webPage, setWebPage] = useState(0);
   if (kind === "identity") return <BrandVisual />;
   if (kind === "automation") return <AutomationFlow />;
-  if (kind === "systems") return <SystemVisual />;
-  if (kind === "web")
+  if (kind === "systems" || kind === "software") return <SystemVisual />;
+  if (kind === "web" || kind === "commerce")
     return (
       <div className="web-visual">
         <div className="browser-chrome">

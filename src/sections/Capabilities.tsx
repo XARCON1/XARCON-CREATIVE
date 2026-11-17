@@ -7,7 +7,7 @@ import DepthReveal from "../components/DepthReveal";
 import ServiceVisual from "../components/ServiceVisual";
 import { services } from "../data";
 export default function Capabilities() {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
   const reduced = useReducedMotion();
   return (
     <section className="capabilities">
@@ -16,11 +16,9 @@ export default function Capabilities() {
           <Reveal>
             <span className="eyebrow light">02 / EN QUÉ TE AYUDAMOS</span>
             <h2>
-              Tu negocio ya tiene una historia.
+              Soluciones tecnológicas
               <br />
-              Nosotros te ayudamos
-              <br />
-              <em>a llevarla más lejos.</em>
+              <em>para operar y crecer.</em>
             </h2>
           </Reveal>
           <DepthReveal className="capabilities-depth" side={-1}>
@@ -55,10 +53,11 @@ export default function Capabilities() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: reduced ? 0 : 0.28 }}
                   >
-                    <p>{s.line}</p>
+                    <p>{s.line} {s.description}</p>
                     <Link to={`/servicios#${s.id}`}>
-                      Ver cómo te ayudamos <ArrowUpRight size={15} />
+                      Explorar servicio <ArrowUpRight size={15} />
                     </Link>
+                    <Link to={`/contacto?servicio=${encodeURIComponent(s.name)}`}>Solicitar cotización <ArrowUpRight size={15} /></Link>
                   </motion.div>
                 )}
               </AnimatePresence>

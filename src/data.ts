@@ -1,99 +1,126 @@
 import type { ServiceKind } from "./components/ServiceVisual";
-export const services: {
-  id: ServiceKind;
-  name: string;
-  line: string;
-  description: string;
-  deliverables: string[];
-}[] = [
+export const services: { id: ServiceKind; name: string; line: string; description: string; audience: string; deliverables: string[] }[] = [
   {
-    id: "identity",
-    name: "Identidad de marca",
-    line: "Una marca que se siente tuya y la gente recuerda.",
-    description:
-      "Transformamos lo que hace único a tu negocio en una identidad con carácter, de la primera impresión al último detalle.",
-    deliverables: ["Dirección de marca", "Identidad visual", "Guía de uso"],
+    "id": "software",
+    "name": "Software empresarial a medida",
+    "line": "Una solución construida alrededor de tu operación.",
+    "description": "Cuando las herramientas genéricas no se adaptan a tu negocio, diseñamos aplicaciones con flujos, datos y permisos definidos según tus necesidades.",
+    "audience": "Empresas de servicios, comercios y equipos con procesos propios.",
+    "deliverables": [
+      "Análisis funcional",
+      "Aplicaciones a medida",
+      "Arquitectura preparada para evolucionar"
+    ]
   },
   {
-    id: "web",
-    name: "Sitios web",
-    line: "Una web clara, rápida y hecha para representar bien tu negocio.",
-    description:
-      "Diseñamos y desarrollamos espacios digitales que cuentan tu historia, hacen fácil explorar y convierten el interés en conversación.",
-    deliverables: [
-      "Diseño a medida",
-      "Desarrollo adaptable",
-      "Preparación para buscadores",
-    ],
+    "id": "web",
+    "name": "Web corporativa",
+    "line": "Una presencia digital que abre conversaciones comerciales.",
+    "description": "Desarrollamos sitios profesionales para explicar tus servicios y facilitar el contacto, con una experiencia adaptable y estructura para buscadores.",
+    "audience": "Empresas, profesionales e instituciones.",
+    "deliverables": [
+      "Diseño personalizado",
+      "Desarrollo responsive",
+      "SEO técnico inicial"
+    ]
   },
   {
-    id: "systems",
-    name: "Sistemas digitales",
-    line: "Menos enredos. Más control sobre lo que pasa en tu negocio.",
-    description:
-      "Reunimos información, personas y tareas en herramientas pensadas para la forma en que trabaja tu equipo.",
-    deliverables: [
+    "id": "systems",
+    "name": "Sistemas administrativos y de gestión",
+    "line": "Centraliza la información y toma el control.",
+    "description": "Sustituye procesos dispersos en hojas, archivos y chats por una plataforma que organice el trabajo y facilite el seguimiento.",
+    "audience": "Inmobiliarias, intermediarias, comercios y equipos administrativos.",
+    "deliverables": [
       "Paneles de gestión",
       "Roles y permisos",
-      "Información conectada",
-    ],
+      "Registros y reportes"
+    ]
   },
   {
-    id: "automation",
-    name: "Automatización",
-    line: "Menos tareas repetidas. Más tiempo para lo importante.",
-    description:
-      "Conectamos herramientas y simplificamos tareas repetitivas para que puedas concentrarte en las decisiones que hacen crecer tu negocio.",
-    deliverables: [
-      "Mapa de procesos",
-      "Conexiones entre herramientas",
-      "Flujos de seguimiento",
-    ],
+    "id": "automation",
+    "name": "Automatización empresarial con IA",
+    "line": "Reduce tareas repetitivas y recupera tiempo de trabajo.",
+    "description": "Diseñamos flujos de automatización e integración de IA donde aporten valor, con alcance y supervisión acordados según cada proceso.",
+    "audience": "Equipos comerciales, administrativos y de atención.",
+    "deliverables": [
+      "Diagnóstico de procesos",
+      "Flujos inteligentes",
+      "Integración con herramientas"
+    ]
   },
   {
-    id: "strategy",
-    name: "Estrategia digital",
-    line: "Primero entendemos qué necesitás. Después trazamos la ruta.",
-    description:
-      "Aclaramos a quién quieres llegar, qué necesitas comunicar y qué acciones tienen sentido para tu siguiente etapa.",
-    deliverables: [
-      "Diagnóstico",
-      "Plan de comunicación",
-      "Prioridades y medición",
-    ],
+    "id": "commerce",
+    "name": "Comercio electrónico",
+    "line": "Facilita el recorrido del producto al pedido.",
+    "description": "Construimos catálogos y experiencias de compra adaptados a la operación del negocio; las integraciones de pago y entrega se definen por proyecto.",
+    "audience": "Tiendas, reposterías y negocios que venden productos.",
+    "deliverables": [
+      "Catálogo digital",
+      "Gestión de pedidos",
+      "Experiencia de compra"
+    ]
   },
   {
-    id: "special",
-    name: "Experiencias especiales",
-    line: "Cuando una idea no cabe en una plantilla, la construimos a medida.",
-    description:
-      "Micrositios, lanzamientos y experiencias interactivas que dan espacio a una idea que no cabe en lo habitual.",
-    deliverables: [
-      "Concepto creativo",
-      "Prototipo interactivo",
-      "Desarrollo a medida",
-    ],
+    "id": "strategy",
+    "name": "Marketing digital y soluciones creativas",
+    "line": "Comunica tu valor con una estrategia coherente.",
+    "description": "Alineamos identidad, contenido y canales digitales con tus objetivos comerciales, sin prometer resultados que dependan del mercado.",
+    "audience": "Marcas, profesionales y empresas en crecimiento.",
+    "deliverables": [
+      "Diagnóstico comercial",
+      "Estrategia de comunicación",
+      "Diseño y contenido"
+    ]
   },
+  {
+    "id": "special",
+    "name": "Integraciones tecnológicas",
+    "line": "Conecta tus herramientas y evita duplicar trabajo.",
+    "description": "Evaluamos APIs, sistemas y servicios externos para intercambiar información y construir experiencias conectadas, según su viabilidad técnica.",
+    "audience": "Empresas con plataformas existentes y procesos desconectados.",
+    "deliverables": [
+      "Evaluación de APIs",
+      "Integración de datos",
+      "Flujos entre sistemas"
+    ]
+  },
+  {
+    "id": "identity",
+    "name": "Identidad de marca",
+    "line": "Una marca coherente con el valor que ofreces.",
+    "description": "Diseñamos sistemas visuales que ayudan a comunicar de manera profesional en los distintos puntos de contacto.",
+    "audience": "Nuevas empresas y marcas en evolución.",
+    "deliverables": [
+      "Dirección de marca",
+      "Identidad visual",
+      "Guía de uso"
+    ]
+  }
 ];
 export const processSteps = [
   {
-    title: "Nos conocemos",
-    text: "Nos contás qué hacés, qué necesitás y qué querés mejorar.",
-    image: "mountain",
+    "title": "Consulta y diagnóstico",
+    "text": "Identificamos el reto, los objetivos y los procesos de tu empresa.",
+    "image": "mountain"
   },
   {
-    title: "Trazamos la ruta",
-    text: "Definimos prioridades, alcance y una solución clara antes de construir.",
-    image: "studio",
+    "title": "Propuesta tecnológica y comercial",
+    "text": "Acordamos alcance, entregables, inversión y plan de trabajo.",
+    "image": "studio"
   },
   {
-    title: "Lo construimos",
-    text: "Diseñamos, desarrollamos y te mostramos avances para decidir juntos.",
-    image: "future",
+    "title": "Diseño y desarrollo",
+    "text": "Construimos la solución y compartimos avances.",
+    "image": "future"
   },
   {
-    title: "Lo ponemos a funcionar",
-    text: "Probamos, ajustamos y dejamos tu proyecto listo para usar de verdad.",
-    image: "hero",
+    "title": "Validación y pruebas",
+    "text": "Revisamos los flujos y ajustamos antes de implementar.",
+    "image": "hero"
   },
+  {
+    "title": "Implementación y acompañamiento",
+    "text": "Publicamos, entregamos y acordamos el soporte según el servicio.",
+    "image": "ocean"
+  }
 ];

@@ -9,7 +9,7 @@ export default function SiteFooter() {
       <div className="wrap">
         <div className="footer-top">
           <span>
-            Diseño y tecnología
+            Desarrollo tecnológico
             <br />
             <b>hechos para negocios reales.</b>
           </span>
@@ -41,7 +41,7 @@ export default function SiteFooter() {
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} XARCON Creative</span>
           <span>Hecho en Nicaragua.</span>
-          <span>DISEÑO. WEB. SISTEMAS.</span>
+          <span>SOFTWARE. WEB. IA.</span>
         </div>
       </div>
     </footer>

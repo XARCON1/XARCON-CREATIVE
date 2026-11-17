@@ -1,32 +1,32 @@
 {
   "home": {
     "path": "/",
-    "title": "XARCON Creative — Ideas con forma. Negocios con futuro.",
-    "description": "Estudio de diseño, estrategia y tecnología. Creamos marcas, sitios web, sistemas digitales y automatización desde Nicaragua, con visión abierta."
+    "title": "XARCON | Desarrollo de software y tecnología en Nicaragua",
+    "description": "Desarrollo de software empresarial, sitios web profesionales, sistemas administrativos y automatización con IA desde Matagalpa, Nicaragua."
   },
   "services": {
     "path": "/servicios",
-    "title": "Servicios — XARCON Creative",
-    "description": "Identidad de marca, sitios web, sistemas digitales, automatización, estrategia y experiencias especiales. Soluciones a la medida de tu negocio."
+    "title": "Software empresarial, web y automatización en Nicaragua | XARCON",
+    "description": "Software a medida, sistemas de gestión, diseño web profesional, comercio electrónico e integraciones para empresas en Nicaragua."
   },
   "solutions": {
     "path": "/soluciones",
-    "title": "Soluciones para tu siguiente etapa — XARCON Creative",
-    "description": "Diseño y tecnología para marcas en crecimiento, equipos en evolución y productos con visión de futuro. Explora el camino para tu negocio."
+    "title": "Soluciones de transformación digital | XARCON Nicaragua",
+    "description": "Soluciones tecnológicas para empresas: presencia digital, gestión de operaciones y productos digitales escalables."
   },
   "process": {
     "path": "/proceso",
-    "title": "Nuestro proceso — XARCON Creative",
-    "description": "Descubrimos, definimos, diseñamos, construimos, lanzamos y evolucionamos. Un camino claro y compartido para dar forma a tu idea."
+    "title": "Proceso de contratación y desarrollo | XARCON",
+    "description": "Consulta, propuesta tecnológica, diseño y desarrollo, pruebas e implementación con acompañamiento acordado."
   },
   "about": {
     "path": "/nosotros",
-    "title": "El estudio — XARCON Creative",
-    "description": "Somos un estudio de diseño, estrategia y tecnología. Creemos en la claridad, el propósito y las ideas bien construidas. Base en Nicaragua, visión abierta."
+    "title": "Empresa de desarrollo tecnológico en Nicaragua | XARCON",
+    "description": "XARCON combina desarrollo de software, diseño y estrategia digital para empresas desde Matagalpa, Nicaragua."
   },
   "contact": {
     "path": "/contacto",
-    "title": "Cuéntanos tu idea — XARCON Creative",
-    "description": "Cuéntanos qué quieres construir: una marca, un sitio web, un sistema digital o una nueva experiencia. Prepara tu proyecto con XARCON Creative."
+    "title": "Solicitar propuesta de desarrollo de software | XARCON",
+    "description": "Solicita una cotización para software empresarial, desarrollo web, automatización o integraciones tecnológicas."
   }
 }

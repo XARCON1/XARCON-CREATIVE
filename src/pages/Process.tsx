@@ -8,7 +8,6 @@ import {
   PenTool,
   Code2,
   Send,
-  RefreshCw,
 } from "lucide-react";
 import Reveal from "../components/Reveal";
 import Button from "../components/Button";
@@ -16,54 +15,11 @@ import Seo from "../components/Seo";
 import Closing from "../sections/Closing";
 import "../styles/pages.css";
 const steps = [
-  {
-    title: "Descubrir",
-    question: "¿Qué vale la pena resolver?",
-    text: "Escuchamos tu contexto, tus clientes y tus objetivos. La mejor respuesta empieza con las preguntas correctas.",
-    delivery: "Mapa del reto",
-    items: ["Contexto", "Personas", "Objetivos"],
-    icon: Compass,
-  },
-  {
-    title: "Definir",
-    question: "Una idea. Una dirección.",
-    text: "Acordamos las prioridades, el alcance y una ruta realista. Sabes qué vamos a construir y por qué.",
-    delivery: "Ruta y alcance",
-    items: ["Prioridades", "Entregables", "Plan"],
-    icon: ArrowUpRight,
-  },
-  {
-    title: "Diseñar",
-    question: "Ver la idea antes de construirla.",
-    text: "Exploramos la identidad y la experiencia. Revisas propuestas y prototipos para decidir con claridad.",
-    delivery: "Diseño y prototipo",
-    items: ["Explorar", "Probar", "Afinar"],
-    icon: PenTool,
-  },
-  {
-    title: "Construir",
-    question: "Que funcione tan bien como se ve.",
-    text: "Convertimos el diseño en una solución funcional. Cuidamos velocidad, accesibilidad y adaptación a cada pantalla.",
-    delivery: "Versión funcional",
-    items: ["Desarrollo", "Conexiones", "Pruebas"],
-    icon: Code2,
-  },
-  {
-    title: "Lanzar",
-    question: "El momento de salir al mundo.",
-    text: "Revisamos juntos los últimos detalles, publicamos y te entregamos lo necesario para usar tu nueva herramienta.",
-    delivery: "Publicación y guía",
-    items: ["Revisión", "Publicación", "Entrega"],
-    icon: Send,
-  },
-  {
-    title: "Evolucionar",
-    question: "Lo que sigue también se diseña.",
-    text: "Observamos lo que aprendemos y definimos mejoras. El acompañamiento posterior se acuerda según tu proyecto.",
-    delivery: "Siguientes pasos",
-    items: ["Observar", "Aprender", "Mejorar"],
-    icon: RefreshCw,
-  },
+  {title:"Consulta y diagnóstico",question:"¿Qué necesita resolver tu empresa?",text:"Identificamos objetivos, procesos y necesidades.",delivery:"Diagnóstico inicial",items:["Contexto","Objetivos","Procesos"],icon:Compass},
+  {title:"Propuesta tecnológica y comercial",question:"Alcance e inversión claros.",text:"Definimos qué construiremos, los entregables y las condiciones comerciales.",delivery:"Propuesta",items:["Alcance","Inversión","Plan"],icon:ArrowUpRight},
+  {title:"Diseño y desarrollo",question:"De la propuesta a una solución funcional.",text:"Diseñamos y desarrollamos por etapas, compartiendo avances.",delivery:"Versión funcional",items:["Diseño","Desarrollo","Integraciones"],icon:Code2},
+  {title:"Validación y pruebas",question:"Comprobamos antes de implementar.",text:"Revisamos flujos, permisos y experiencia según el alcance acordado.",delivery:"Validación",items:["Pruebas","Revisión","Ajustes"],icon:PenTool},
+  {title:"Implementación y acompañamiento",question:"Una solución lista para operar.",text:"Realizamos la entrega y acordamos el acompañamiento y soporte según el servicio contratado.",delivery:"Entrega",items:["Publicación","Guía","Soporte acordado"],icon:Send},
 ];
 export default function Process() {
   const ref = useRef<HTMLDivElement>(null);
@@ -93,7 +49,7 @@ export default function Process() {
       </section>
       <div id="camino" ref={ref} className="process-story wrap">
         <aside className="process-sticky">
-          <span className="eyebrow">SEIS MOMENTOS. UN PROPÓSITO.</span>
+          <span className="eyebrow">CINCO ETAPAS. UN PROPÓSITO.</span>
           <h2>
             Claridad en
             <br />

@@ -28,7 +28,7 @@ export default function About() {
     <>
       <Seo page="about" />
       <section className="about-intro page-intro wrap">
-        <span className="eyebrow">EL ESTUDIO / NUESTRA FORMA DE VER</span>
+        <span className="eyebrow">XARCON / DESARROLLO TECNOLÓGICO</span>
         <Reveal>
           <h1>
             Pensamos con intención.
@@ -41,8 +41,7 @@ export default function About() {
         <div className="about-intro-bottom">
           <Symbol />
           <p>
-            Somos XARCON Creative. Un estudio donde estrategia, diseño y
-            tecnología se encuentran para hacer avanzar negocios.
+            Somos XARCON Creative, una empresa de desarrollo tecnológico y soluciones digitales. Combinamos software, estrategia y diseño para resolver necesidades empresariales.
           </p>
           <span>
             DISEÑO HUMANO.

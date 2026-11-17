@@ -9,6 +9,7 @@ export const links = [
   ["/", "Inicio"],
   ["/servicios", "Servicios"],
   ["/soluciones", "Soluciones"],
+  ["/#proyectos", "Proyectos"],
   ["/proceso", "Proceso"],
   ["/nosotros", "Nosotros"],
   ["/contacto", "Contacto"],
@@ -60,7 +61,7 @@ export default function Navigation() {
           ))}
         </nav>
         <Link className="nav-project" to="/contacto">
-          Iniciar proyecto <ArrowUpRight size={16} />
+          Solicitar propuesta <ArrowUpRight size={16} />
         </Link>
         <button
           ref={toggle}

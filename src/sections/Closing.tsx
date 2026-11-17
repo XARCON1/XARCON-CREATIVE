@@ -16,15 +16,15 @@ export default function Closing() {
         <Reveal>
           <span className="eyebrow light">HABLEMOS</span>
           <h2>
-            ¿Tenés una idea?
+            ¿Qué necesita resolver
             <br />
-            Conversemos.
+            tu empresa?
           </h2>
           <p>
             Contanos qué querés mejorar, construir o poner en marcha. Nosotros
             te ayudamos a encontrar una forma clara de hacerlo.
           </p>
-          <Button>Contanos tu idea</Button>
+          <Button>Solicitar una propuesta</Button>
         </Reveal>
         <span className="closing-origin">
           Nicaragua · trabajo cercano · visión grande.

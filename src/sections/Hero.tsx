@@ -35,21 +35,20 @@ export default function Hero() {
         <div className="hero-inner wrap">
           <Reveal className="hero-copy" delay={0.72}>
             <div className="eyebrow light">
-              <span className="eyebrow-rule" /> DISEÑO, WEB Y TECNOLOGÍA
+              <span className="eyebrow-rule" /> DESARROLLO TECNOLÓGICO · NICARAGUA
             </div>
             <h1>
-              Haz que
+              Transformamos empresas
               <br />
-              <em>te elijan.</em>
+              <em>mediante tecnología.</em>
             </h1>
             <p>
-              Creamos páginas, sistemas y marcas que ayudan a tu negocio
-              <br className="desktop-break" /> a verse mejor, trabajar con más orden y crecer con confianza.
+              Desarrollamos software, plataformas digitales y soluciones inteligentes para optimizar tu operación e impulsar el crecimiento de tu empresa.
             </p>
             <div className="hero-actions">
-              <Button>Contanos tu idea</Button>
-              <Link className="text-link light-link" to="/proceso">
-                Ver cómo trabajamos <ArrowUpRight size={17} />
+              <Button>Solicitar una propuesta</Button>
+              <Link className="text-link light-link" to="/#proyectos">
+                Explorar nuestros proyectos <ArrowUpRight size={17} />
               </Link>
             </div>
           </Reveal>
@@ -62,7 +61,7 @@ export default function Hero() {
             <ArrowDown size={16} /> Conocé lo que hacemos
           </a>
           <span>HECHO EN NICARAGUA · PARA NEGOCIOS REALES</span>
-          <span className="hero-edition">DISEÑO / WEB / SISTEMAS</span>
+          <span className="hero-edition">SOFTWARE / WEB / IA</span>
         </div>
       </section>
     </>

@@ -10,6 +10,7 @@ const LAST_SUBMISSION_KEY = "xarcon:last-crm-submission";
 type PublicInquiryInput = {
   name: string;
   email: string;
+  phone: string;
   company?: string;
   need: string;
   budget?: string;
@@ -104,6 +105,7 @@ function assertInput(input: PublicInquiryInput) {
   if (email.length < 5 || email.length > 200 || !email.includes("@")) {
     throw new Error("invalid-email");
   }
+  if (input.phone.trim().length > 40 || input.phone.replace(/\D/g, "").length < 7) throw new Error("invalid-phone");
   if (need.length < 2 || need.length > 120) throw new Error("invalid-need");
   if (message.length < 10 || message.length > 4000) throw new Error("invalid-message");
 }
@@ -127,7 +129,7 @@ export async function submitPublicInquiry(input: PublicInquiryInput) {
     status: "new",
     contactName: input.name.trim(),
     email: input.email.trim().toLowerCase(),
-    phone: "",
+    phone: input.phone.trim(),
     company: (input.company || "").trim(),
     clientId: "",
     subject: input.need.trim(),
