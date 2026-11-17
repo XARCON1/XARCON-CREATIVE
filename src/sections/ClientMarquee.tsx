@@ -37,7 +37,7 @@ function ClientGroup({ duplicate = false }: { duplicate?: boolean }) {
 
 export default function ClientMarquee() {
   return (
-    <section className="client-showcase" aria-labelledby="client-showcase-title">
+    <section id="proyectos" className="client-showcase" aria-labelledby="client-showcase-title" style={{ scrollMarginTop: 115 }}>
       <div className="client-showcase-head wrap">
         <span className="client-showcase-kicker">TRABAJO QUE YA EXISTE</span>
         <div className="client-showcase-copy">

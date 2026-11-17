@@ -1,5 +1,5 @@
 import Hero from "../sections/Hero";
-import CommercialSections, { WhyXarcon } from "../sections/CommercialSections";
+import { WhyXarcon } from "../sections/CommercialSections";
 import "../styles/commercial.css";
 import SolutionsOverview from "../sections/SolutionsOverview";
 import Capabilities from "../sections/Capabilities";
@@ -22,7 +22,6 @@ export default function Home() {
         <ClientMarquee />
         <SolutionsOverview />
         <Capabilities />
-        <CommercialSections />
         <WhyXarcon />
         <ProcessOverview />
         <div className="origin-line wrap">
