@@ -7,6 +7,7 @@ import Reveal from "../components/Reveal";
 import SceneOpening from "../components/SceneOpening";
 import useSceneCamera from "../animations/useSceneCamera";
 import PointerRibbon from "../components/PointerRibbon";
+import "../styles/hero-commercial.css";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -16,11 +17,11 @@ export default function Hero() {
   return (
     <>
       <SceneOpening />
-      <section className="hero hero-directed" ref={ref}>
+      <section className="hero hero-directed hero-commercial" ref={ref}>
         <picture className="hero-picture">
-          <source media="(max-width: 767px)" srcSet="/images/hero-mobile.webp" />
+          <source media="(max-width: 767px)" srcSet="/images/studio.webp" />
           <img
-            src="/images/hero.webp"
+            src="/images/studio.webp"
             width="1920"
             height="1080"
             fetchPriority="high"
@@ -28,6 +29,8 @@ export default function Hero() {
           />
         </picture>
         <div className="hero-shade" />
+        <div className="hero-lightstage" aria-hidden="true"><i /><i /><i /></div>
+        <svg className="hero-neon-frame" aria-hidden="true" focusable="false"><rect className="frame-base" x="1" y="1" width="100%" height="100%" rx="14" pathLength="100"/><rect className="frame-halo" x="1" y="1" width="100%" height="100%" rx="14" pathLength="100"/><rect className="frame-pulse" x="1" y="1" width="100%" height="100%" rx="14" pathLength="100"/><rect className="frame-core" x="1" y="1" width="100%" height="100%" rx="14" pathLength="100"/></svg>
         <div className="scene-light" aria-hidden="true" />
         <PointerRibbon />
         <div className="scene-grain" aria-hidden="true" />
@@ -38,15 +41,15 @@ export default function Hero() {
               <span className="eyebrow-rule" /> DESARROLLO TECNOLÓGICO · NICARAGUA
             </div>
             <h1>
-              Transformamos empresas
-              <br />
-              <em>mediante tecnología.</em>
+              Transformamos<br />empresas.<br />
+              <em>Con tecnología.</em>
             </h1>
             <p>
-              Desarrollamos software, plataformas digitales y soluciones inteligentes para optimizar tu operación e impulsar el crecimiento de tu empresa.
+              Centraliza tu operación, automatiza tareas y convierte tu presencia digital en una herramienta de negocio. Desarrollamos la tecnología que tu empresa necesita.
             </p>
+            <div className="hero-service-links" aria-label="Soluciones destacadas"><Link to="/servicios#software">Software a medida</Link><Link to="/servicios#systems">Gestión empresarial</Link><Link to="/servicios#automation">Automatización con IA</Link><Link to="/servicios#web">Web corporativa</Link></div>
             <div className="hero-actions">
-              <Button>Solicitar una propuesta</Button>
+              <Button className="hero-quote">Solicitar una propuesta</Button>
               <Link className="text-link light-link" to="/#proyectos">
                 Explorar nuestros proyectos <ArrowUpRight size={17} />
               </Link>

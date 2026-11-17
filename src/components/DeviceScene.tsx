@@ -5,151 +5,12 @@ import {
   useInView,
   useReducedMotion,
 } from "framer-motion";
-import {
-  ArrowUpRight,
-  BarChart3,
-  Check,
-  Compass,
-  Menu,
-  Plus,
-  Search,
-  Signal,
-  Wifi,
-  BatteryFull,
-  Pause,
-  Play,
-} from "lucide-react";
-import { Symbol } from "./Logo";
+import { Pause, Play, Signal, Wifi, BatteryFull } from "lucide-react";
+import { MobileProductDemo, demoModes } from "./ProductDemo";
 import Laptop from "./Laptop";
 import "../styles/devices.css";
 
-const experiences = [
-  "Propiedades",
-  "Web para negocios",
-  "Panel de trabajo",
-  "Producto digital",
-];
-
-function MobileInterface({ index }: { index: number }) {
-  if (index === 2)
-    return (
-      <div className="mobile-ui mobile-panel">
-        <div className="mobile-ui-header">
-          <Symbol />
-          <Menu size={14} />
-        </div>
-        <small>TODO TU NEGOCIO, MÁS CLARO</small>
-        <h3>Todo, en su lugar.</h3>
-        <div className="mobile-mini-tabs">
-          <b>Resumen</b>
-          <span>Proyectos</span>
-        </div>
-        <div className="mobile-stat">
-          <span>Proyectos en curso</span>
-          <b>
-            08 <i>este mes</i>
-          </b>
-          <div className="mini-bars">
-            {[35, 57, 40, 69, 51, 82, 72, 96].map((h, i) => (
-              <span style={{ height: `${h}%` }} key={i} />
-            ))}
-          </div>
-        </div>
-        <div className="mobile-task">
-          <Check size={13} />
-          <span>
-            Propuesta de marca<small>Lista para revisar</small>
-          </span>
-        </div>
-        <div className="mobile-task">
-          <Plus size={13} />
-          <span>
-            Nuevo sitio web<small>En diseño</small>
-          </span>
-        </div>
-        <div className="mobile-ui-footer">Una herramienta pensada para tu equipo</div>
-      </div>
-    );
-
-  if (index === 3)
-    return (
-      <div className="mobile-ui mobile-product">
-        <div className="mobile-ui-header">
-          <Symbol />
-          <Menu size={14} />
-        </div>
-        <small>IDEAS QUE SE VUELVEN PRODUCTOS</small>
-        <h3>
-          De una idea
-          <br />
-          a algo real.
-        </h3>
-        <img src="/images/future.webp" alt="" />
-        <div className="mobile-product-label">
-          <span>Producto digital / A medida</span>
-          <Plus size={16} />
-        </div>
-        <span className="mobile-ui-pill">
-          Ver posibilidades <ArrowUpRight size={13} />
-        </span>
-      </div>
-    );
-
-  if (index === 1)
-    return (
-      <div className="mobile-ui mobile-corporate">
-        <div className="mobile-ui-header">
-          <Symbol />
-          <Menu size={14} />
-        </div>
-        <small>UNA WEB QUE SÍ TE REPRESENTA</small>
-        <h3>
-          Que te vean.
-          <br />
-          Que confíen.
-          <br />
-          <em>Que te elijan.</em>
-        </h3>
-        <img src="/images/studio.webp" alt="" />
-        <div className="mobile-corporate-bottom">
-          <span>
-            Diseño cercano.
-            <br />
-            Tecnología que funciona.
-          </span>
-          <ArrowUpRight size={20} />
-        </div>
-      </div>
-    );
-
-  return (
-    <div className="mobile-ui mobile-property">
-      <div className="mobile-ui-header">
-        <Symbol />
-        <Menu size={14} />
-      </div>
-      <small>ENCONTRÁ TU PRÓXIMO ESPACIO</small>
-      <h3>
-        Buscar puede
-        <br />
-        ser más fácil.
-      </h3>
-      <div className="mobile-property-image">
-        <img src="/images/hero.webp" alt="" />
-        <span>Propiedades claras, decisiones simples</span>
-      </div>
-      <div className="mobile-search">
-        <Search size={13} />
-        <span>Buscar propiedades</span>
-        <ArrowUpRight size={13} />
-      </div>
-      <div className="mobile-property-bottom">
-        <span>Hecho para personas reales.</span>
-        <span>01 / 04</span>
-      </div>
-    </div>
-  );
-}
+const experiences = demoModes.map(mode => mode.name);
 
 export default function DeviceScene({
   paused,
@@ -172,7 +33,7 @@ export default function DeviceScene({
 
   useEffect(() => {
     if (reduced || paused || !inView || !visible) return;
-    const timer = window.setInterval(() => setIndex((i) => (i + 1) % 4), 4400);
+    const timer = window.setInterval(() => setIndex((i) => (i + 1) % 4), 6400);
     return () => window.clearInterval(timer);
   }, [reduced, paused, inView, visible]);
 
@@ -184,7 +45,7 @@ export default function DeviceScene({
     >
       <div className="scene-objects" aria-hidden="true">
         <div className="laptop-parallax">
-          <Laptop paused={paused} active={inView && visible} />
+          <Laptop paused={paused} active={inView && visible} index={index} />
         </div>
 
         <div className="phone-parallax">
@@ -213,7 +74,7 @@ export default function DeviceScene({
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.55 }}
                 >
-                  <MobileInterface index={index} />
+                  <MobileProductDemo index={index} />
                 </motion.div>
               </AnimatePresence>
               <span className="phone-home" />
@@ -221,24 +82,12 @@ export default function DeviceScene({
           </div>
         </div>
 
-        <div className="floating-note note-one">
-          <Compass size={21} />
-          <span>
-            Hecho para<b>tu negocio.</b>
-          </span>
-          <span className="note-plus">+</span>
-        </div>
-
-        <div className="floating-note note-two">
-          <BarChart3 size={20} />
-          <span>
-            Más orden.<b>Más avance.</b>
-          </span>
-        </div>
+        <div className="floating-note note-one"><span className="demo-live-dot" /><span>EXPERIENCIA DIGITAL<b>{experiences[index]}</b></span><span className="note-plus">0{index + 1}</span></div>
+        <div className="floating-note note-two"><span>DESARROLLO A MEDIDA<b>Una plataforma. Tu operación.</b></span></div>
       </div>
 
       <div className="scene-caption">
-        <span>IDEAS QUE PUEDEN SER TUYAS</span>
+        <span>DEMO CONCEPTUAL / {experiences[index].toUpperCase()}</span>
         <div className="scene-controls">
           {experiences.map((label, i) => (
             <button

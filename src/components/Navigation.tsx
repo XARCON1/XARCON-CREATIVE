@@ -55,9 +55,7 @@ export default function Navigation() {
         </Link>
         <nav className="desktop-nav" aria-label="Navegación principal">
           {links.map(([to, label]) => (
-            <NavLink key={to} to={to} end={to === "/"}>
-              {label}
-            </NavLink>
+            to === "/#proyectos" ? <Link key={to} to={to} className={location.hash === "#proyectos" ? "active" : undefined}>{label}</Link> : <NavLink key={to} to={to} end={to === "/"} className={({isActive}) => isActive && !(to === "/" && location.hash) ? "active" : undefined}>{label}</NavLink>
           ))}
         </nav>
         <Link className="nav-project" to="/contacto">

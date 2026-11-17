@@ -1,3 +1,4 @@
+import { ProductDemo } from "./ProductDemo";
 const rows = [
   ["esc", "", "", "", "", "", "", "", "", "", "", "", "", "◯"],
   ["~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "−", "+", "⌫"],
@@ -7,38 +8,14 @@ const rows = [
   ["fn", "ctrl", "opt", "cmd", "space", "cmd", "opt", "←", "↑", "→"],
 ];
 
-export default function Laptop({ paused: _paused, active: _active }: { paused: boolean; active: boolean }) {
+export default function Laptop({ paused: _paused, active: _active, index = 0 }: { paused: boolean; active: boolean; index?: number }) {
   return (
     <div className="laptop-arrival">
       <div className="laptop laptop-crafted">
         <div className="laptop-lid">
           <span className="laptop-camera" />
           <div className="laptop-display">
-            <div className="laptop-film laptop-local-ad">
-              <img src="/images/ocean.webp" alt="" />
-              <div className="laptop-local-shade" />
-
-              <div className="laptop-film-brand">
-                <span>XARCON</span>
-                <i>DESDE NICARAGUA</i>
-              </div>
-
-              <div className="laptop-local-copy">
-                <small>PARA NEGOCIOS QUE QUIEREN DAR EL SIGUIENTE PASO</small>
-                <strong>
-                  Ideas de aquí.
-                  <br />
-                  <em>Hechas para crecer.</em>
-                </strong>
-                <p>Web · sistemas · marca</p>
-              </div>
-
-              <div className="laptop-local-proof">
-                <span>Trabajo real</span>
-                <span>Soluciones a medida</span>
-                <b>Nicaragua</b>
-              </div>
-            </div>
+            <ProductDemo index={index} />
           </div>
           <span className="laptop-screen-label">XARCON / CREATIVE</span>
         </div>
