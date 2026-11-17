@@ -39,11 +39,15 @@ export default function ClientMarquee() {
   return (
     <section className="client-showcase" aria-labelledby="client-showcase-title">
       <div className="client-showcase-head wrap">
-        <span className="client-showcase-kicker">NUESTRO TRABAJO</span>
+        <span className="client-showcase-kicker">TRABAJO QUE YA EXISTE</span>
         <div className="client-showcase-copy">
           <h2 id="client-showcase-title">
-            Marcas y proyectos reales.
+            Marcas y proyectos con los que <em>ya hemos trabajado.</em>
           </h2>
+          <p>
+            Detrás de XARCON hay proyectos reales, necesidades reales y
+            personas que confiaron en nuestro trabajo.
+          </p>
         </div>
       </div>
 

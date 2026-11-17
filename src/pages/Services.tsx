@@ -38,7 +38,7 @@ export default function Services() {
             <em>cada reto empresarial.</em>
           </h1>
           <p>
-            Tecnología a medida para tu operación.
+            Software, sistemas de gestión, web corporativa, automatización e integraciones adaptadas a tu operación.
           </p>
           <a className="text-link" href="#explorar-servicios">
             Explora nuestras capacidades <ArrowUpRight size={17} />
@@ -66,7 +66,9 @@ export default function Services() {
               <h2>Una capacidad para cada reto.</h2>
             </div>
             <p>
-              Elige lo que tu negocio necesita.
+              Todo se conecta.
+              <br />
+              Empezamos por lo que necesitas hoy.
             </p>
           </div>
           <div className="service-explorer-layout">
@@ -115,10 +117,15 @@ export default function Services() {
       <section className="service-manifesto wrap section">
         <span className="eyebrow">EL VALOR ESTÁ EN LA CONEXIÓN</span>
         <h2>
-          Una solución propia.<br/><span>Un negocio que avanza.</span>
+          Una marca clara.
+          <br />
+          Una experiencia coherente.
+          <br />
+          <span>Un negocio que avanza.</span>
         </h2>
         <p>
-          Diseño, estrategia y tecnología conectados.
+          Pensamos el conjunto y cuidamos cada detalle. La estrategia orienta,
+          el diseño conecta y la tecnología lo hace posible.
         </p>
       </section>
       <Closing />

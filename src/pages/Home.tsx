@@ -11,7 +11,6 @@ import ImmersiveWorld from "../components/ImmersiveWorld";
 import "../styles/sections.css";
 import "../styles/immersive.css";
 import "../styles/orbit.css";
-import "../styles/bright-commercial.css";
 
 export default function Home() {
   return (
@@ -21,11 +20,20 @@ export default function Home() {
       <div className="home-content">
         <Hero />
         <ClientMarquee />
+        <SolutionsOverview />
         <Capabilities />
         <CommercialSections />
-        <SolutionsOverview />
         <WhyXarcon />
         <ProcessOverview />
+        <div className="origin-line wrap">
+          <span>HECHO DESDE NICARAGUA.</span>
+          <p>
+            Tecnología cercana,
+            <br />
+            <b>para negocios reales.</b>
+          </p>
+          <span>SOFTWARE / WEB / IA</span>
+        </div>
         <Closing />
       </div>
     </div>

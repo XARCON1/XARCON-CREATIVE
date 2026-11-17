@@ -8,9 +8,9 @@ import DissolveImage from "../components/DissolveImage";
 import { projectOrbitCard, worldCameraProgress } from "../graphics/sceneMotion";
 
 const solutions = [
-  { title: <>Para marcas<br />en crecimiento.</>, description: "Presencia digital que abre conversaciones.", tags: ["Identidad", "Experiencia web"], image: "mountain", icon: Sprout, to: "marcas" },
-  { title: <>Para equipos<br />en evolución.</>, description: "Información y procesos conectados.", tags: ["Sistemas", "Automatización"], image: "studio", icon: Layers3, to: "equipos" },
-  { title: <>Para productos<br />con futuro.</>, description: "Productos digitales preparados para evolucionar.", tags: ["Producto digital", "Estrategia"], image: "future", icon: Compass, to: "productos" },
+  { title: <>Para marcas<br />en crecimiento.</>, description: "Una marca clara, una web que te representa y una presencia que genera confianza.", tags: ["Identidad", "Experiencia web"], image: "mountain", icon: Sprout, to: "marcas" },
+  { title: <>Para equipos<br />en evolución.</>, description: "Herramientas que ponen orden, conectan al equipo y hacen más fácil el trabajo diario.", tags: ["Sistemas", "Automatización"], image: "studio", icon: Layers3, to: "equipos" },
+  { title: <>Para productos<br />con futuro.</>, description: "Convertimos una buena idea en un producto digital útil, entendible y listo para crecer.", tags: ["Producto digital", "Estrategia"], image: "future", icon: Compass, to: "productos" },
 ];
 const desktopQuery = "(min-width: 1024px) and (min-height: 700px)";
 const subscribe = (callback: () => void) => {
@@ -22,7 +22,7 @@ const desktopSnapshot = () => window.matchMedia(desktopQuery).matches;
 
 function Heading() {
   return <Reveal className="section-heading">
-    <div><span className="eyebrow">SOLUCIONES POR OBJETIVO</span><h2>¿Qué quieres mejorar?</h2></div>
+    <div><span className="eyebrow">01 / SOLUCIONES PARA TU NEGOCIO</span><h2>Distintas necesidades,<br />una solución a tu medida.</h2></div>
     <Link className="text-link" to="/soluciones">Mirá lo que podemos construir <ArrowUpRight size={18} /></Link>
   </Reveal>;
 }
@@ -32,7 +32,7 @@ function SolutionCard({ index }: { index: number }) {
   return <Link className="solution-card" to={`/soluciones#${s.to}`}>
     <DissolveImage src={`/images/${s.image}.webp`} alt="" loading="lazy" width="800" height="1000" />
     <div className="solution-shade" />
-    <div className="solution-top"><span>0{index + 1}</span></div>
+    <div className="solution-top"><s.icon size={23} strokeWidth={1.4} /><span>0{index + 1}</span></div>
     <div className="solution-copy">
       <h3>{s.title}</h3><p>{s.description}</p>
       <div className="solution-bottom"><div>{s.tags.map(t => <span key={t}>{t}</span>)}</div><span className="circle-arrow"><ArrowUpRight size={21} /></span></div>
