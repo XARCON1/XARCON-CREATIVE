@@ -46,8 +46,8 @@ export default function Services() {
         </Reveal>
         <Reveal className="services-intro-art" variant="media" delay={0.16}>
           <img
-            src="/images/future.webp"
-            alt="Escultura conceptual de vidrio azul, luz y piedra"
+            src="/images/code.webp"
+            alt="Desarrollo de software en una pantalla de trabajo"
             width="900"
             height="900"
             fetchPriority="high"

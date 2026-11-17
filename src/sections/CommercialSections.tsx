@@ -1,25 +1,27 @@
-import { ArrowUpRight, Check } from "lucide-react";
 import Reveal from "../components/Reveal";
+import DepthReveal from "../components/DepthReveal";
 import Button from "../components/Button";
-const projects = [
-{ name:"ACOS Seguros", sector:"Seguros / software empresarial", status:"En desarrollo", problem:"Centralizar la operación de una intermediaria de seguros.", solution:"Web comercial y plataforma privada; gestión por áreas y portal de clientes en desarrollo.", value:"Organización de procesos y acceso según responsabilidades." },
-{ name:"Diamantes Realty Group", sector:"Bienes raíces / gestión", status:"Proyecto desarrollado", logo:"diamantes-realty-group.webp", problem:"Unificar la promoción y gestión de propiedades.", solution:"Catálogo, filtros, mapa, fichas y paneles de agentes.", value:"Facilitar la búsqueda y el seguimiento inmobiliario.", url:"https://diamantesrealtygroup.com/" },
-{ name:"AVALNICA", sector:"Avalúos / gestión", status:"Proyecto en evolución", logo:"avalnic.svg", problem:"Organizar la elaboración de avalúos.", solution:"Plataforma de gestión de avalúos y generación de documentos PDF.", value:"Estructurar el trabajo y sus entregables." },
-{ name:"DOLCE", sector:"Repostería / comercio electrónico", status:"Proyecto desarrollado", problem:"Digitalizar la presentación de productos y la recepción de pedidos.", solution:"Catálogo, pedidos y panel de administración.", value:"Simplificar el recorrido entre el producto y la solicitud." },
-{ name:"Isabel Valenzuela", sector:"Bienes raíces / web corporativa", status:"En desarrollo", problem:"Crear una presencia inmobiliaria independiente.", solution:"Web de propiedades y guías para compra, venta y renta.", value:"Orientar consultas de compradores y propietarios." },
-{ name:"Amy Blandón", sector:"Servicios / web corporativa", status:"Proyecto desarrollado", logo:"amy-blandon.webp", problem:"Presentar servicios de bienes raíces y seguros.", solution:"Web profesional con secciones dedicadas a ambas áreas.", value:"Comunicar la oferta y facilitar el contacto.", url:"https://amyblandon.com/" },
-{ name:"Pequeños Escritores", sector:"Educación / aplicación", status:"Proyecto desarrollado", logo:"pequenos-escritores.webp", problem:"Apoyar el aprendizaje inicial de escritura.", solution:"Actividades de trazos, audio de letras y seguimiento de progreso.", value:"Ofrecer una experiencia de práctica digital." },
-{ name:"Germina", sector:"Innovación / proyecto académico", status:"Proyecto de portafolio", logo:"germina.svg", problem:"Comunicar una propuesta de innovación.", solution:"Experiencia web del proyecto.", value:"Presentar la propuesta en un formato digital." }
+
+const principles = [
+  ["Tu operación primero.", "Diseñamos alrededor de tus procesos, personas y prioridades."],
+  ["Avances que podés ver.", "Alcance acordado, trabajo por etapas y decisiones compartidas."],
+  ["Una base para evolucionar.", "Integramos diseño, tecnología y acompañamiento según tu proyecto."],
 ];
-const reasons = [
-["Desarrollo personalizado","Definimos funcionalidades a partir de los procesos y prioridades de tu empresa."],
-["Agilidad con alcance claro","Trabajamos por etapas y compartimos avances para mantener decisiones visibles."],
-["Inteligencia artificial aplicada","Evaluamos dónde la IA y la automatización aportan valor y cómo supervisarlas."],
-["Diseño de alto nivel","Cuidamos identidad, accesibilidad y experiencia en cada pantalla."],
-["Escalabilidad tecnológica","Proponemos una base que permita evolucionar según necesidades y presupuesto."],
-["Optimización y acompañamiento","Organizamos procesos y acordamos soporte e implementación según el servicio."]
-];
-export default function CommercialSections(){return <section id="proyectos" className="commercial-portfolio">
-<div className="wrap"><Reveal className="commercial-heading"><span className="eyebrow light">PORTAFOLIO / TRABAJO REAL</span><h2>La tecnología, <em>en contexto.</em></h2><p>Proyectos de distintos sectores. Cada solución responde a una necesidad concreta; el valor descrito es su propósito, no una métrica de impacto.</p></Reveal>
-<div className="commercial-cases">{projects.map((p,i)=><Reveal key={p.name} className="commercial-case"><div className="commercial-case-top"><span>0{i+1} / {p.sector}</span><span>{p.status}</span></div>{p.logo&&<img className="commercial-logo" src={"/brands/clients/"+p.logo} alt="" loading="lazy" decoding="async" />}<h3>{p.name}</h3><dl><dt>Reto</dt><dd>{p.problem}</dd><dt>Solución</dt><dd>{p.solution}</dd><dt>Valor previsto</dt><dd>{p.value}</dd></dl>{p.url&&<a className="text-link light-link" href={p.url} target="_blank" rel="noopener noreferrer">Visitar sitio <ArrowUpRight size={15}/></a>}</Reveal>)}</div><div className="commercial-action"><p>¿Tu empresa tiene un reto parecido?</p><Button>Solicitar una propuesta</Button></div></div></section>}
-export function WhyXarcon(){return <section className="commercial-why section wrap"><Reveal className="section-heading"><div><span className="eyebrow">POR QUÉ XARCON</span><h2>Una solución propia.<br/>Una dirección clara.</h2></div><p>Diseño, tecnología y estrategia alrededor de tus objetivos empresariales.</p></Reveal><div className="commercial-reasons">{reasons.map(([title,description])=><Reveal key={title} className="commercial-reason"><Check size={21}/><h3>{title}</h3><p>{description}</p></Reveal>)}</div><div className="commercial-action"><Button variant="dark">Hablemos de tu empresa</Button></div></section>}
+
+export function WhyXarcon() {
+  return <section className="commercial-why">
+    <div className="wrap why-stage">
+      <DepthReveal className="why-photograph" side={-1} strength={.45}>
+        <img src="/images/team.webp" alt="Personas colaborando frente a una computadora" width="1600" height="900" loading="lazy" />
+        <span className="why-photo-label">TECNOLOGÍA PARA LAS PERSONAS.</span>
+      </DepthReveal>
+      <Reveal className="why-copy">
+        <span className="eyebrow light">LA DIFERENCIA XARCON</span>
+        <h2>Tu negocio.<br />Tus reglas.<br /><em>Tu tecnología.</em></h2>
+        <div className="why-principles">{principles.map(([title, detail], i) => <details key={title}><summary><span>0{i + 1}</span>{title}<b>+</b></summary><p>{detail}</p></details>)}</div>
+        <Button>Hablemos de tu empresa</Button>
+      </Reveal>
+      <span className="why-watermark" aria-hidden="true">A MEDIDA.</span>
+    </div>
+  </section>;
+}

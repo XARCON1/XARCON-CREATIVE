@@ -14,16 +14,16 @@ export default function Capabilities() {
       <div className="wrap capabilities-layout">
         <div className="capabilities-intro">
           <Reveal>
-            <span className="eyebrow light">02 / EN QUÉ TE AYUDAMOS</span>
+            <span className="eyebrow light">02 / TECNOLOGÍA A TU MEDIDA</span>
             <h2>
-              Soluciones tecnológicas
+              Tu próximo
               <br />
-              <em>para operar y crecer.</em>
+              <em>gran paso.</em>
             </h2>
           </Reveal>
           <DepthReveal className="capabilities-depth" side={-1}>
           <div className="capabilities-visual">
-            <ServiceVisual kind={services[active].id} />
+            <ServiceVisual key={services[active].id} kind={services[active].id} />
           </div>
           </DepthReveal>
         </div>
@@ -53,7 +53,7 @@ export default function Capabilities() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: reduced ? 0 : 0.28 }}
                   >
-                    <p>{s.line} {s.description}</p>
+                    <p>{s.line}</p>
                     <Link to={`/servicios#${s.id}`}>
                       Explorar servicio <ArrowUpRight size={15} />
                     </Link>
@@ -63,11 +63,6 @@ export default function Capabilities() {
               </AnimatePresence>
             </Reveal>
           ))}
-          <p className="capabilities-note">
-            Diseño, tecnología y acompañamiento.
-            <br />
-            Todo pensado alrededor de tu negocio.
-          </p>
         </DepthReveal>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, useMotionValue, type MotionValue } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Compass, Layers3, Sprout } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal";
 import DepthReveal from "../components/DepthReveal";
@@ -8,9 +8,9 @@ import DissolveImage from "../components/DissolveImage";
 import { projectOrbitCard, worldCameraProgress } from "../graphics/sceneMotion";
 
 const solutions = [
-  { title: <>Para marcas<br />en crecimiento.</>, description: "Una marca clara, una web que te representa y una presencia que genera confianza.", tags: ["Identidad", "Experiencia web"], image: "mountain", icon: Sprout, to: "marcas" },
-  { title: <>Para equipos<br />en evolución.</>, description: "Herramientas que ponen orden, conectan al equipo y hacen más fácil el trabajo diario.", tags: ["Sistemas", "Automatización"], image: "studio", icon: Layers3, to: "equipos" },
-  { title: <>Para productos<br />con futuro.</>, description: "Convertimos una buena idea en un producto digital útil, entendible y listo para crecer.", tags: ["Producto digital", "Estrategia"], image: "future", icon: Compass, to: "productos" },
+  { title: <>Tu marca.<br />Más visible.</>, tags: ["Web", "Marketing"], image: "workspace", to: "marcas" },
+  { title: <>Tu equipo.<br />En sintonía.</>, tags: ["Software", "Automatización"], image: "team", to: "equipos" },
+  { title: <>Tu idea.<br />En marcha.</>, tags: ["Producto digital", "Integraciones"], image: "code", to: "productos" },
 ];
 const desktopQuery = "(min-width: 1024px) and (min-height: 700px)";
 const subscribe = (callback: () => void) => {
@@ -22,8 +22,8 @@ const desktopSnapshot = () => window.matchMedia(desktopQuery).matches;
 
 function Heading() {
   return <Reveal className="section-heading">
-    <div><span className="eyebrow">01 / SOLUCIONES PARA TU NEGOCIO</span><h2>Distintas necesidades,<br />una solución a tu medida.</h2></div>
-    <Link className="text-link" to="/soluciones">Mirá lo que podemos construir <ArrowUpRight size={18} /></Link>
+    <div><span className="eyebrow">01 / TU SIGUIENTE MOVIMIENTO</span><h2>Lo que imaginás.<br /><em>Lo que construimos.</em></h2></div>
+    <Link className="text-link" to="/soluciones">Encontrá tu solución <ArrowUpRight size={18} /></Link>
   </Reveal>;
 }
 
@@ -32,9 +32,9 @@ function SolutionCard({ index }: { index: number }) {
   return <Link className="solution-card" to={`/soluciones#${s.to}`}>
     <DissolveImage src={`/images/${s.image}.webp`} alt="" loading="lazy" width="800" height="1000" />
     <div className="solution-shade" />
-    <div className="solution-top"><s.icon size={23} strokeWidth={1.4} /><span>0{index + 1}</span></div>
+    <div className="solution-top"><span>XARCON / SOLUCIONES</span><span>0{index + 1}</span></div>
     <div className="solution-copy">
-      <h3>{s.title}</h3><p>{s.description}</p>
+      <h3>{s.title}</h3>
       <div className="solution-bottom"><div>{s.tags.map(t => <span key={t}>{t}</span>)}</div><span className="circle-arrow"><ArrowUpRight size={21} /></span></div>
     </div>
   </Link>;

@@ -13,22 +13,22 @@ import {
   CheckCheck,
 } from "lucide-react";
 import { Symbol } from "./Logo";
-import { WebInterface } from "./WebInterface";
+import { ProductDemo } from "./ProductDemo";
 export type ServiceKind =
   "identity" | "web" | "systems" | "automation" | "strategy" | "special" | "software" | "commerce";
-export function AutomationFlow() {
+export function AutomationFlow({ integration = false }: { integration?: boolean } = {}) {
   const [running, setRunning] = useState(false);
   return (
     <div className={`automation-visual ${running ? "running" : ""}`}>
       <div className="visual-metadata">
-        <span>UNA TAREA, MENOS PASOS</span>
+        <span>{integration ? "TUS HERRAMIENTAS, CONECTADAS" : "UNA TAREA, MENOS PASOS"}</span>
         <span>01 — 03</span>
       </div>
       <div className="flow-stage">
         {[
-          [Mail, "Nueva consulta"],
-          [SlidersHorizontal, "Organizar"],
-          [CheckCheck, "Dar seguimiento"],
+          [Mail, integration ? "Sistema origen" : "Nueva consulta"],
+          [SlidersHorizontal, integration ? "Integración" : "Organizar con IA"],
+          [CheckCheck, integration ? "Sistema destino" : "Revisión humana"],
         ].map(([Icon, label], i) => {
           const I = Icon as typeof Mail;
           return (
@@ -50,12 +50,12 @@ export function AutomationFlow() {
         {running ? (
           <>
             <Check size={16} />
-            <span>Consulta organizada. Seguimiento preparado.</span>
+            <span>{integration ? "Ejemplo completado: información sincronizada." : "Consulta organizada. Lista para revisión humana."}</span>
           </>
         ) : (
           <>
             <Circle size={13} />
-            <span>Una consulta lista para conectar.</span>
+            <span>{integration ? "Un registro listo para conectar." : "Una consulta lista para organizar."}</span>
           </>
         )}
       </div>
@@ -131,9 +131,9 @@ export function SystemVisual() {
           <span>EJEMPLO</span>
         </div>
         <h3>
-          Un buen día
+          Tu operación.
           <br />
-          para avanzar.
+          En orden.
         </h3>
         <div className="system-stats">
           <div>
@@ -183,7 +183,7 @@ export function SystemVisual() {
 export default function ServiceVisual({ kind }: { kind: ServiceKind }) {
   const [webPage, setWebPage] = useState(0);
   if (kind === "identity") return <BrandVisual />;
-  if (kind === "automation") return <AutomationFlow />;
+  if (kind === "automation" || kind === "special") return <AutomationFlow integration={kind === "special"} />;
   if (kind === "systems" || kind === "software") return <SystemVisual />;
   if (kind === "web" || kind === "commerce")
     return (
@@ -194,9 +194,9 @@ export default function ServiceVisual({ kind }: { kind: ServiceKind }) {
           <span />
           <b>xarcon / experiencia conceptual</b>
         </div>
-        <WebInterface variant={webPage} />
+        <div className="service-product-example"><ProductDemo index={webPage === 1 ? 0 : kind === "commerce" ? 3 : 1} /></div>
         <div className="web-demo-tabs" aria-label="Cambiar vista conceptual">
-          {["Explorar", "La visión"].map((label, i) => (
+          {[kind === "commerce" ? "Catálogo" : "Sitio web", "Gestión"].map((label, i) => (
             <button
               aria-pressed={webPage === i}
               onClick={() => setWebPage(i)}
@@ -206,18 +206,7 @@ export default function ServiceVisual({ kind }: { kind: ServiceKind }) {
             </button>
           ))}
         </div>
-        {webPage === 1 && (
-          <div className="web-vision">
-            <span className="eyebrow">LA VISIÓN</span>
-            <h3>
-              Más espacio
-              <br />
-              para lo esencial.
-            </h3>
-            <p>Una experiencia clara desde el primer clic.</p>
-            <ArrowUpRight size={24} />
-          </div>
-        )}
+        <small className="concept-label">Interfaz conceptual · alcance según el proyecto</small>
       </div>
     );
   if (kind === "strategy")

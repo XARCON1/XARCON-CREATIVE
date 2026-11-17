@@ -41,6 +41,7 @@ export default function DeviceScene({
     <div
       ref={ref}
       className="device-scene"
+      data-active={!paused && inView && visible && !reduced}
       aria-label="Ejemplos de soluciones digitales de XARCON"
     >
       <div className="scene-objects" aria-hidden="true">
@@ -82,12 +83,11 @@ export default function DeviceScene({
           </div>
         </div>
 
-        <div className="floating-note note-one"><span className="demo-live-dot" /><span>EXPERIENCIA DIGITAL<b>{experiences[index]}</b></span><span className="note-plus">0{index + 1}</span></div>
-        <div className="floating-note note-two"><span>DESARROLLO A MEDIDA<b>Una plataforma. Tu operación.</b></span></div>
+        <div className="floating-note note-one"><span className="demo-live-dot" /><span>HECHO A TU MEDIDA<b>{experiences[index]}</b></span></div>
       </div>
 
       <div className="scene-caption">
-        <span>DEMO CONCEPTUAL / {experiences[index].toUpperCase()}</span>
+        <span>EXPLORÁ LAS INTERFACES <small>Ejemplos conceptuales</small></span>
         <div className="scene-controls">
           {experiences.map((label, i) => (
             <button
@@ -99,7 +99,7 @@ export default function DeviceScene({
                 setIndex(i);
                 setPaused(true);
               }}
-            />
+            >{["Gestión", "Web", "IA", "Tienda"][i]}</button>
           ))}
           <button
             className="scene-pause"

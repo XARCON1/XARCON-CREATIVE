@@ -52,14 +52,14 @@ export default function About() {
       </section>
       <section className="about-panorama">
         <img
-          src="/images/studio.webp"
-          alt="Estudio conceptual rodeado de naturaleza y luz"
+          src="/images/team.webp"
+          alt="Fotografía ilustrativa de colaboración frente a una computadora"
           width="1448"
           height="1086"
           fetchPriority="high"
         />
         <div className="about-image-note">
-          <span>ESPACIO PARA PENSAR DIFERENTE</span>
+          <span>PERSONAS + TECNOLOGÍA</span>
           <span>VISIÓN CREATIVA / XARCON</span>
         </div>
       </section>

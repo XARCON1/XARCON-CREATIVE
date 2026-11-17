@@ -1,25 +1,73 @@
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { Symbol } from "./Logo";
+import "../styles/product-showcase.css";
+
 export const demoModes = [
-  {name:"Gestión empresarial",heading:"Control de operaciones",intro:"Información, clientes y procesos en un solo lugar.",sections:["Panel general","Clientes","Proyectos","Documentos","Reportes"],cards:[["Clientes","Seguimiento"],["Proyectos","En proceso"],["Documentos","Centralizados"]],rows:[["Solicitud comercial","Por revisar"],["Propuesta de servicio","En preparación"],["Entrega de proyecto","Validación"]],mobile:"Tu operación",mobileRows:["Solicitudes","Proyectos","Documentos"]},
-  {name:"Web corporativa",heading:"Tu negocio, visible.",intro:"Una experiencia comercial pensada para generar consultas.",sections:["Inicio","Servicios","Portafolio","Consultas"],cards:[["Servicios","Visibles"],["Consultas","Organizadas"],["Contenido","Editable"]],rows:[["Solicitud de información","Nueva consulta"],["Consulta de servicio","En revisión"],["Contacto comercial","Seguimiento"]],mobile:"Tu presencia digital",mobileRows:["Servicios","Proyectos","Contactar"]},
-  {name:"Automatización con IA",heading:"Conecta tus procesos",intro:"Diseña flujos inteligentes con supervisión humana.",sections:["Flujos","Entradas","Revisión","Integraciones","Historial"],cards:[["Entrada","Consulta"],["Proceso","Clasificación"],["Salida","Revisión"]],rows:[["Recibir solicitud","Entrada"],["Organizar información","Procesamiento"],["Revisar respuesta","Validación humana"]],mobile:"Flujos conectados",mobileRows:["Nueva solicitud","En procesamiento","Revisión humana"]},
-  {name:"Comercio electrónico",heading:"Del catálogo al pedido",intro:"Gestiona productos y solicitudes en una sola plataforma.",sections:["Catálogo","Pedidos","Clientes","Inventario"],cards:[["Catálogo","Productos"],["Pedidos","Solicitudes"],["Clientes","Seguimiento"]],rows:[["Pedido de catálogo","Recibido"],["Consulta de producto","Por confirmar"],["Preparación de pedido","En proceso"]],mobile:"Tus pedidos",mobileRows:["Catálogo","Solicitudes","Pedidos"]}
+  { name: "Gestión empresarial", mobile: "Tu operación, conectada." },
+  { name: "Web corporativa", mobile: "Tu marca. Tu mundo." },
+  { name: "Automatización con IA", mobile: "El trabajo fluye." },
+  { name: "Comercio electrónico", mobile: "Del clic al pedido." },
 ];
-export function ProductDemo({index}:{index:number}) {
-  const mode=demoModes[index] || demoModes[0];
-  const reduced=useReducedMotion();
-  return <div className="product-demo">
-    <aside className="product-demo-sidebar"><div className="product-demo-brand"><b>X</b> XARCON <small>WORKSPACE</small></div><span className="product-demo-label">ESPACIO DE TRABAJO</span>{mode.sections.map((section,i)=><div key={section} className={i===0?"current":""}><i/> {section}</div>)}<span className="product-demo-demo">ENTORNO ILUSTRATIVO</span></aside>
-    <AnimatePresence mode="wait" initial={false}><motion.div className="product-demo-main" key={mode.name} initial={reduced?false:{opacity:0,y:6}} animate={{opacity:1,y:0}} exit={{opacity:0}} transition={{duration:.27}}>
-    <div className="product-demo-top"><span>PLATAFORMA / {mode.name.toUpperCase()}</span><span><i/> DEMO</span></div>
-    <h3>{mode.heading}</h3><p>{mode.intro}</p>
-    <div className="product-demo-kpis">{mode.cards.map(([label,value])=><div key={label}><small>{label}</small><strong>{value}</strong><i/></div>)}</div>
-    <div className="product-demo-work"><div className="product-demo-graph"><small>FLUJO DE TRABAJO</small><svg viewBox="0 0 220 75" role="presentation"><defs><linearGradient id="product-demo-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#a8ff4e" stopOpacity=".35"/><stop offset="1" stopColor="#a8ff4e" stopOpacity="0"/></linearGradient></defs><path d="M0 16H220 M0 34H220 M0 52H220 M0 70H220" stroke="#324554" strokeWidth=".6"/><path d="M0 65 C18 62 22 46 42 52 S76 33 94 39 S119 17 140 29 S165 12 182 21 S205 8 216 5 V75 H0Z" fill="url(#product-demo-fill)"/><path d="M0 65 C18 62 22 46 42 52 S76 33 94 39 S119 17 140 29 S165 12 182 21 S205 8 216 5" fill="none" stroke="#b9ff6b" strokeWidth="2"/><circle cx="216" cy="5" r="3" fill="#d7ffaf"/></svg><div><span>Entrada</span><span>Gestión</span><span>Validación</span></div></div><div className="product-demo-steps"><small>ETAPAS</small>{mode.rows.map(([label,state],i)=><div key={label}><span className={"step-dot step-"+i}/><span>{label}<small>{state}</small></span></div>)}</div></div>
-    <div className="product-demo-foot"><span>Diseño y módulos según el proyecto</span><span>XARCON / SOFTWARE</span></div>
-    </motion.div></AnimatePresence>
-  </div>
+
+function WorkspaceDemo() {
+  return <div className="showcase-workspace">
+    <aside className="showcase-sidebar"><Symbol /><b>Mi empresa</b><span className="current">Resumen</span><span>Clientes</span><span>Proyectos</span><span>Documentos</span><small>ESPACIO DE TRABAJO</small></aside>
+    <div className="showcase-dashboard">
+      <div className="showcase-topline"><span>OPERACIONES</span><b>Vista de ejemplo</b></div>
+      <h3>Todo, bajo control.</h3>
+      <div className="showcase-summary"><span><i />Tu equipo. Una misma dirección.</span><b>+ Nueva tarea</b></div>
+      <div className="showcase-kanban">
+        <div><small><i />POR REVISAR</small><article><em>COMERCIAL</em><strong>Nueva propuesta</strong><p>Definir el alcance</p><span>Equipo de ventas <b>NV</b></span></article></div>
+        <div><small><i />EN PROCESO</small><article><em>OPERACIONES</em><strong>Tu próximo proyecto</strong><p>Diseño en revisión</p><span>Equipo de trabajo <b>AB</b></span></article></div>
+        <div><small><i />COMPLETADO</small><article><em>DOCUMENTOS</em><strong>Todo en su lugar</strong><p>Información organizada</p><span>Documentación <b>✓</b></span></article></div>
+      </div>
+      <div className="showcase-activity"><i /> Personas, procesos y datos. Conectados.<span>→</span></div>
+    </div>
+  </div>;
 }
-export function MobileProductDemo({index}:{index:number}){
-  const mode=demoModes[index] || demoModes[0];
-  return <div className="mobile-ui mobile-product-demo"><div className="mobile-demo-head"><b>X</b><span>WORKSPACE</span></div><small>ACCESO MÓVIL / DEMO</small><h3>{mode.mobile}</h3><p>Todo lo importante, a tu alcance.</p><div className="mobile-demo-tabs"><b>Resumen</b><span>Actividad</span></div>{mode.mobileRows.map((item,i)=><div className="mobile-demo-row" key={item}><i>0{i+1}</i><span>{item}</span><b>›</b></div>)}<div className="mobile-demo-end"><span>Estado de flujo</span><div><i/><i/><i/></div><small>Vista conceptual</small></div></div>
+
+function WebsiteDemo() {
+  return <div className="showcase-website">
+    <div className="showcase-site-nav"><b>FORMA</b><span>Estudio &nbsp; Servicios &nbsp; Contacto</span><i>Hablemos <ArrowUpRight className="showcase-arrow" aria-hidden="true" /></i></div>
+    <div className="showcase-site-hero"><img src="/images/workspace.webp" alt="" loading="lazy" width="1600" height="1067" /><div><small>PERSONAS. IDEAS. POSIBILIDADES.</small><h3>Una nueva<br />forma de<br /><em>conectar.</em></h3><span>Descubrí lo que hacemos <ArrowUpRight className="showcase-arrow" aria-hidden="true" /></span></div><b className="showcase-site-index">01 / 03</b></div>
+    <div className="showcase-site-footer"><b>Una marca que se vive.</b><span>WEB CORPORATIVA / CONCEPTO</span></div>
+  </div>;
+}
+
+function FlowDemo() {
+  return <div className="showcase-flow">
+    <div className="showcase-topline"><span>XARCON / AUTOMATIZACIÓN</span><b>Flujo de ejemplo</b></div>
+    <h3>Menos tareas.<br /><em>Más posibilidades.</em></h3>
+    <div className="showcase-flow-path"><div><b>01</b><strong>Consulta</strong><small>Recibir</small></div><i /><div><b>02</b><strong>IA + datos</strong><small>Organizar</small></div><i /><div><b>03</b><strong>Tu equipo</strong><small>Revisar</small></div></div>
+    <div className="showcase-flow-result"><span>✓</span><div><strong>El siguiente paso, preparado.</strong><small>Con supervisión humana.</small></div><b><ArrowUpRight className="showcase-arrow" aria-hidden="true" /></b></div>
+  </div>;
+}
+
+function CommerceDemo() {
+  return <div className="showcase-commerce">
+    <div className="showcase-shop-nav"><b>ESTUDIO / SHOP</b><span>Colección &nbsp; Acerca de &nbsp; Bolsa (0)</span></div>
+    <div className="showcase-shop-product"><div><small>LA COLECCIÓN ESENCIAL</small><h3>Diseño que<br />se siente.</h3><p>Tu producto.<br />Su próximo favorito.</p><span>Explorar colección <ArrowUpRight className="showcase-arrow" aria-hidden="true" /></span></div><img src="/images/headphones.webp" alt="" width="800" height="534" loading="lazy" /></div>
+    <div className="showcase-shop-foot"><span>CATÁLOGO / PEDIDO / SEGUIMIENTO</span><b>TIENDA CONCEPTUAL</b></div>
+  </div>;
+}
+
+/** Illustrative interfaces, with no customer records or invented performance figures. */
+export function ProductDemo({ index }: { index: number }) {
+  const reduced = useReducedMotion();
+  return <div className="product-showcase"><AnimatePresence mode="sync" initial={false}><motion.div className="showcase-screen" key={index} initial={reduced ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: .35 }}>
+    {index === 1 ? <WebsiteDemo /> : index === 2 ? <FlowDemo /> : index === 3 ? <CommerceDemo /> : <WorkspaceDemo />}
+  </motion.div></AnimatePresence></div>;
+}
+
+export function MobileProductDemo({ index }: { index: number }) {
+  return <div className={`mobile-ui mobile-showcase mobile-showcase-${index}`}>
+    <div className="mobile-showcase-brand"><Symbol /><span>{["WORKSPACE", "FORMA", "WORKFLOW", "ESTUDIO / SHOP"][index]}</span></div>
+    <small>DISEÑO DE EJEMPLO</small><h3>{demoModes[index].mobile}</h3>
+    {index === 1 ? <><img src="/images/workspace.webp" alt="" width="1600" height="1067" loading="lazy" /><div className="mobile-showcase-cta">Conocé nuestra visión <ArrowUpRight className="showcase-arrow" aria-hidden="true" /></div></> : index === 3 ? <><img src="/images/headphones.webp" alt="" width="800" height="534" loading="lazy" /><div className="mobile-showcase-cta">Explorar colección <ArrowUpRight className="showcase-arrow" aria-hidden="true" /></div></> : <>
+      <div className="mobile-showcase-label">{index === 2 ? "UN FLUJO. CADA PASO." : "TU ESPACIO DE TRABAJO"}</div>
+      {(index === 2 ? ["Recibir consulta", "Organizar con IA", "Revisión humana"] : ["Clientes", "Proyectos", "Documentos"]).map((item, i) => <div className="mobile-showcase-row" key={item}><i>0{i + 1}</i><b>{item}</b><span><ArrowUpRight className="showcase-arrow" aria-hidden="true" /></span></div>)}
+      <div className="mobile-showcase-cta">{index === 2 ? "Personas + tecnología" : "Todo en un mismo lugar"}</div>
+    </>}
+  </div>;
 }

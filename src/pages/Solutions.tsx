@@ -86,8 +86,8 @@ export default function Solutions() {
                 {i === 0 ? (
                   <>
                     <img
-                      src="/images/mountain.webp"
-                      alt="Cumbre montañosa iluminada por el sol"
+                      src="/images/workspace.webp"
+                      alt="Colaboración creativa en un espacio de trabajo"
                       loading="lazy"
                       width="800"
                       height="900"
@@ -99,8 +99,8 @@ export default function Solutions() {
                 ) : i === 1 ? (
                   <>
                     <img
-                      src="/images/studio.webp"
-                      alt="Espacio de trabajo conceptual con luz natural"
+                      src="/images/team.webp"
+                      alt="Equipo colaborando con herramientas digitales"
                       loading="lazy"
                       width="800"
                       height="900"
@@ -112,8 +112,8 @@ export default function Solutions() {
                 ) : (
                   <>
                     <img
-                      src="/images/future.webp"
-                      alt="Objeto conceptual en vidrio azul"
+                      src="/images/code.webp"
+                      alt="Interfaz de programación de software"
                       loading="lazy"
                       width="800"
                       height="900"

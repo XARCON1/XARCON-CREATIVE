@@ -19,7 +19,7 @@ export default function Hero() {
       <SceneOpening />
       <section className="hero hero-directed hero-commercial" ref={ref}>
         <picture className="hero-picture">
-          <source media="(max-width: 767px)" srcSet="/images/studio.webp" />
+          <source media="(max-width: 767px)" srcSet="/images/studio-mobile.webp" />
           <img
             src="/images/studio.webp"
             width="1920"
@@ -38,16 +38,15 @@ export default function Hero() {
         <div className="hero-inner wrap">
           <Reveal className="hero-copy" delay={0.72}>
             <div className="eyebrow light">
-              <span className="eyebrow-rule" /> DESARROLLO TECNOLÓGICO · NICARAGUA
+              <span className="eyebrow-rule" /> SOFTWARE · WEB · INTELIGENCIA ARTIFICIAL
             </div>
             <h1>
-              Transformamos<br />empresas.<br />
-              <em>Con tecnología.</em>
+              Tecnología que<br />mueve tu<br />
+              <em>negocio.</em>
             </h1>
             <p>
-              Centraliza tu operación, automatiza tareas y convierte tu presencia digital en una herramienta de negocio. Desarrollamos la tecnología que tu empresa necesita.
+              Sistemas, sitios web y automatizaciones hechos para tu próxima etapa.
             </p>
-            <div className="hero-service-links" aria-label="Soluciones destacadas"><Link to="/servicios#software">Software a medida</Link><Link to="/servicios#systems">Gestión empresarial</Link><Link to="/servicios#automation">Automatización con IA</Link><Link to="/servicios#web">Web corporativa</Link></div>
             <div className="hero-actions">
               <Button className="hero-quote">Solicitar una propuesta</Button>
               <Link className="text-link light-link" to="/#proyectos">
@@ -61,10 +60,10 @@ export default function Hero() {
 
         <div className="hero-bottom wrap">
           <a href="#soluciones" className="hero-explore">
-            <ArrowDown size={16} /> Conocé lo que hacemos
+            <ArrowDown size={16} /> Explorá lo que sigue
           </a>
-          <span>HECHO EN NICARAGUA · PARA NEGOCIOS REALES</span>
-          <span className="hero-edition">SOFTWARE / WEB / IA</span>
+          <span>DESDE NICARAGUA. CON VISIÓN GLOBAL.</span>
+          <span className="hero-edition">DISEÑO + TECNOLOGÍA</span>
         </div>
       </section>
     </>

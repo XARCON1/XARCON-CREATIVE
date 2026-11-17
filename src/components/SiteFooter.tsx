@@ -11,7 +11,7 @@ export default function SiteFooter() {
           <span>
             Desarrollo tecnológico
             <br />
-            <b>hechos para negocios reales.</b>
+            <b>hecho para negocios reales.</b>
           </span>
 
           <nav aria-label="Navegación de pie de página">
