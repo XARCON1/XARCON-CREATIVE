@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import DeviceScene from "../components/DeviceScene";
+import { ProductDemo } from "../components/ProductDemo";
 import Button from "../components/Button";
 import Reveal from "../components/Reveal";
 import SceneOpening from "../components/SceneOpening";
@@ -45,18 +46,19 @@ export default function Hero() {
               <em>Con tecnología.</em>
             </h1>
             <p>
-              Centraliza tu operación, automatiza tareas y convierte tu presencia digital en una herramienta de negocio. Desarrollamos la tecnología que tu empresa necesita.
+              Software a medida, sistemas de gestión y automatización para hacer avanzar tu negocio.
             </p>
             <div className="hero-service-links" aria-label="Soluciones destacadas"><Link to="/servicios#software">Software a medida</Link><Link to="/servicios#systems">Gestión empresarial</Link><Link to="/servicios#automation">Automatización con IA</Link><Link to="/servicios#web">Web corporativa</Link></div>
             <div className="hero-actions">
               <Button className="hero-quote">Solicitar una propuesta</Button>
               <Link className="text-link light-link" to="/#proyectos">
-                Explorar nuestros proyectos <ArrowUpRight size={17} />
+                Ver proyectos <ArrowUpRight size={17} />
               </Link>
             </div>
           </Reveal>
 
-          <DeviceScene paused={paused} setPaused={setPaused} />
+          <div className="hero-desktop-showcase"><DeviceScene paused={paused} setPaused={setPaused} /></div>
+          <div className="hero-mobile-showcase"><div className="mobile-showcase-screen" aria-hidden="true"><ProductDemo index={0} /></div><span>SOFTWARE A MEDIDA · VISTA CONCEPTUAL</span></div>
         </div>
 
         <div className="hero-bottom wrap">

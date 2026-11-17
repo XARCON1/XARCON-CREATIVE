@@ -63,8 +63,7 @@ export default function Solutions() {
         </Reveal>
         <div className="solutions-intro-right">
           <p>
-            Hay un punto de partida distinto para cada negocio. Encontramos el
-            tuyo.
+            Elige el reto de tu empresa.
           </p>
           <nav aria-label="Situaciones de negocio">
             {scenarios.map((s) => (

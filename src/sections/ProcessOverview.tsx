@@ -16,8 +16,8 @@ export default function ProcessOverview() {
     <section className="section wrap process-overview">
       <Reveal className="section-heading">
         <div>
-          <span className="eyebrow">03 / ASÍ TRABAJAMOS CONTIGO</span>
-          <h2>De tu idea a algo que funciona.</h2>
+          <span className="eyebrow">CÓMO TRABAJAMOS</span>
+          <h2>De la idea a la entrega.</h2>
         </div>
         <Link className="text-link" to="/proceso">
           Conocé nuestro proceso <ArrowUpRight size={18} />
@@ -30,18 +30,9 @@ export default function ProcessOverview() {
         />
         {processSteps.map((s, i) => (
           <DepthReveal className={`process-tile depth-step depth-step-${i}`} side={i % 2 ? 1 : -1} key={s.title}>
-            <div className="process-tile-image">
-              <img
-                src={`/images/${s.image}.webp`}
-                alt=""
-                width="260"
-                height="180"
-                loading="lazy"
-              />
-            </div>
             <span className="process-number">0{i + 1}</span>
             <h3>{s.title}</h3>
-            <p>{s.text}</p>
+            
           </DepthReveal>
         ))}
       </div>

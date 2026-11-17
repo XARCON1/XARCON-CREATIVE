@@ -1,4 +1,6 @@
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ProductDemo } from "../components/ProductDemo";
 import Reveal from "../components/Reveal";
 import Button from "../components/Button";
 const projects = [
@@ -11,15 +13,28 @@ const projects = [
 { name:"Pequeños Escritores", sector:"Educación / aplicación", status:"Proyecto desarrollado", logo:"pequenos-escritores.webp", problem:"Apoyar el aprendizaje inicial de escritura.", solution:"Actividades de trazos, audio de letras y seguimiento de progreso.", value:"Ofrecer una experiencia de práctica digital." },
 { name:"Germina", sector:"Innovación / proyecto académico", status:"Proyecto de portafolio", logo:"germina.svg", problem:"Comunicar una propuesta de innovación.", solution:"Experiencia web del proyecto.", value:"Presentar la propuesta en un formato digital." }
 ];
+
+const visuals = [
+  {color:"sea",mode:0,features:["Gestión por áreas","Portal de clientes","Seguros"]},
+  {color:"blue",mode:1,features:["Catálogo","Mapa","Panel de agentes"],photo:"https://www.diamantesrealtygroup.com/_next/image?url=%2Fassets%2Fimagenhero1.jpeg&w=1080&q=75"},
+  {color:"lilac",mode:0,features:["Avalúos","PDF","Gestión"]},
+  {color:"peach",mode:3,features:["Catálogo","Pedidos","Administración"]},
+  {color:"sky",mode:1,features:["Propiedades","Guías","Consultas"]},
+  {color:"mint",mode:1,features:["Bienes raíces","Seguros","Contacto"]},
+  {color:"yellow",mode:1,features:["Trazos","Audio","Progreso"]},
+  {color:"violet",mode:1,features:["Innovación","Presentación digital"]},
+];
+const captions = ["Software de gestión para seguros.","Una operación inmobiliaria conectada.","Avalúos y documentos en un solo lugar.","Del catálogo digital al pedido.","Una presencia inmobiliaria independiente.","Bienes raíces y seguros, conectados.","Aprendizaje interactivo de la escritura.","Una propuesta de innovación digital."];
 const reasons = [
-["Desarrollo personalizado","Definimos funcionalidades a partir de los procesos y prioridades de tu empresa."],
-["Agilidad con alcance claro","Trabajamos por etapas y compartimos avances para mantener decisiones visibles."],
-["Inteligencia artificial aplicada","Evaluamos dónde la IA y la automatización aportan valor y cómo supervisarlas."],
-["Diseño de alto nivel","Cuidamos identidad, accesibilidad y experiencia en cada pantalla."],
-["Escalabilidad tecnológica","Proponemos una base que permita evolucionar según necesidades y presupuesto."],
-["Optimización y acompañamiento","Organizamos procesos y acordamos soporte e implementación según el servicio."]
+["A tu medida","Tecnología que se adapta a tu operación."],
+["Ejecución ágil","Etapas claras y avances visibles."],
+["IA aplicada","Automatización donde aporta valor."],
+["Diseño y evolución","Experiencias cuidadas y soporte acordado."]
 ];
 export default function CommercialSections(){return <section id="proyectos" className="commercial-portfolio">
-<div className="wrap"><Reveal className="commercial-heading"><span className="eyebrow light">PORTAFOLIO / TRABAJO REAL</span><h2>La tecnología, <em>en contexto.</em></h2><p>Proyectos de distintos sectores. Cada solución responde a una necesidad concreta; el valor descrito es su propósito, no una métrica de impacto.</p></Reveal>
-<div className="commercial-cases">{projects.map((p,i)=><Reveal key={p.name} className="commercial-case"><div className="commercial-case-top"><span>0{i+1} / {p.sector}</span><span>{p.status}</span></div>{p.logo&&<img className="commercial-logo" src={"/brands/clients/"+p.logo} alt="" loading="lazy" decoding="async" />}<h3>{p.name}</h3><dl><dt>Reto</dt><dd>{p.problem}</dd><dt>Solución</dt><dd>{p.solution}</dd><dt>Valor previsto</dt><dd>{p.value}</dd></dl>{p.url&&<a className="text-link light-link" href={p.url} target="_blank" rel="noopener noreferrer">Visitar sitio <ArrowUpRight size={15}/></a>}</Reveal>)}</div><div className="commercial-action"><p>¿Tu empresa tiene un reto parecido?</p><Button>Solicitar una propuesta</Button></div></div></section>}
-export function WhyXarcon(){return <section className="commercial-why section wrap"><Reveal className="section-heading"><div><span className="eyebrow">POR QUÉ XARCON</span><h2>Una solución propia.<br/>Una dirección clara.</h2></div><p>Diseño, tecnología y estrategia alrededor de tus objetivos empresariales.</p></Reveal><div className="commercial-reasons">{reasons.map(([title,description])=><Reveal key={title} className="commercial-reason"><Check size={21}/><h3>{title}</h3><p>{description}</p></Reveal>)}</div><div className="commercial-action"><Button variant="dark">Hablemos de tu empresa</Button></div></section>}
+<div className="wrap"><Reveal className="commercial-heading"><div><span className="eyebrow">PORTAFOLIO / TRABAJO REAL</span><h2>Ideas que ya <em>se construyen.</em></h2></div><p>Proyectos de distintos sectores, con soluciones propias.</p></Reveal>
+<div className="commercial-cases">{projects.map((project,i)=>{const v=visuals[i];return <Reveal key={project.name} className={"commercial-case project-"+v.color+(i<2?" project-featured":"")} variant="media"><div className="project-art">
+{v.photo ? <div className="project-public-photo" style={{backgroundImage:"url("+v.photo+")"}} aria-hidden="true"/> : i<2 ? <div className="project-screen" aria-hidden="true"><ProductDemo index={v.mode}/></div> : <div className="project-brand-art" aria-hidden="true"><div className="project-brand-window"><div className="project-window-top"><i/><i/><i/></div>{project.logo?<img src={"/brands/clients/"+project.logo} alt="" loading="lazy" decoding="async"/>:<strong>{project.name}</strong>}<div className="project-mini-lines"><i/><i/><i/></div></div><div className="project-feature-stack">{v.features.map((f,n)=><span key={f}><i>0{n+1}</i>{f}</span>)}</div></div>}
+<div className="project-art-caption">{v.photo?"Imagen pública del proyecto":i<2?"Vista conceptual de producto":"Composición de portafolio"}</div>
+</div><div className="project-info"><div className="commercial-case-top"><span>{project.sector}</span><span>{project.status}</span></div><h3>{project.name}</h3><p>{captions[i]}</p><div className="project-info-actions">{project.url&&<a href={project.url} target="_blank" rel="noopener noreferrer">Visitar web <ArrowUpRight size={15}/></a>}<details><summary>Ver alcance</summary><div><p>{project.problem}</p><p>{project.solution}</p><p>{project.value}</p></div></details></div></div></Reveal>})}</div><div className="commercial-action"><p>Tu próximo proyecto empieza aquí.</p><Button>Solicitar propuesta</Button></div></div></section>}
+export function WhyXarcon(){return <section className="commercial-why"><div className="wrap"><Reveal className="section-heading"><div><span className="eyebrow">POR QUÉ XARCON</span><h2>Construimos contigo.<br/>No desde una plantilla.</h2></div><Link className="text-link" to="/nosotros">Conócenos <ArrowUpRight size={17}/></Link></Reveal><div className="commercial-reasons">{reasons.map(([title,description],i)=><Reveal key={title} className="commercial-reason"><span>0{i+1}</span><h3>{title}</h3><p>{description}</p></Reveal>)}</div></div></section>}

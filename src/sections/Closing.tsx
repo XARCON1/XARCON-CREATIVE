@@ -21,8 +21,7 @@ export default function Closing() {
             tu empresa?
           </h2>
           <p>
-            Contanos qué querés mejorar, construir o poner en marcha. Nosotros
-            te ayudamos a encontrar una forma clara de hacerlo.
+            Conversemos sobre tu próximo proyecto.
           </p>
           <Button>Solicitar una propuesta</Button>
         </Reveal>

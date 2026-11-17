@@ -41,7 +41,7 @@ export default function About() {
         <div className="about-intro-bottom">
           <Symbol />
           <p>
-            Somos XARCON Creative, una empresa de desarrollo tecnológico y soluciones digitales. Combinamos software, estrategia y diseño para resolver necesidades empresariales.
+            Desarrollamos software y soluciones digitales para empresas, desde Nicaragua.
           </p>
           <span>
             DISEÑO HUMANO.
@@ -74,13 +74,7 @@ export default function About() {
             <em>tenga más sentido.</em>
           </h2>
           <p>
-            Creemos en marcas que se entienden, herramientas que ayudan y
-            tecnología que se siente cercana. Escuchamos antes de proponer.
-            Pensamos antes de construir.
-          </p>
-          <p>
-            Trabajamos contigo para encontrar una respuesta propia, hecha para
-            tu contexto y tu siguiente etapa.
+            Escuchamos antes de proponer. Pensamos antes de construir.
           </p>
         </div>
       </section>
