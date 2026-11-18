@@ -1,79 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Activity, ArrowLeft, ArrowRight, Bot, BriefcaseBusiness, Check, ChevronRight, CircleDollarSign, Code2, Command, GitBranch, Layers3, Megaphone, Pause, Play, Plus, Radio, RotateCcw, Send, ShieldCheck, Workflow, Users, X } from "lucide-react";
+import { Activity, ArrowLeft, ArrowRight, Bot, Building2, Check, ChevronRight, Command, GitBranch, Pause, Play, Radio, Send, ShieldCheck, Workflow, X } from "lucide-react";
 import type { ReturnTypeWorkspace } from "../workspaceTypes";
 
-type Phase = "idle" | "running" | "review" | "done";
-type Department = { id: string; title: string; agent: string; role: string; color: string; icon: typeof Activity; actions: string[]; x: number; y: number };
-const departments: Department[] = [
-  { id:"sales", title:"Comercial", agent:"ATLAS", role:"Calificación y alcance", color:"#a8baff", icon:BriefcaseBusiness, actions:["Analizar solicitud","Definir alcance"], x:19,y:23 },
-  { id:"design", title:"Diseño", agent:"PRISM", role:"Producto y experiencia", color:"#cf9cff", icon:Layers3, actions:["Diseñar experiencia","Preparar entrega visual"], x:50,y:12 },
-  { id:"engineering", title:"Ingeniería", agent:"FORGE", role:"Desarrollo y arquitectura", color:"#78d9fb", icon:Code2, actions:["Planificar arquitectura","Construir módulos"], x:81,y:23 },
-  { id:"marketing", title:"Marketing", agent:"PULSE", role:"Contenido y distribución", color:"#f4b68a", icon:Megaphone, actions:["Crear estrategia","Preparar lanzamiento"], x:19,y:76 },
-  { id:"finance", title:"Finanzas", agent:"LEDGER", role:"Costos y presupuesto", color:"#e5d58b", icon:CircleDollarSign, actions:["Estimar recursos","Validar presupuesto"], x:50,y:87 },
-  { id:"quality", title:"Calidad y seguridad", agent:"AEGIS", role:"Validación y control", color:"#81e4b7", icon:ShieldCheck, actions:["Ejecutar revisión","Preparar aprobación"], x:81,y:76 },
-];
-const flow = ["sales","finance","design","engineering","quality","marketing"];
-const demo = [{id:"demo-01",name:"Plataforma empresarial",status:"Simulación"}, {id:"demo-02",name:"Automatización CRM",status:"Simulación"}, {id:"demo-03",name:"Experiencia comercial web",status:"Simulación"}];
-type Mission = { id:string; projectId:string; projectName:string; objective:string; step:number; phase:Phase };
-type Entry = { id:number; time:string; agent:string; message:string };
-const stamp=()=>new Date().toLocaleTimeString("es-NI",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
-// Integration boundary: real execution must be supplied by an authenticated server-side service.
-// This provider is intentionally isolated from Firestore writes and external agent tools.
-type CommanderProvider = { mode:"simulation" | "live"; projects: {id:string;name:string;status:string}[] };
-function useCommanderProvider(workspace:ReturnTypeWorkspace, mode:"demo"|"workspace"):CommanderProvider {
-  return {mode:"simulation",projects:mode==="workspace" ? workspace.projects.map(p=>({id:p.id,name:p.name,status:String(p.status)})):demo};
-}
+import { departments, flow, type DepartmentId } from "./departments";
+import { useOperations } from "./Operations";
+
 export default function Commander({workspace}:{workspace:ReturnTypeWorkspace}) {
-  const [source,setSource]=useState<"demo"|"workspace">("demo");
-  const provider=useCommanderProvider(workspace,source);
-  const [projectId,setProjectId]=useState(demo[0].id);
-  const [objective,setObjective]=useState("");
-  const [mission,setMission]=useState<Mission|null>(null);
-  const [paused,setPaused]=useState(false);
-  const [selected,setSelected]=useState("engineering");
+  const { source, changeSource, projects, projectId, chooseProject: setProjectId, project, objective, setObjective, mission, paused, busy, active, completed, logs, start: launch, togglePause, cancel, resolve, signals } = useOperations();
+  const [selected,setSelected]=useState<DepartmentId>("engineering");
   const [tab,setTab]=useState<"network"|"pipeline"|"activity">("network");
-  const [logs,setLogs]=useState<Entry[]>(()=>[{id:0,time:stamp(),agent:"COMMANDER",message:"Entorno de simulación inicializado"}]);
-  const project=provider.projects.find(p=>p.id===projectId);
   const dept=departments.find(d=>d.id===selected) || departments[0];
-  const active=mission?.phase==="running" ? flow[mission.step] : undefined;
-  const completed=mission ? mission.phase==="done" || mission.phase==="review" ? flow.length : mission.step : 0;
-  const record=(agent:string,message:string)=>setLogs(old=>[{id:Date.now()+Math.random(),time:stamp(),agent,message},...old].slice(0,80));
-  useEffect(()=>{
-    if (!mission || mission.phase!=="running" || paused) return;
-    const timer=window.setTimeout(()=>{
-      const current=departments.find(d=>d.id===flow[mission.step]);
-      if(current) record(current.agent,current.actions[1]+" · resultado simulado");
-      const next=mission.step+1;
-      if(next>=flow.length) {
-        setMission({...mission,step:next,phase:"review"});
-        record("COMMANDER","Misión preparada para revisión humana");
-      } else {
-        const nextDept=departments.find(d=>d.id===flow[next]);
-        setMission({...mission,step:next});
-        if(nextDept) record(nextDept.agent,nextDept.actions[0]+" · ejecución simulada");
-      }
-    },3600);
-    return ()=>window.clearTimeout(timer);
-  },[mission,paused]);
-  const busy=mission?.phase==="running" || mission?.phase==="review";
-  const start=()=>{
-    if(!project || !objective.trim() || busy) return;
-    setPaused(false);
-    setMission({id:"SIM-"+Date.now().toString(36).toUpperCase(),projectId:project.id,projectName:project.name,objective:objective.trim(),step:0,phase:"running"});
-    record("COMMANDER","Misión asignada: "+project.name);
-    record("ATLAS","Analizar solicitud · ejecución simulada");
-    setTab("network");
-  };
-  const resolve=(approve:boolean)=>{
-    if(mission?.phase!=="review") return;
-    record("OWNER",approve?"Aprobación simulada registrada":"Misión simulada rechazada");
-    setMission(approve?{...mission,phase:"done"}:null);
-  };
-  const changeSource=(value:"demo"|"workspace")=>{
-    setSource(value);setProjectId(value==="demo"?demo[0].id:workspace.projects[0]?.id || "");
-  };
-  const signals=useMemo(()=>departments.map(d=>({ ...d, state: active===d.id ? paused?"Pausado":"Procesando" : flow.indexOf(d.id)<completed?"Completado":"Disponible"})),[active,completed,paused]);
+  const start=()=>{ launch(); setTab("network"); };
   return <div className="xc" id="hq-main" tabIndex={-1}>
     <style>{styles}</style>
     <header className="xc-head">
@@ -87,6 +25,7 @@ export default function Commander({workspace}:{workspace:ReturnTypeWorkspace}) {
         <button className={tab==="network"?"on":""} onClick={()=>setTab("network")}><Workflow size={19}/> Arquitectura <ChevronRight size={14}/></button>
         <button className={tab==="pipeline"?"on":""} onClick={()=>setTab("pipeline")}><GitBranch size={19}/> Misiones <ChevronRight size={14}/></button>
         <button className={tab==="activity"?"on":""} onClick={()=>setTab("activity")}><Activity size={19}/> Actividad <ChevronRight size={14}/></button>
+        <Link className="xc-entorno-link" title="Entorno" to="/admin/commander/entorno"><Building2 size={19}/> <span>Entorno</span><ChevronRight size={14}/></Link>
         <div className="xc-eyebrow xc-spaced">DEPARTAMENTOS</div>
         {signals.map(d=><button key={d.id} className={selected===d.id?"selected":""} onClick={()=>{setSelected(d.id);setTab("network")}}><d.icon size={17} style={{color:d.color}}/>{d.title}<b className={d.state==="Procesando"?"xc-ping":"xc-muted-dot"}/></button>)}
         <div className="xc-rail-bottom"><ShieldCheck size={19}/><div><b>Control humano</b><small>Sin acciones externas</small></div></div>
@@ -114,8 +53,8 @@ export default function Commander({workspace}:{workspace:ReturnTypeWorkspace}) {
           </> : tab==="pipeline" ? <><div className="xc-section-head"><div><b>Cadena de ejecución</b><small>{mission?.projectName || "Sin misión iniciada"}</small></div><GitBranch size={20}/></div><div className="xc-pipeline">{flow.map((id,i)=>{const d=departments.find(item=>item.id===id)!; return <div className="xc-flow-row" key={id}><span className="xc-flow-index">{String(i+1).padStart(2,"0")}</span><d.icon size={22} style={{color:d.color}}/><div><b>{d.title} · {d.agent}</b><small>{d.actions.join(" → ")}</small></div><span className="xc-flow-state">{i<completed?<Check size={19}/>:active===id?paused?"Pausa":"En ejecución":"Pendiente"}</span></div>})}</div></> : <><div className="xc-section-head"><div><b>Registro de eventos</b><small>Eventos locales · no auditoría productiva</small></div><Activity size={20}/></div><div className="xc-all-logs">{logs.map(e=><div key={e.id}><time>{e.time}</time><b>{e.agent}</b><span>{e.message}</span></div>)}</div></>}
         </div>
         <section className="xc-command"><div className="xc-section-head"><div><b><Command size={17}/> Nueva misión</b><small>Proyecto + objetivo · ejecución de prueba</small></div><div className="xc-switch"><button disabled={busy} className={source==="demo"?"on":""} onClick={()=>changeSource("demo")}>Demo</button><button disabled={busy} className={source==="workspace"?"on":""} onClick={()=>changeSource("workspace")}>Proyectos HQ</button></div></div>
-          <div className="xc-form"><select aria-label="Proyecto" disabled={busy} value={projectId} onChange={e=>setProjectId(e.target.value)}><option value="">Seleccionar proyecto</option>{provider.projects.map(p=><option key={p.id} value={p.id}>{p.name} · {p.status}</option>)}</select><input aria-label="Objetivo de misión" disabled={busy} value={objective} onChange={e=>setObjective(e.target.value)} placeholder="Define un objetivo de ejecución…" onKeyDown={e=>{if(e.key==="Enter")start()}}/><button className="xc-primary" disabled={!project||!objective.trim()||busy} onClick={start}><Send size={17}/> Ejecutar</button></div>
-          {source==="workspace"&&<small className="xc-source">Workspace: {workspace.connection==="live"?"conectado":workspace.connection} · {provider.projects.length} proyectos · solo lectura</small>}
+          <div className="xc-form"><select aria-label="Proyecto" disabled={busy} value={projectId} onChange={e=>setProjectId(e.target.value)}><option value="">Seleccionar proyecto</option>{projects.map(p=><option key={p.id} value={p.id}>{p.name} · {p.status}</option>)}</select><input aria-label="Objetivo de misión" disabled={busy} value={objective} onChange={e=>setObjective(e.target.value)} placeholder="Define un objetivo de ejecución…" onKeyDown={e=>{if(e.key==="Enter")start()}}/><button className="xc-primary" disabled={!project||!objective.trim()||busy} onClick={start}><Send size={17}/> Ejecutar</button></div>
+          {source==="workspace"&&<small className="xc-source">Workspace: {workspace.connection==="live"?"conectado":workspace.connection} · {projects.length} proyectos · solo lectura</small>}
         </section>
       </main>
       <aside className="xc-inspector">
@@ -126,7 +65,7 @@ export default function Commander({workspace}:{workspace:ReturnTypeWorkspace}) {
         <div className="xc-divider"/>
         <div className="xc-section-head compact"><b>Misión actual</b><span className="xc-small">{mission?.id||"—"}</span></div>
         {mission?<><b className="xc-mission-name">{mission.projectName}</b><p className="xc-objective">{mission.objective}</p><div className="xc-progress"><i style={{width:(completed/flow.length*100)+"%"}}/></div><small>{completed}/{flow.length} etapas completas</small>
-          {mission.phase==="running"&&<div className="xc-controls"><button onClick={()=>{setPaused(!paused);record("OWNER",paused?"Misión reanudada":"Misión pausada")}}>{paused?<Play size={16}/>:<Pause size={16}/>} {paused?"Reanudar":"Pausar"}</button><button onClick={()=>{setMission(null);setPaused(false);record("OWNER","Misión cancelada")}}><X size={16}/> Cancelar</button></div>}
+          {mission.phase==="running"&&<div className="xc-controls"><button onClick={togglePause}>{paused?<Play size={16}/>:<Pause size={16}/>} {paused?"Reanudar":"Pausar"}</button><button onClick={cancel}><X size={16}/> Cancelar</button></div>}
           {mission.phase==="review"&&<div className="xc-approval"><ShieldCheck size={18}/><b>Revisión humana requerida</b><div className="xc-controls"><button onClick={()=>resolve(true)}><Check size={16}/> Aprobar</button><button onClick={()=>resolve(false)}><X size={16}/> Rechazar</button></div></div>}
           {mission.phase==="done"&&<div className="xc-cap"><Check size={16}/> Simulación completada</div>}
         </>:<p className="xc-empty">Inicia una misión para visualizar el flujo.</p>}
@@ -140,6 +79,8 @@ export default function Commander({workspace}:{workspace:ReturnTypeWorkspace}) {
 }
 
 const styles = `
+.xc .xc-entorno-link{display:flex;align-items:center;gap:10px;padding:11px 9px;border:1px solid #334b5e;border-radius:8px;color:#b6e5eb;font-size:12px;white-space:nowrap}.xc-entorno-link svg:last-child{margin-left:auto}.xc .xc-entorno-link:hover{background:#172c3b}@media(min-width:851px) and (max-width:1190px){.xc .xc-entorno-link{justify-content:center}.xc-entorno-link span,.xc-entorno-link svg:last-child{display:none}}@media(max-width:850px){.xc .xc-entorno-link{order:-1}.xc-entorno-link svg:last-child{display:none}}
+
 .xc{--xc-bg:#080d18;--xc-panel:#101827;--xc-line:#243146;--xc-text:#e6edf7;--xc-dim:#93a4bb;--xc-cyan:#7ae0f4;min-height:100vh;background:var(--xc-bg);color:var(--xc-text);font:14px/1.45 "Manrope Variable","DM Sans Variable",system-ui,sans-serif;display:flex;flex-direction:column;isolation:isolate;outline:none}
 .xc *{box-sizing:border-box}.xc button,.xc select,.xc input{font:inherit}.xc button{cursor:pointer}.xc button:disabled,.xc select:disabled,.xc input:disabled{opacity:.48;cursor:not-allowed}.xc button:focus-visible,.xc a:focus-visible,.xc input:focus-visible,.xc select:focus-visible{outline:2px solid var(--xc-cyan);outline-offset:3px}.xc a{color:inherit;text-decoration:none}.xc button{color:inherit}.xc-head{height:72px;padding:0 26px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--xc-line);background:#0c1320;gap:16px}.xc-brand{display:flex;align-items:center;gap:12px;white-space:nowrap;letter-spacing:.13em}.xc-brand strong{font-size:17px}.xc-brand strong span{color:#566c85}.xc-brand small{font-size:11px;color:var(--xc-cyan);font-weight:800}.xc-mark{width:39px;height:39px;display:grid;place-items:center;border:1px solid #3d728a;border-radius:11px;color:var(--xc-cyan);background:#102633}.xc-head-mid,.xc-back{display:flex;gap:10px;align-items:center;color:var(--xc-dim);font-size:12px}.xc-head-mid i{height:15px;width:1px;background:var(--xc-line)}.xc-back{border:1px solid var(--xc-line);padding:9px 13px;border-radius:8px}.xc-back:hover{border-color:var(--xc-cyan)}.xc-dot{display:inline-block;width:7px;height:7px;background:#81e4b7;box-shadow:0 0 11px #81e4b780;border-radius:50%;flex:none}
 .xc-body{display:grid;grid-template-columns:200px minmax(0,1fr) 280px;flex:1;min-height:calc(100vh - 105px)}.xc-rail,.xc-inspector{background:#0c1320;padding:23px 15px;border-right:1px solid var(--xc-line)}.xc-rail{display:flex;flex-direction:column;gap:4px}.xc-eyebrow{color:#8397b1;letter-spacing:.14em;font-size:10px;font-weight:800}.xc-rail .xc-eyebrow{margin:0 8px 11px}.xc-rail button{border:1px solid transparent;background:transparent;text-align:left;display:flex;align-items:center;gap:10px;padding:11px 9px;border-radius:8px;color:#a7b6cb;font-size:12px;white-space:nowrap}.xc-rail button svg{flex:none}.xc-rail button svg:last-child,.xc-rail button b{margin-left:auto}.xc-rail button:hover,.xc-rail button.selected{background:#162235;color:#f1f5fc}.xc-rail button.on{color:var(--xc-cyan);background:#132a38;border-color:#265064}.xc-spaced{margin-top:28px!important;margin-bottom:12px!important}.xc-muted-dot,.xc-ping{height:6px;width:6px;border-radius:50%;background:#52637a;flex:none}.xc-ping{background:var(--xc-cyan);box-shadow:0 0 12px var(--xc-cyan)}.xc-rail-bottom{margin-top:auto;padding:18px 6px 0;display:flex;align-items:center;gap:10px;color:#87d9bc;border-top:1px solid var(--xc-line)}.xc-rail-bottom b,.xc-rail-bottom small{display:block}.xc-rail-bottom small{font-size:10px;color:var(--xc-dim)}

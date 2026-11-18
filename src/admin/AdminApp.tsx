@@ -26,7 +26,7 @@ import {
 import { useWorkspace } from "./useWorkspace";
 import "./admin.css";
 
-const Commander = lazy(() => import("./commander/Commander"));
+const Commander = lazy(() => import("./commander/CommanderRoutes"));
 
 type AuthState = "checking" | "authenticated" | "unauthenticated" | "unconfigured" | "signing-in";
 

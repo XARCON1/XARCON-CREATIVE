@@ -25,3 +25,16 @@ jobs:
         run: npm ci
       - name: Typecheck and build
         run: npm run build
+
+      - name: Verify Commander Entorno
+        env:
+          ENTORNO_QA_DIR: ${{ runner.temp }}/entorno-qa
+        run: npm run check:entorno
+      - name: Save office rendering checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: entorno-qa
+          path: ${{ runner.temp }}/entorno-qa
+          if-no-files-found: ignore
+          retention-days: 5
