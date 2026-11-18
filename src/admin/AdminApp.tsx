@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { ArrowRight, LoaderCircle, LockKeyhole, ShieldCheck } from "lucide-react";
 import { Symbol } from "../components/Logo";
 import AdminShell from "./AdminShell";
@@ -26,9 +26,12 @@ import {
 import { useWorkspace } from "./useWorkspace";
 import "./admin.css";
 
+const Commander = lazy(() => import("./commander/Commander"));
+
 type AuthState = "checking" | "authenticated" | "unauthenticated" | "unconfigured" | "signing-in";
 
 export default function AdminApp() {
+  const { pathname } = useLocation();
   const [auth, setAuth] = useState<AuthState>("checking");
   const [identity, setIdentity] = useState<AdminIdentity | null>(null);
   const [error, setError] = useState("");
@@ -180,6 +183,10 @@ export default function AdminApp() {
         </section>
       </div>
     );
+  }
+
+  if (pathname === "/admin/commander" || pathname.startsWith("/admin/commander/")) {
+    return <Suspense fallback={<div className="hq-auth-screen"><LoaderCircle className="spin" size={26} /></div>}><Commander workspace={workspace} /></Suspense>;
   }
 
   return (
