@@ -12,17 +12,17 @@ export function mountScene(host:HTMLDivElement,initial:SceneView,hooks:Hooks):Sc
   const context=canvas.getContext("webgl2",{antialias:true,alpha:false,powerPreference:"high-performance"});
   if(!context)throw new Error("WebGL 2 no disponible");
   const renderer=new T.WebGLRenderer({canvas,context,antialias:true});
-  renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.03;
+  renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.96;
   renderer.outputColorSpace=T.SRGBColorSpace;renderer.shadowMap.type=T.PCFShadowMap;
   canvas.tabIndex=0;canvas.setAttribute("aria-label","Planta corporativa 3D interactiva de XARCON");
   host.appendChild(canvas);
   const scene=new T.Scene();scene.background=new T.Color("#d5d9d1");scene.fog=new T.FogExp2("#d5d9d1",.0052);
   const pmrem=new T.PMREMGenerator(renderer),room=new RoomEnvironment(),environment=pmrem.fromScene(room,.04);
-  scene.environment=environment.texture;scene.environmentIntensity=.49;room.dispose();pmrem.dispose();
+  scene.environment=environment.texture;scene.environmentIntensity=.43;room.dispose();pmrem.dispose();
   const camera=new T.PerspectiveCamera(36,1,.07,240);
   const ground=new T.Mesh(new T.PlaneGeometry(420,420),new T.MeshStandardMaterial({color:"#c4c8bb",roughness:1}));
   ground.rotation.x=-Math.PI/2;ground.position.y=-1.04;ground.receiveShadow=true;scene.add(ground);
-  const hemi=new T.HemisphereLight("#f5faff","#b0a28a",1.44),sun=new T.DirectionalLight("#fff0d1",2.75);
+  const hemi=new T.HemisphereLight("#f5faff","#a59580",1.10),sun=new T.DirectionalLight("#fff0d1",2.30);
   sun.position.set(-18,28,15);sun.castShadow=true;sun.shadow.mapSize.set(1536,1536);
   Object.assign(sun.shadow.camera,{left:-24,right:24,top:23,bottom:-23,near:1,far:87});sun.shadow.camera.updateProjectionMatrix();sun.shadow.bias=-.00025;sun.shadow.normalBias=.025;
   scene.add(hemi,sun,sun.target);
@@ -63,13 +63,13 @@ export function mountScene(host:HTMLDivElement,initial:SceneView,hooks:Hooks):Sc
     const budget=view.quality==="low"||reduced?1/24:1/48;
     if(now-paint < budget*1000-1)return;
     if(elapsed>.001&&elapsed<.5)ema=.94*ema+.06*elapsed;
-    const dt=Math.min(.10,elapsed);prev=paint=now;
+    const dt=Math.min(.30,elapsed);prev=paint=now;
     if(!view.environment.paused)t+=dt;
     if(view.quality==="auto"&&now-lastAdapt>4500){
       const next=T.MathUtils.clamp(autoScale+(ema>.047?-.13:ema<.031?.06:0),.65,1);
       if(Math.abs(next-autoScale)>.005){autoScale=next;quality();}lastAdapt=now;
     }
-    people.update(dt,t,view.environment);rig.update(dt);
+    people.update(dt,t,view.environment);rig.update(Math.min(elapsed,1));
     if(t-screenAt>.25||screenAt<0){office.update(view.environment,t);screenAt=t;}
     const id=view.selection?.id??(view.mode==="follow"||view.mode==="department"?view.focus:null);
     if(id){

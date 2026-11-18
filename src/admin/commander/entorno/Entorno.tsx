@@ -68,7 +68,7 @@ export default function Entorno() {
     </header>
     <div className="xe-viewport">
       {map?<Plan environment={op.engine} select={select} selected={selected}/>:<div className="xe-canvas" ref={host}/>}
-      <div className="xe-title"><span className="xe-level"><i/> Planta 01</span><h1>Sede corporativa</h1></div>
+      <div className={"xe-title"+(!map&&mode!=="orbit"&&mode!=="overview"?" xe-title-detail":"")}><span className="xe-level"><i/> Planta 01</span><h1>Sede corporativa</h1></div>
       <button className={"xe-live"+(mission?" active":"")} aria-expanded={panel==="mission"} onClick={()=>switchPanel("mission")}><Flag size={14}/><span>{missionLabel}</span><ChevronDown size={13}/></button>
       {!map&&ready<rooms.length&&<div className="xe-load" role="status"><i/> {ready ? "Cargando agentes · "+ready+"/7":"Preparando la planta 3D"}</div>}
       {failed&&<div className="xe-fallback" role="status">{failed} <button onClick={()=>{setFailed("");setQuality("low");}}>Reintentar 3D</button></div>}

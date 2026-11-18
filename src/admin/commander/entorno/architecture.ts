@@ -2,6 +2,7 @@ import * as T from "three";
 import { department, type DepartmentId } from "../departments";
 import type { EnvironmentState } from "../engine";
 import { rooms, type Room } from "./floor";
+import { atrium, contactShadows, departmentFitout } from "./interiors";
 import { builder, type Kit } from "./materials";
 import { lettering, makeScreen } from "./displays";
 import type { Selection } from "./types";
@@ -100,6 +101,7 @@ function sideRoom(k:Kit,scene:T.Scene,r:Room,screen:T.Material) {
 }
 export function createOffice(scene:T.Scene) {
   const k=builder(scene),{p,box,cyl,plant}=k;
+  const contact=contactShadows(scene);
   const screens=new Map<DepartmentId,ReturnType<typeof makeScreen>>();
   const pickers:T.Object3D[]=[];
   const pickGeo=new T.BoxGeometry(1,1,1);
@@ -136,7 +138,8 @@ export function createOffice(scene:T.Scene) {
   glassX(k,-4.1,-5.5,7.8);glassX(k,4.1,-5.5,7.8);glassZ(k,-2.65,-1.63,2.89);glassZ(k,2.65,-1.63,2.89);
   desk(k,scene,core,coreDisplay.material);
   for(const r of rooms){
-    if(r.side){const display=makeScreen(r.id);screens.set(r.id,display);sideRoom(k,scene,r,display.material);}
+    if(r.side){const display=makeScreen(r.id);screens.set(r.id,display);sideRoom(k,scene,r,display.material);departmentFitout(scene,k,r);}
+    contact.room(r);
     hit({id:r.id,kind:"office"},r.x,.022,r.z,r.w,.08,r.d);
     hit({id:r.id,kind:"station"},r.x,1.0,r.z-.60,3.57,1.54,1.10);
   }
@@ -156,6 +159,6 @@ export function createOffice(scene:T.Scene) {
   for(const x of [-4.20,4.2])plant(x,8.55,1.26);
   // Exterior entry treads terminate at the cut face of the model.
   for(let i=0;i<3;i++)box(p.stone,0,-.17-i*.19,10.55+i*.34,3.72,.16,.55);
-  k.flush();
+  atrium(scene,k);contact.finish();k.flush();
   return {pickers,update(state:EnvironmentState,t:number){for(const display of screens.values())display.draw(state,t);}};
 }

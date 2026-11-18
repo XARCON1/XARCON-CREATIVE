@@ -62,7 +62,8 @@ export function createPeople(scene:T.Scene, loaded:(n:number)=>void, failed:(rea
       for(const a of actors){
         advanceTraveler(a.traveler,dt*rate,t,env);
         const v=a.traveler;a.root.position.set(v.x,.045,v.z);a.root.rotation.y=v.angle;
-        play(a,v.clip);a.paper.visible=v.clip==="Reading" && Boolean(a.mixer);
+        play(a,v.clip);a.paper.visible=(v.clip==="Reading"||v.clip==="Discuss") && Boolean(a.mixer);
+        a.paper.position.set(v.clip==="Discuss"?.15:0,v.clip==="Discuss"?1.20:.96,.31);
         if(!env.paused && env.agents?.[a.id]?.state!=="Pausado")a.mixer?.update(dt*rate);
       }
     },

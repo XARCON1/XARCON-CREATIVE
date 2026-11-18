@@ -24,7 +24,9 @@ const nodes = new Map<string,Point>();
 const links = new Map<string,string[]>();
 function node(id:string,x:number,z:number) { nodes.set(id,{x,z}); links.set(id,[]); }
 function join(a:string,b:string) { links.get(a)!.push(b); links.get(b)!.push(a); }
-node("hub",0,1.65); node("lounge-entry",0,2.45); join("hub","lounge-entry");
+node("hub",0,1.65);
+node("hub/receive",-.57,1.65);node("hub/deliver",.57,1.65);join("hub","hub/receive");join("hub","hub/deliver");
+node("lounge-entry",0,2.45); join("hub","lounge-entry");
 for (const side of [-1,1]) {
   node("hall"+side,side*5.62,1.65); join("hub","hall"+side);
   node("table"+side,side*3.5,2.45); join("lounge-entry","table"+side);
@@ -81,11 +83,18 @@ for (const r of rooms) {
     block(inner,r.z-1.83,.15,2.8);block(inner,r.z+2.40,.15,1.55);
     block(r.x,r.z-3.20,8.42,.10);block(r.x,r.z+3.20,8.42,.10);
     block(r.x+r.side*3.40,r.z-1.20,.72,2.65);
+    block(r.x-r.side*2.99,r.z-2.53,.56,.56);
+    if(r.id==="sales"){block(r.x-r.side*3.59,r.z-1.42,.74,.84);block(r.x-r.side*2.72,r.z-2.36,.84,.74);block(r.x-r.side*2.9,r.z-1.73,.85,.85);}
+    if(r.id==="design")block(r.x+2.57,r.z+2.28,1.10,1.10);
+    if(r.id==="finance"||r.id==="engineering"||r.id==="quality")block(r.x+r.side*2.98,r.z+2.08,1.65,.76);
+    if(r.id==="marketing")block(r.x+r.side*2.78,r.z+1.95,.70,.70);
   } else {
     block(-4.1,r.z,.12,7.8);block(4.1,r.z,.12,7.8);
     block(-2.65,-1.63,2.9,.14);block(2.65,-1.63,2.9,.14);
   }
 }
+block(0,-9.37,8.32,.2);
+for(const side of [-1,1]){block(side*5.44,8.92,1.45,1.07);block(side*4.20,8.55,.75,.75);block(side*5.85,-8.85,.80,.80);block(side*3.96,5.0,.10,.12);}
 block(0,4.97,4.44,1.56);block(0,8.60,3.1,.66);
 for (const r of rooms) block(r.seat.x,r.seat.z,.50,.55);
 for (const x of [-2.85,2.85]) for(const z of [4.25,5.65]) block(x,z,.52,.54);

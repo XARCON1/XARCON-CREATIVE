@@ -22,7 +22,9 @@ export type Operation = { type: "start"; project: Project; objective: string; no
 
 // Timeline and graphics consume the same read model. A future authenticated feed
 // can supply Agent and ExecutionEvent records without acquiring workspace writers.
-export const STAGE_MS = 20000;
+export const STAGE_MS = 26000;
+export const HANDOFF_AT = .55;
+export const RELEASE_AT = .17;
 const displayTime = new Intl.DateTimeFormat("es-NI", { hour:"2-digit", minute:"2-digit", second:"2-digit" });
 function entry(state: EnvironmentState, at: number, agent: string, message: string, handoff?: Communication): EnvironmentState {
   const id = state.sequence + 1;
@@ -95,9 +97,9 @@ export function readAgent(id: DepartmentId, state: EnvironmentState): Agent {
       progress = 1; status = "Completado"; label = d.actions[1];
     } else if (index === m.step) {
       progress = m.elapsed / STAGE_MS;
-      status = state.paused ? "Pausado" : progress < .15 ? "Planificando" : progress > .78 ? "Colaborando" : id === "quality" ? "En revisión" : "Ejecutando";
+      status = state.paused ? "Pausado" : progress < .15 ? "Planificando" : progress >= HANDOFF_AT ? "Colaborando" : id === "quality" ? "En revisión" : "Ejecutando";
       label = progress < .55 ? d.actions[0] : d.actions[1];
-    } else if (index === m.step + 1 && m.elapsed / STAGE_MS > .78) {
+    } else if (index === m.step + 1 && m.elapsed / STAGE_MS >= HANDOFF_AT) {
       status = state.paused ? "Pausado" : "Colaborando"; label = "Recibir entrega de " + department(flow[m.step]).agent;
     } else {
       status = "Esperando información"; label = "Pendiente de entrega";

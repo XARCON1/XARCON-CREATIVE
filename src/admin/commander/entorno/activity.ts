@@ -1,9 +1,17 @@
 import { flow, type DepartmentId } from "../departments";
-import { readAgent, STAGE_MS, type EnvironmentState } from "../engine";
+import { HANDOFF_AT, readAgent, RELEASE_AT, STAGE_MS, type EnvironmentState } from "../engine";
 import { nodeId, roomById, route, waypoint, type Room } from "./floor";
 
 export type OfficeClip = "Idle" | "Walk" | "Typing" | "Reading" | "Monitor" | "Discuss";
 type Cue = { node:string; clip:OfficeClip; angle:number };
+function handoff(from:DepartmentId,to:DepartmentId,sender:boolean):Cue {
+  const crossWing=roomById(from).side*roomById(to).side<0;
+  const place=sender?"deliver":"receive";
+  const node=crossWing ? "hub/"+place : nodeId(to,place);
+  const facingAcross=crossWing||to==="command";
+  const angle=facingAcross?(sender?-1:1)*Math.PI/2:sender?Math.PI:0;
+  return {node,clip:"Discuss",angle};
+}
 function cue(r:Room,index:number,t:number,env:EnvironmentState):Cue {
   const seat: Cue = {node:nodeId(r.id,"desk"),clip:r.id==="finance"||r.id==="sales"?"Reading":r.id==="command"||r.id==="quality"?"Monitor":"Typing",angle:Math.PI};
   const board: Cue = {node:nodeId(r.id,"board"),clip:"Idle",angle:r.side ? r.side*1.0+Math.PI : Math.PI};
@@ -20,14 +28,8 @@ function cue(r:Room,index:number,t:number,env:EnvironmentState):Cue {
     if (m.phase==="running") {
       const part=m.elapsed/STAGE_MS;
       const current=flow[m.step],next=flow[m.step+1]??"command";
-      if(part>=.70 && (r.id===current||r.id===next)) {
-        const sender=r.id===current;
-        return {node:nodeId(next,sender?"deliver":"receive"),clip:"Discuss",angle:next==="command" ? (sender?-1:1)*Math.PI/2 : sender?Math.PI:0};
-      }
-      if (m.step>0 && part<.14 && (r.id===flow[m.step-1]||r.id===current)) {
-        const sender=r.id!==current;
-        return {node:nodeId(current,sender?"deliver":"receive"),clip:"Discuss",angle:sender?Math.PI:0};
-      }
+      if(part>=HANDOFF_AT && (r.id===current||r.id===next)) return handoff(current,next,r.id===current);
+      if (m.step>0 && part<RELEASE_AT && (r.id===flow[m.step-1]||r.id===current)) return handoff(flow[m.step-1],current,r.id!==current);
       if(r.id===current || r.id==="command") return seat;
       if(a.state==="Completado") return part<.42 ? board : seat;
     }

@@ -4,7 +4,7 @@ import { rooms, roomById, walkable, type Point } from "./floor";
 import type { CameraMode, Direction, SceneView } from "./types";
 import type { DepartmentId } from "../departments";
 
-export function cameraRig(camera:T.PerspectiveCamera,surface:HTMLCanvasElement,actor:(id:DepartmentId)=>Point,reduced:boolean) {
+export function cameraRig(camera:T.PerspectiveCamera,surface:HTMLCanvasElement,actor:(id:DepartmentId)=>Point & {angle:number;clip:string},reduced:boolean) {
   const orbit=new OrbitControls(camera,surface);
   orbit.enabled=false;orbit.enableDamping=true;orbit.dampingFactor=.095;orbit.minDistance=3;orbit.maxDistance=105;orbit.maxPolarAngle=Math.PI*.484;
   const target=new T.Vector3(), position=new T.Vector3(), goal=new T.Vector3(), aim=new T.Vector3();
@@ -37,8 +37,8 @@ export function cameraRig(camera:T.PerspectiveCamera,surface:HTMLCanvasElement,a
   function frameRoom(id:DepartmentId,drift=0){
     const r=roomById(id);
     aim.set(r.x,1.05,r.z-.47);
-    const factor=camera.aspect<1?1.4:1;
-    goal.set(r.x+(-r.side*3.7+Math.sin(drift)*1.2||2.7)*factor,3.55*factor,r.z+(5.45+Math.cos(drift)*.35)*factor);
+    const direction=r.side || -1;
+    goal.set(r.x-direction*2.88+Math.sin(drift)*.42,2.22,r.z+2.67+Math.cos(drift)*.10);
   }
   function configure(view:SceneView){
     const changed=mode!==view.mode||focus!==view.focus;focus=view.focus;
@@ -50,12 +50,17 @@ export function cameraRig(camera:T.PerspectiveCamera,surface:HTMLCanvasElement,a
   }
   function update(dt:number) {
     if(mode==="orbit"){orbit.update();target.copy(orbit.target);position.copy(camera.position);return;}
+    const lens=mode==="interior"?65:mode==="follow"?48:mode==="department"||mode==="cinema"?53:36;
+    const nextFov=T.MathUtils.lerp(camera.fov,lens,1-Math.exp(-dt*5));
+    if(Math.abs(camera.fov-nextFov)>.01){camera.fov=nextFov;camera.updateProjectionMatrix();}
     switch(mode){
       case "overview": overview();break;
       case "department":frameRoom(focus);break;
       case "follow":{
-        const p=actor(focus),r=roomById(focus);
-        aim.set(p.x,1.22,p.z);goal.set(p.x+(r.side || 1)*1.85,2.40,p.z+3.25);break;
+        const p=actor(focus),seated=["Monitor","Typing","Reading"].includes(p.clip);
+        const sign=roomById(focus).side||1;
+        aim.set(p.x,seated?1.03:1.24,p.z);
+        goal.set(p.x+Math.cos(p.angle)*1.76*sign+Math.sin(p.angle)*.89,seated?1.79:1.93,p.z-Math.sin(p.angle)*1.76*sign+Math.cos(p.angle)*.89);break;
       }
       case "interior":{
         const forward=Number(keys.has("forward"))-Number(keys.has("back")), side=Number(keys.has("right"))-Number(keys.has("left"));
