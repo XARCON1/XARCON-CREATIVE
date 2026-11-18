@@ -71,4 +71,3 @@ export function advanceTraveler(a:Traveler,dt:number,t:number,env:EnvironmentSta
   }
   if(!a.path.length){a.clip=desired.clip;turn(a,desired.angle,dt);}
 }
-

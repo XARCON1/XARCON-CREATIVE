@@ -1,5 +1,6 @@
 import * as T from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { createCourtyard } from "./courtyard";
 import { createOffice } from "./architecture";
 import { createPeople, disposeTree } from "./actors";
 import { cameraRig } from "./cameras";
@@ -26,6 +27,7 @@ export function mountScene(host:HTMLDivElement,initial:SceneView,hooks:Hooks):Sc
   sun.position.set(-18,28,15);sun.castShadow=true;sun.shadow.mapSize.set(1536,1536);
   Object.assign(sun.shadow.camera,{left:-24,right:24,top:23,bottom:-23,near:1,far:87});sun.shadow.camera.updateProjectionMatrix();sun.shadow.bias=-.00025;sun.shadow.normalBias=.025;
   scene.add(hemi,sun,sun.target);
+  const courtyard=createCourtyard(scene);
   const office=createOffice(scene),people=createPeople(scene,hooks.loaded,hooks.fail);
   const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
   const rig=cameraRig(camera,canvas,id=>people.point(id),reduced);
@@ -62,13 +64,14 @@ export function mountScene(host:HTMLDivElement,initial:SceneView,hooks:Hooks):Sc
     const elapsed=prev?(now-prev)/1000:1/60;
     const budget=view.quality==="low"||reduced?1/24:1/48;
     if(now-paint < budget*1000-1)return;
-    if(elapsed>.001&&elapsed<.5)ema=.94*ema+.06*elapsed;
+    if(elapsed>.001)ema=.94*ema+.06*Math.min(elapsed,.25);
     const dt=Math.min(.30,elapsed);prev=paint=now;
     if(!view.environment.paused)t+=dt;
     if(view.quality==="auto"&&now-lastAdapt>4500){
       const next=T.MathUtils.clamp(autoScale+(ema>.047?-.13:ema<.031?.06:0),.65,1);
       if(Math.abs(next-autoScale)>.005){autoScale=next;quality();}lastAdapt=now;
     }
+    courtyard.visible=view.mode==="interior"||view.mode==="department"||view.mode==="follow"||view.mode==="cinema";
     people.update(dt,t,view.environment);rig.update(Math.min(elapsed,1));
     if(t-screenAt>.25||screenAt<0){office.update(view.environment,t);screenAt=t;}
     const id=view.selection?.id??(view.mode==="follow"||view.mode==="department"?view.focus:null);

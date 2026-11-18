@@ -7,10 +7,10 @@ Los archivos GLB de partida proceden de la [conversión de Ducz Character Creato
 | Agente | Modelo de partida |
 | --- | --- |
 | COMMANDER | Male/Suit |
-| ATLAS | Male/Casual_2 |
+| ATLAS | Male/Casual_2 con pantalón y zapatos de Male/Suit |
 | PRISM | Female/Formal |
-| FORGE | Male/Casual_Hoodie |
-| PULSE | Female/Casual |
+| FORGE | Male/Casual_Hoodie con pantalón y zapatos de Male/Suit |
+| PULSE | Female/Casual con pantalón y zapatos de Female/Suit |
 | LEDGER | Female/Suit |
 | AEGIS | Male/Suit, con otra paleta de traje, piel y cabello |
 

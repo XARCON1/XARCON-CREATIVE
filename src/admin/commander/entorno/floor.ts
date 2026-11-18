@@ -15,7 +15,7 @@ const places: Record<DepartmentId,[number,number,string,string,string]> = {
 export const rooms: Room[] = staff.map(({id}) => {
   const [x,z,title,finish,tint] = places[id];
   const side = Math.sign(x);
-  return { id,x,z,title,finish,tint,side, w:side ? 8.4 : 8.2, d:side ? 6.36 : 7.8, seat:{x,z:z+.55}, board:{x:x+(side || 1)*2.3,z:z-1.75} };
+  return { id,x,z,title,finish,tint,side, w:side ? 8.4 : 8.2, d:side ? 6.36 : 7.8, seat:{x,z:z+.38}, board:{x:x+(side || 1)*2.3,z:z-1.75} };
 });
 export const roomById = (id:DepartmentId) => rooms.find(r => r.id === id)!;
 export type Destination = "desk" | "board" | "lounge" | "receive" | "deliver";

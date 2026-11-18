@@ -14,8 +14,19 @@ function chair(k:Kit,x:number,z:number,angle=0,lounge=false) {
     const [px,pz]=at(dx,dz);box(m,px,y,pz,w,h,d,angle);
   }
   cyl(p.dark,x,.25,z,.083,.35);
-  for(let i=0;i<5;i++){const v=i*2*Math.PI/5;rod(p.silver,[x,.16,z],[x+Math.sin(v)*.32,.08,z+Math.cos(v)*.32],.033);}
-  part(lounge?p.fabric:p.teal,0,.452,0,.53,.105,.50);part(lounge?p.fabric:p.teal,0,.79,.245,.48,.54,.075);
+  for(let i=0;i<5;i++){
+    const v=i*2*Math.PI/5,px=x+Math.sin(v)*.32,pz=z+Math.cos(v)*.32;
+    rod(p.silver,[x,.16,z],[px,.08,pz],.033);
+    k.piece("tube",p.black,px,.051,pz,.09,.061,.09,Math.PI/2,v,0);
+  }
+  const fabric=lounge?p.fabric:p.teal;
+  const [bx,bz]=at(0,.249);
+  k.piece("cushion",p.black,x,.411,z,.57,.064,.53,0,angle);
+  k.piece("cushion",fabric,x,.470,z,.55,.12,.52,0,angle);
+  k.piece("cushion",p.dark,bx,.78,bz,.50,.59,.09,-.07,angle);
+  const [fx,fz]=at(0,.195);
+  k.piece("cushion",fabric,fx,.79,fz,.48,.52,.09,-.07,angle);
+  part(p.silver,0,.55,.28,.055,.31,.031);
   for(const side of [-1,1]){part(p.dark,side*.273,.56,.025,.032,.23,.04);part(p.black,side*.273,.677,.01,.053,.041,.25);}
 }
 function monitor(k:Kit,scene:T.Scene,texture:T.Material,x:number,z:number,w=1.22,y=.82,angle=0) {
@@ -35,9 +46,9 @@ function desk(k:Kit,scene:T.Scene,r:Room,screen:T.Material) {
   const twin=r.id==="engineering"||r.id==="command"||r.id==="quality";
   if(twin){monitor(k,scene,screen,x-.65,cz-.26,1.12,.84,.12);monitor(k,scene,screen,x+.57,cz-.26,1.12,.84,-.12);}
   else monitor(k,scene,screen,x-.15,cz-.26,1.42);
-  box(p.dark,x-.03,.848,cz+.24,.71,.027,.245);
-  for(let i=0;i<10;i++){for(let j=0;j<3;j++)box(p.silver,x-.32+i*.063,.865,cz+.18+j*.066,.044,.007,.036);}
-  box(p.dark,x+.52,.857,cz+.22,.095,.038,.15);
+  box(p.dark,x-.03,.848,cz+.37,.71,.027,.245);
+  for(let i=0;i<10;i++){for(let j=0;j<3;j++)box(p.silver,x-.32+i*.063,.865,cz+.31+j*.066,.044,.007,.036);}
+  box(p.dark,x+.52,.857,cz+.35,.095,.038,.15);
   cyl(p.chalk,x-1.27,.94,cz+.17,.134,.19);cyl(p.shadow,x-1.27,1.036,cz+.17,.112,.004);
   box(p.terra,x+1.2,.858,cz+.05,.42,.035,.55,-.15);box(p.chalk,x+1.20,.885,cz+.05,.38,.018,.52,-.15);
   chair(k,r.seat.x,r.seat.z);

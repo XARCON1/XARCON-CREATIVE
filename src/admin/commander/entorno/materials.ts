@@ -1,4 +1,5 @@
 import * as T from "three";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 
 export function canvasTexture(width:number, height:number) {
   const canvas = document.createElement("canvas");
@@ -45,10 +46,10 @@ function leafGeometry() {
   }
   const g=new T.BufferGeometry();g.setAttribute("position",new T.Float32BufferAttribute(p,3));g.setIndex(idx);g.computeVertexNormals();return g;
 }
-export function builder(scene:T.Scene) {
+export function builder(scene:T.Object3D) {
   const p=makePalette();
   p.leaf.side=p.sprout.side=T.DoubleSide;
-  const geo={box:new T.BoxGeometry(1,1,1), tube:new T.CylinderGeometry(.5,.5,1,16), pot:new T.CylinderGeometry(.5,.38,1,18), leaf:leafGeometry()};
+  const geo={box:new T.BoxGeometry(1,1,1), cushion:new RoundedBoxGeometry(1,1,1,2,.18), crown:new T.IcosahedronGeometry(.5,1), tube:new T.CylinderGeometry(.5,.5,1,16), pot:new T.CylinderGeometry(.5,.38,1,18), leaf:leafGeometry()};
   type Batch={g:T.BufferGeometry;m:T.Material;transforms:T.Matrix4[]};
   const buckets=new Map<string,Batch>();
   const tool=new T.Object3D();

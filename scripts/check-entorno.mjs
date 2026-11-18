@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
-import { basename, join, resolve } from "node:path";
+import { basename, join } from "node:path";
 import { tmpdir } from "node:os";
 import { chromium } from "playwright-core";
 import { createServer } from "vite";
@@ -46,6 +46,12 @@ try {
   await page.getByLabel("Planta corporativa 3D interactiva de XARCON").waitFor();
   await page.waitForFunction(()=>!document.querySelector(".xe-load")&&!document.querySelector(".xe-plan"),{},{timeout:60000});
   assert.equal(models.size,7,"Se deben cargar los siete archivos GLB");
+  const frames=await page.evaluate(()=>new Promise(done=>{
+    const deltas=[];let previous=performance.now();
+    function sample(now){deltas.push(now-previous);previous=now;if(deltas.length<18)requestAnimationFrame(sample);else done(deltas.slice(1).sort((a,b)=>a-b));}
+    requestAnimationFrame(sample);
+  }));
+  console.log("Intervalo mediano de cuadro en Chromium con SwiftShader (ms):",frames[Math.floor(frames.length/2)].toFixed(1));
   await page.screenshot({path:join(proofs,"planta.png")});
   const camera=page.getByLabel("Perspectiva de cámara");
   await camera.selectOption("orbit");
