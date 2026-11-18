@@ -39,6 +39,10 @@ type Props = {
 
 const navGroups = [
   {
+    label: "INTELIGENCIA",
+    items: [["/admin/commander", "Commander", Command]],
+  },
+  {
     label: "OPERACIONES",
     items: [
       ["/admin/dashboard", "Centro", LayoutDashboard],
@@ -85,6 +89,7 @@ export default function AdminShell({ children, identity, workspace, workspaceSta
 
   const searchItems = useMemo<SearchItem[]>(
     () => [
+      { id: "commander", title: "XARCON Commander", meta: "Centro de inteligencia", path: "/admin/commander" },
       ...workspace.clients.map((item) => ({
         id: `client-${item.id}`,
         title: item.name,
@@ -221,8 +226,8 @@ export default function AdminShell({ children, identity, workspace, workspaceSta
               <span>Buscar o ejecutar</span>
               <kbd>Ctrl K</kbd>
             </button>
-            <button className="hq-ai-preview" type="button" title="Arquitectura preparada para XARCON AI">
-              <Sparkles size={16} /> <span>AI ready</span>
+            <button className="hq-ai-preview" type="button" title="Abrir XARCON Commander" onClick={() => go("/admin/commander")}>
+              <Sparkles size={16} /> <span>Commander</span>
             </button>
             <div className="hq-owner-chip" aria-label={`Sesión Owner · ${identity.email}`}>
               <span>{identity.displayName.split(" ").map((part) => part[0]).slice(0, 2).join("").toUpperCase()}</span>
@@ -243,7 +248,7 @@ export default function AdminShell({ children, identity, workspace, workspaceSta
         </main>
 
         <nav className="hq-mobile-dock" aria-label="Accesos principales móvil">
-          {navGroups[0].items.slice(0, 4).map(([to, label, Icon]) => (
+          {navGroups[1].items.slice(0, 4).map(([to, label, Icon]) => (
             <NavLink key={to} to={to} className={({ isActive }) => (isActive ? "active" : "")}>
               <Icon size={18} />
               <span>{label}</span>
@@ -276,6 +281,7 @@ export default function AdminShell({ children, identity, workspace, workspaceSta
               <kbd>ESC</kbd>
             </div>
             <div className="hq-palette-quick">
+              <button onClick={() => go("/admin/commander")}><Command size={15} /> Abrir Commander</button>
               <button onClick={() => go("/admin/tasks?new=1")}><Activity size={15} /> Crear tarea</button>
               <button onClick={() => go("/admin/finance?new=income")}><CircleDollarSign size={15} /> Registrar ingreso</button>
               <button onClick={() => go("/admin/clients?new=1")}><Users size={15} /> Crear cliente</button>
