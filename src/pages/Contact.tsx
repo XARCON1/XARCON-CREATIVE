@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -45,6 +45,7 @@ export default function Contact() {
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const [sending, setSending] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
   const [crmSent, setCrmSent] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const heading = useRef<HTMLHeadingElement>(null);
@@ -63,6 +64,7 @@ export default function Contact() {
       return;
     }
 
+    if (!privacyConsent) return;
     setSending(true);
     setSubmitError("");
     try {
@@ -266,6 +268,12 @@ export default function Contact() {
                     </label>
                   </div>
                 )}
+                {step === 2 && (
+                  <label className="xlegal-consent">
+                    <input type="checkbox" required checked={privacyConsent} onChange={e => setPrivacyConsent(e.target.checked)} />
+                    <span>He leído la <Link to="/privacidad" target="_blank" rel="noopener noreferrer">política de privacidad</Link> y autorizo el tratamiento de mis datos para atender esta solicitud.</span>
+                  </label>
+                )}
                 <div className="form-actions">
                   {step > 0 ? (
                     <button
@@ -283,7 +291,7 @@ export default function Contact() {
                       No necesitas tener todo resuelto.
                     </span>
                   )}
-                  <button className="button dark" type="submit" disabled={sending}>
+                  <button className="button dark" type="submit" disabled={sending || (step === 2 && !privacyConsent)}>
                     {step === 2 ? (sending ? "Enviando…" : "Enviar a XARCON") : "Continuar"}{" "}
                     <span>
                       <ArrowRight size={17} />
@@ -291,7 +299,7 @@ export default function Contact() {
                   </button>
                 </div>
                 <p className="form-privacy">
-                  En el último paso, tu solicitud se registra de forma segura en el CRM privado de XARCON.
+                  En el último paso, tu solicitud se registra en el CRM privado de XARCON. Consulta nuestra <Link to="/privacidad" target="_blank" rel="noopener noreferrer">política de privacidad</Link>.
                 </p>
               </form>
             </>
@@ -369,6 +377,7 @@ export default function Contact() {
                   setReady(false);
                   setStep(0);
                   setCopied(false);
+                  setPrivacyConsent(false);
                 }}
               >
                 <PenTool size={15} /> Editar mi idea

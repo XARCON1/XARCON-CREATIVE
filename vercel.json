@@ -21,6 +21,22 @@
       "destination": "/contacto/index.html"
     },
     {
+      "source": "/privacidad",
+      "destination": "/privacidad/index.html"
+    },
+    {
+      "source": "/terminos-y-condiciones",
+      "destination": "/terminos-y-condiciones/index.html"
+    },
+    {
+      "source": "/politica-de-cookies",
+      "destination": "/politica-de-cookies/index.html"
+    },
+    {
+      "source": "/aviso-legal",
+      "destination": "/aviso-legal/index.html"
+    },
+    {
       "source": "/((?!assets/|.*\\..*).*)",
       "destination": "/index.html"
     }

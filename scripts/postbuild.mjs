@@ -27,11 +27,11 @@ for (const page of Object.values(pages)) {
     )
     .replace(
       /(<meta\s+property="og:url"\s+content=")[^"]*/,
-      `$1https://xarcon-creative.vercel.app${page.path}`,
+      `$1https://www.xarcontech.com${page.path}`,
     )
     .replace(
       /(<link\s+rel="canonical"\s+href=")[^"]*/,
-      `$1https://xarcon-creative.vercel.app${page.path}`,
+      `$1https://www.xarcontech.com${page.path}`,
     );
   await mkdir("dist" + page.path, { recursive: true });
   await writeFile("dist" + page.path + "/index.html", html);
@@ -43,14 +43,14 @@ await writeFile(
   )
     .map(
       (p) =>
-        `<url><loc>https://xarcon-creative.vercel.app${p.path}</loc></url>`,
+        `<url><loc>https://www.xarcontech.com${p.path}</loc></url>`,
     )
     .join("")}</urlset>`,
 );
 await writeFile(
   "dist/robots.txt",
-  "User-agent: *\nAllow: /\nDisallow: /__review.html\nDisallow: /__hero/\nDisallow: /__stage/\nSitemap: https://xarcon-creative.vercel.app/sitemap.xml\n",
+  "User-agent: *\nAllow: /\nDisallow: /__review.html\nDisallow: /__hero/\nDisallow: /__stage/\nSitemap: https://www.xarcontech.com/sitemap.xml\n",
 );
 console.log(
-  "Metadata específica, canonical y sitemap generados para las seis páginas.",
+  "Metadata específica, canonical y sitemap generados para las páginas públicas.",
 );

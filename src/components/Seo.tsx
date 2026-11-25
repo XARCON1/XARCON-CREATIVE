@@ -11,11 +11,11 @@ export default function Seo({ page }: { page: keyof typeof pages }) {
     set('meta[property="og:description"]', meta.description);
     set(
       'meta[property="og:url"]',
-      "https://xarcon-creative.vercel.app" + meta.path,
+      "https://www.xarcontech.com" + meta.path,
     );
     document
       .querySelector('link[rel="canonical"]')
-      ?.setAttribute("href", "https://xarcon-creative.vercel.app" + meta.path);
+      ?.setAttribute("href", "https://www.xarcontech.com" + meta.path);
   }, [meta]);
   return null;
 }

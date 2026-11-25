@@ -28,5 +28,25 @@
     "path": "/contacto",
     "title": "Solicitar propuesta de desarrollo de software | XARCON TECH",
     "description": "Solicita una cotización para software empresarial, desarrollo web, automatización o integraciones tecnológicas."
+  },
+  "privacy": {
+    "path": "/privacidad",
+    "title": "Política de privacidad | XARCON TECH",
+    "description": "Cómo se tratan los datos personales cuando navegas por el sitio o solicitas información a XARCON TECH."
+  },
+  "terms": {
+    "path": "/terminos-y-condiciones",
+    "title": "Términos y condiciones | XARCON TECH",
+    "description": "Condiciones generales de navegación y solicitud de servicios tecnológicos."
+  },
+  "cookies": {
+    "path": "/politica-de-cookies",
+    "title": "Política de cookies | XARCON TECH",
+    "description": "Información sobre cookies, almacenamiento local y tecnologías utilizadas por el sitio."
+  },
+  "legal": {
+    "path": "/aviso-legal",
+    "title": "Aviso legal | XARCON TECH",
+    "description": "Información general sobre la titularidad comercial, el contenido y el uso de este sitio."
   }
 }
