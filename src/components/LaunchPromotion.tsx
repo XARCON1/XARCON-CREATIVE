@@ -22,15 +22,15 @@ export default function LaunchPromotion() {
   };
   if (!visible) return null;
   return (
-    <aside className="launch-promo" aria-label="Conoce XARCON Launch">
-      <button type="button" className="launch-promo-close" onClick={dismiss} aria-label="Cerrar promoción"><X size={19}/></button>
-      <div className="launch-promo-brand"><Symbol /> <span>XARCON / LAUNCH</span></div>
-      {offer && <div className="launch-offer"><span>BLACK WEEK</span><b>−35% activación</b></div>}
-      <h2>Tu negocio merece estar online.</h2>
-      <p>Una web profesional con dominio propio y alojamiento incluido.</p>
-      <div className="launch-promo-price">Desde <strong>US$ {launchPlans[0].monthly}</strong> /mes</div>
-      <small>+ US$ {formatLaunchAmount(offer ? launchPlans[0].activation : regularActivation(launchPlans[0]))} de activación inicial.{offer && " Hasta el 30 de noviembre."}</small>
-      <Link to="/planes" className="launch-action" onClick={dismiss}>Explorar planes <ArrowUpRight size={17}/></Link>
+    <aside className="launch-promo launch-promo-compact" aria-label="Conoce XARCON Launch">
+      <div className="launch-notice-icon" aria-hidden="true"><Symbol /></div>
+      <div className="launch-notice-copy">
+        <div className="launch-notice-label">{offer ? "BLACK WEEK · −35% ACTIVACIÓN" : "XARCON / LAUNCH"}</div>
+        <h2>Tu web desde US$ {launchPlans[0].monthly}/mes</h2>
+        <small>+ US$ {formatLaunchAmount(offer ? launchPlans[0].activation : regularActivation(launchPlans[0]))} de activación inicial.</small>
+      </div>
+      <Link to="/planes" className="launch-notice-link" onClick={dismiss} aria-label="Ver planes XARCON Launch"><span>Ver planes</span><ArrowUpRight size={15} aria-hidden="true"/></Link>
+      <button type="button" className="launch-promo-close" onClick={dismiss} aria-label="Cerrar promoción"><X size={17}/></button>
     </aside>
   );
 }

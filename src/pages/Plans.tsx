@@ -1,4 +1,4 @@
-import { useEffect, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight, Check, Globe2, LayoutDashboard, TrendingUp, ShieldCheck, ArrowRight } from "lucide-react";
 import Seo from "../components/Seo";
@@ -16,6 +16,56 @@ const questions = [
 export default function Plans() {
   const { search } = useLocation();
   const [offer, setOffer] = useState(() => isBlackWeek());
+  const cardsRef = useRef<HTMLElement>(null);
+  const [visiblePlan, setVisiblePlan] = useState<string | null>(null);
+  useEffect(() => {
+    const grid = cardsRef.current;
+    if (!grid) return;
+    const mobile = window.matchMedia("(max-width: 720px)");
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      if (!mobile.matches) { setVisiblePlan(null); return; }
+      const nav = document.querySelector(".navigation");
+      const viewport = window.visualViewport;
+      const top = Math.max(viewport?.offsetTop ?? 0, nav?.getBoundingClientRect().bottom ?? 0);
+      const bottom = (viewport?.offsetTop ?? 0) + (viewport?.height ?? window.innerHeight);
+      const center = (top + bottom) / 2;
+      let best: string | null = null;
+      let bestHeight = 0;
+      let bestDistance = Infinity;
+      for (const card of grid.querySelectorAll<HTMLElement>(".launch-plan")) {
+        const rect = card.getBoundingClientRect();
+        const height = Math.max(0, Math.min(bottom, rect.bottom) - Math.max(top, rect.top));
+        const distance = Math.abs((rect.top + rect.bottom) / 2 - center);
+        if (height > 0 && (height > bestHeight + 1 || (Math.abs(height - bestHeight) <= 1 && distance < bestDistance))) {
+          best = card.id;
+          bestHeight = height;
+          bestDistance = distance;
+        }
+      }
+      setVisiblePlan(previous => previous === best ? previous : best);
+    };
+    const schedule = () => { if (!frame) frame = window.requestAnimationFrame(measure); };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    window.visualViewport?.addEventListener("resize", schedule);
+    window.visualViewport?.addEventListener("scroll", schedule);
+    mobile.addEventListener("change", schedule);
+    const resize = typeof ResizeObserver !== "undefined" ? new ResizeObserver(schedule) : null;
+    resize?.observe(grid);
+    grid.querySelectorAll(".launch-plan").forEach(card => resize?.observe(card));
+    schedule();
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.visualViewport?.removeEventListener("resize", schedule);
+      window.visualViewport?.removeEventListener("scroll", schedule);
+      mobile.removeEventListener("change", schedule);
+      resize?.disconnect();
+    };
+  }, []);
   useEffect(() => {
     const remaining = blackWeekEnds - Date.now();
     if (remaining <= 0) { setOffer(false); return; }
@@ -23,6 +73,7 @@ export default function Plans() {
     return () => window.clearTimeout(timer);
   }, []);
   const moveLight = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== "mouse") return;
     const bounds = event.currentTarget.getBoundingClientRect();
     event.currentTarget.style.setProperty("--launch-x", ((event.clientX - bounds.left) / bounds.width * 100) + "%");
     event.currentTarget.style.setProperty("--launch-y", ((event.clientY - bounds.top) / bounds.height * 100) + "%");
@@ -37,10 +88,10 @@ export default function Plans() {
         <p>Presencia digital profesional, tecnología gestionada y un plan que se adapta a la etapa de tu negocio.</p>
         <div className="launch-trust"><ShieldCheck size={17} /> Dominio propio · Alojamiento incluido · Diseño profesional</div>
       </section>
-      <section className="wrap launch-cards" aria-label="Planes de membresía">
+      <section ref={cardsRef} className="wrap launch-cards" aria-label="Planes de membresía">
         {launchPlans.map((plan,i) => {
           const Icon = icons[i];
-          return <article key={plan.id} className={"launch-plan" + (plan.highlight ? " launch-featured" : "")} id={plan.id} onPointerMove={moveLight}>
+          return <article key={plan.id} className={"launch-plan" + (plan.highlight ? " launch-featured" : "")} id={plan.id} data-scroll-active={visiblePlan === plan.id ? "true" : "false"} onPointerMove={moveLight}>
             <div className="launch-plan-head"><Icon size={24} strokeWidth={1.5} /><span>{plan.highlight ? "PARA NEGOCIOS EN CRECIMIENTO" : "0" + (i+1) + " / LAUNCH"}</span></div>
             {offer && <div className="launch-offer"><span>BLACK WEEK</span><b>−35%</b></div>}
             <h2>{plan.name}</h2><h3>{plan.title}</h3><p className="launch-description">{plan.description}</p>
