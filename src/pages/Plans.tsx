@@ -46,7 +46,7 @@ export default function Plans() {
             <h2>{plan.name}</h2><h3>{plan.title}</h3><p className="launch-description">{plan.description}</p>
             <div className="launch-price"><span>Desde US$</span><strong>{plan.monthly}</strong><small>/mes</small></div>
             <div className="launch-activation launch-activation-box">
-              {offer && <div className="launch-reference"><span>Tarifa regular desde el 1 dic.</span> <s>US$ {formatLaunchAmount(regularActivation(plan))}</s></div>}
+              {offer && <div className="launch-reference"><s aria-label="Tarifa regular de activación">US$ {formatLaunchAmount(regularActivation(plan))}</s></div>}
               <div className="launch-activation-current">+ US$ {formatLaunchAmount(offer ? plan.activation : regularActivation(plan))} <span>de activación inicial</span></div>
               {offer && <span className="launch-saving">Ahorra US$ {formatLaunchAmount(Math.round((regularActivation(plan) - plan.activation) * 100) / 100)}</span>}
             </div>
