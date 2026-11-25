@@ -48,5 +48,10 @@
     "path": "/aviso-legal",
     "title": "Aviso legal | XARCON TECH",
     "description": "Información general sobre la titularidad comercial, el contenido y el uso de este sitio."
+  },
+  "plans": {
+    "path": "/planes",
+    "title": "Planes de páginas web y membresías | XARCON Launch",
+    "description": "Soluciones web profesionales con dominio .com estándar, alojamiento y diseño adaptable. Descubre Essential, Business y Growth de XARCON TECH."
   }
 }

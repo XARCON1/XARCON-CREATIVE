@@ -19,8 +19,10 @@ import Reveal from "../components/Reveal";
 import { submitPublicInquiry } from "../crm/publicInquiry";
 import "../styles/pages.css";
 import { services } from "../data";
+import { launchPlans, launchSubject, launchPrice } from "../content/launch";
+import "../styles/launch.css";
 const serviceIcons = [Layers3, Monitor, Layers3, Zap, Monitor, Compass, Zap, PenTool];
-const options = [...services.map((service, i) => ({ name: service.name, label: service.name, icon: serviceIcons[i % serviceIcons.length] })), { name: "No estoy seguro", label: "Necesito asesoría", icon: HelpCircle }];
+const options = [...services.map((service, i) => ({ name: service.name, label: service.name, icon: serviceIcons[i % serviceIcons.length] })), ...launchPlans.map(plan => ({ name: launchSubject(plan), label: "Launch · " + plan.name, icon: Monitor })), { name: "No estoy seguro", label: "Necesito asesoría", icon: HelpCircle }];
 const aliases: Record<string,string> = { "Sitios web": "Web corporativa", "Sistemas digitales": "Sistemas administrativos y de gestión", "Automatización": "Automatización empresarial con IA", "Estrategia digital": "Marketing digital y soluciones creativas", "Experiencias especiales": "Integraciones tecnológicas" };
 const email = import.meta.env.VITE_CONTACT_EMAIL?.trim() || "";
 const whatsapp = (import.meta.env.VITE_CONTACT_WHATSAPP || "").replace(
@@ -30,9 +32,11 @@ const whatsapp = (import.meta.env.VITE_CONTACT_WHATSAPP || "").replace(
 const connected = Boolean(email || whatsapp);
 export default function Contact() {
   const [params] = useSearchParams();
-  const requested = params.get("servicio") || "";
+  const requestedPlan = launchPlans.find(plan => plan.id === params.get("plan"));
+  const requested = requestedPlan ? launchSubject(requestedPlan) : params.get("servicio") || "";
   const [selected, setSelected] = useState(options.some((o) => o.name === (aliases[requested] || requested)) ? (aliases[requested] || requested) : "");
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(requestedPlan ? 1 : 0);
+  const activePlan = launchPlans.find(plan => launchSubject(plan) === selected);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -51,7 +55,10 @@ export default function Contact() {
   const heading = useRef<HTMLHeadingElement>(null);
   const update = (field: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [field]: value }));
-  const text = `PROYECTO · XARCON TECH\n\nNecesidad: ${selected}\nNombre: ${form.name}\nCorreo: ${form.email}\nTeléfono: ${form.phone}\nEmpresa: ${form.company || "No indicada"}\nPresupuesto: ${form.budget || "Por definir"}\n\n${form.message}`;
+  const actualBudget = activePlan ? launchPrice(activePlan) : form.budget;
+  const campaign = ["utm_source","utm_medium","utm_campaign","utm_content"].map(key => { const value = params.get(key); return value ? key + "=" + value.replace(/[\r\n]/g," ").slice(0,100) : ""; }).filter(Boolean).join(" · ");
+  const inquiryMessage = campaign ? (form.message.trim() + "\n\nOrigen de campaña: " + campaign).slice(0,4000) : form.message;
+  const text = `PROYECTO · XARCON TECH\n\nNecesidad: ${selected}\nNombre: ${form.name}\nCorreo: ${form.email}\nTeléfono: ${form.phone}\nEmpresa: ${form.company || "No indicada"}\nPresupuesto: ${actualBudget || "Por definir"}\n\n${inquiryMessage}`;
   const channel = whatsapp
     ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`
     : `mailto:${email}?subject=${encodeURIComponent("Nuevo proyecto · " + selected)}&body=${encodeURIComponent(text)}`;
@@ -74,8 +81,8 @@ export default function Contact() {
         phone: form.phone,
         company: form.company,
         need: selected,
-        budget: form.budget,
-        message: form.message,
+        budget: actualBudget,
+        message: inquiryMessage,
       });
       setCrmSent(true);
       setReady(true);
@@ -168,6 +175,7 @@ export default function Contact() {
                     ][step]
                   }
                 </h2>
+                {activePlan && <div className="launch-contact-selection"><strong>Launch · {activePlan.name}</strong>{launchPrice(activePlan)}. Solicitud sin cobro. <Link to="/planes">Comparar planes</Link></div>}
                 {step === 0 && (
                   <fieldset className="project-options">
                     <legend className="sr-only">Qué necesitas</legend>
@@ -199,13 +207,13 @@ export default function Contact() {
                         onChange={(e) => update("message", e.target.value)}
                         required
                         minLength={10}
-                        maxLength={4000}
+                        maxLength={campaign ? 3500 : 4000}
                         rows={5}
                         placeholder="Cuéntanos sobre tu idea, tu negocio o lo que quieres mejorar."
                         autoComplete="off"
                       />
                     </label>
-                    <label>
+                    {!activePlan && <><label>
                       Presupuesto aproximado <span>(opcional, en USD)</span>
                       <select
                         value={form.budget}
@@ -220,7 +228,7 @@ export default function Contact() {
                     </label>
                     <p className="form-helper">
                       El presupuesto nos orienta. No es una cotización.
-                    </p>
+                    </p></>}
                   </div>
                 )}
                 {step === 2 && (

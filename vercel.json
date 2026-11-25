@@ -37,6 +37,10 @@
       "destination": "/aviso-legal/index.html"
     },
     {
+      "source": "/planes",
+      "destination": "/planes/index.html"
+    },
+    {
       "source": "/((?!assets/|.*\\..*).*)",
       "destination": "/index.html"
     }

@@ -1,3 +1,4 @@
+import LaunchPromotion from "../components/LaunchPromotion";
 import Hero from "../sections/Hero";
 import { WhyXarcon } from "../sections/CommercialSections";
 import "../styles/commercial.css";
@@ -27,6 +28,7 @@ export default function Home() {
         <ProcessOverview />
         <Closing />
       </div>
+      <LaunchPromotion />
     </div>
   );
 }

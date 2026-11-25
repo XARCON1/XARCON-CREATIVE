@@ -13,6 +13,7 @@ const Services = lazy(() => import("./pages/Services"));
 const Solutions = lazy(() => import("./pages/Solutions"));
 const Process = lazy(() => import("./pages/Process"));
 const About = lazy(() => import("./pages/About"));
+const Plans = lazy(() => import("./pages/Plans"));
 const Contact = lazy(() => import("./pages/Contact"));
 const LegalPage = lazy(() => import("./pages/LegalPage"));
 const AdminApp = lazy(() => import("./admin/AdminApp"));
@@ -52,6 +53,7 @@ export default function App() {
             <Route path="/soluciones" element={<Solutions />} />
             <Route path="/proceso" element={<Process />} />
             <Route path="/nosotros" element={<About />} />
+            <Route path="/planes" element={<Plans />} />
             <Route path="/contacto" element={<Contact />} />
             <Route path="/privacidad" element={<LegalPage page="privacy" />} />
             <Route path="/terminos-y-condiciones" element={<LegalPage page="terms" />} />

@@ -11,7 +11,7 @@ export const legalDocuments = [
       ],
       [
         "Datos que recopilamos",
-        "Al solicitar una propuesta, el formulario recoge nombre, correo electrónico, teléfono, empresa, servicio solicitado, presupuesto y descripción del proyecto, según los campos que completes. Los proveedores de infraestructura pueden tratar datos técnicos necesarios para entregar el sitio, como dirección IP, navegador y registros de seguridad. Evita incluir contraseñas, documentos de identidad o información sensible en el formulario."
+        "Al solicitar una propuesta, el formulario recoge nombre, correo electrónico, teléfono, empresa, servicio solicitado, presupuesto y descripción del proyecto, según los campos que completes. Si llegas desde una campaña, los parámetros UTM de procedencia pueden acompañar tu solicitud para identificar su origen. Los proveedores de infraestructura pueden tratar datos técnicos necesarios para entregar el sitio, como dirección IP, navegador y registros de seguridad. Evita incluir contraseñas, documentos de identidad o información sensible en el formulario."
       ],
       [
         "Finalidades y consentimiento",
@@ -83,7 +83,7 @@ export const legalDocuments = [
       ],
       [
         "Funcionamiento del sitio",
-        "El formulario utiliza almacenamiento local para registrar el momento de la última solicitud y limitar envíos repetidos desde el dispositivo. El acceso administrativo utiliza Firebase Authentication y puede conservar el estado de autenticación según su configuración. Los proveedores de alojamiento y autenticación pueden utilizar tecnologías necesarias para prestar sus servicios."
+        "El formulario utiliza almacenamiento local para registrar el momento de la última solicitud y limitar envíos repetidos desde el dispositivo. La promoción de Launch utiliza almacenamiento de sesión para recordar si la cerraste durante esa sesión. El acceso administrativo utiliza Firebase Authentication y puede conservar el estado de autenticación según su configuración. Los proveedores de alojamiento y autenticación pueden utilizar tecnologías necesarias para prestar sus servicios."
       ],
       [
         "Servicios externos",

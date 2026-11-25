@@ -18,6 +18,7 @@ export default function SiteFooter() {
           <nav aria-label="Explorar XARCON">
             <h2>Explorar</h2>
             {links.map(([to, label]) => <Link key={to} to={to}>{label}</Link>)}
+            <Link to="/planes">Planes · XARCON Launch</Link>
           </nav>
           <nav aria-label="Información legal">
             <h2>Información legal</h2>
