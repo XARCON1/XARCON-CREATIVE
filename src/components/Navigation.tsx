@@ -50,7 +50,7 @@ export default function Navigation() {
       <header
         className={`navigation ${scrolled ? "is-scrolled" : ""} ${location.pathname === "/" ? "on-hero" : "on-paper"}`}
       >
-        <Link to="/" aria-label="XARCON Creative — Inicio">
+        <Link to="/" aria-label="XARCON TECH — Inicio">
           <Logo />
         </Link>
         <nav className="desktop-nav" aria-label="Navegación principal">

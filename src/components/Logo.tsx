@@ -21,7 +21,7 @@ export default function Logo({ compact = false }: { compact?: boolean }) {
       {!compact && (
         <span className="logo-type">
           <strong>XARCON</strong>
-          <span>CREATIVE</span>
+          <span>TECH</span>
         </span>
       )}
     </span>

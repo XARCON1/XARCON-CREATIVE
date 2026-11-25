@@ -183,7 +183,7 @@ export interface TeamMember {
 }
 
 export const divisionMeta: Record<Division, { label: string; short: string }> = {
-  creative: { label: "XARCON Creative", short: "Creative" },
+  creative: { label: "XARCON TECH", short: "Tech" },
   realty: { label: "XARCON Realty", short: "Realty" },
   construction: { label: "XARCON Construcciones", short: "Construcciones" },
 };
@@ -260,7 +260,7 @@ export const clients: Client[] = [
 export const projects: Project[] = [
   {
     id: "prj-xarcon-web",
-    name: "XARCON Creative — Web pública",
+    name: "XARCON TECH — Web pública",
     clientId: "cli-av",
     division: "creative",
     description: "Evolución del sitio comercial y portafolio de XARCON.",
@@ -387,7 +387,7 @@ export const quotes: Quote[] = [
 ];
 
 export const activities: Activity[] = [
-  { id: "act-1", type: "project", text: "XARCON Creative avanzó a 88% de progreso", time: "Hoy · 16:20", division: "creative" },
+  { id: "act-1", type: "project", text: "XARCON TECH avanzó a 88% de progreso", time: "Hoy · 16:20", division: "creative" },
   { id: "act-2", type: "payment", text: "Se registró un movimiento financiero del proyecto DRG", time: "Hoy · 14:05", division: "creative" },
   { id: "act-3", type: "task", text: "QA responsive cambió a En curso", time: "Ayer · 19:40", division: "creative" },
   { id: "act-4", type: "quote", text: "Cotización CRM inmobiliario marcada como enviada", time: "Ayer · 11:15", division: "creative" },

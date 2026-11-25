@@ -124,7 +124,7 @@ export function FinanceView({ workspace }: { workspace: ReturnTypeWorkspace }) {
               <label className="wide"><span>Concepto</span><input name="label" required autoFocus /></label>
               <label><span>Tipo</span><select name="kind"><option value="income">Ingreso</option><option value="expense">Gasto</option></select></label>
               <label><span>Monto USD</span><input name="amount" type="number" min="0.01" step="0.01" required /></label>
-              <label><span>División</span><select name="division"><option value="creative">Creative</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
+              <label><span>División</span><select name="division"><option value="creative">Tech</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
               <label><span>Método</span><select name="method"><option>Transferencia</option><option>Efectivo</option><option>Tarjeta</option></select></label>
               <label><span>Categoría</span><input name="category" defaultValue="Servicios" /></label>
               <label><span>Fecha</span><input name="date" type="date" defaultValue={new Date().toISOString().slice(0, 10)} /></label>
@@ -347,7 +347,7 @@ export function SalesView({ workspace }: { workspace: ReturnTypeWorkspace }) {
               <label><span>Nombre si es prospecto</span><input name="clientName" /></label>
               <label className="wide"><span>Servicio / oportunidad</span><input name="service" required /></label>
               <label><span>Valor USD</span><input name="value" type="number" min="0" step="0.01" defaultValue="0" /></label>
-              <label><span>División</span><select name="division"><option value="creative">Creative</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
+              <label><span>División</span><select name="division"><option value="creative">Tech</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
               <label><span>Etapa</span><select name="stage">{stages.map((stage) => <option key={stage}>{stage}</option>)}</select></label>
               <label><span>Responsable</span><input name="owner" defaultValue="Norvin" /></label>
               <label><span>Fuente</span><input name="source" defaultValue="Directo" /></label>

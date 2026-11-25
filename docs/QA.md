@@ -1,4 +1,4 @@
-# Revisión de XARCON Creative
+# Revisión de XARCON TECH
 
 Fecha: 20 de septiembre de 2026.
 

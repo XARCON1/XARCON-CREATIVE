@@ -198,7 +198,7 @@ export function ClientsView({ workspace }: { workspace: ReturnTypeWorkspace }) {
               <label><span>Ubicación</span><input name="location" defaultValue="Nicaragua" /></label>
               <label><span>División</span>
                 <select name="division" defaultValue="creative">
-                  <option value="creative">Creative</option>
+                  <option value="creative">Tech</option>
                   <option value="realty">Realty</option>
                   <option value="construction">Construcciones</option>
                 </select>
@@ -345,7 +345,7 @@ export function ProjectsView({ workspace }: { workspace: ReturnTypeWorkspace }) 
                   {workspace.clients.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
                 </select>
               </label>
-              <label><span>División</span><select name="division"><option value="creative">Creative</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
+              <label><span>División</span><select name="division"><option value="creative">Tech</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
               <label><span>Responsable</span><input name="owner" defaultValue="Norvin" /></label>
               <label><span>Estado</span><select name="status" defaultValue="Activo"><option>Prospecto</option><option>Propuesta</option><option>Aprobado</option><option>Activo</option><option>En pausa</option><option>En revisión</option><option>Terminado</option><option>Entregado</option><option>Cancelado</option></select></label>
               <label><span>Prioridad</span><select name="priority" defaultValue="medium"><option value="low">Baja</option><option value="medium">Media</option><option value="high">Alta</option><option value="critical">Crítica</option></select></label>
@@ -446,7 +446,7 @@ export function TasksView({ workspace }: { workspace: ReturnTypeWorkspace }) {
             <div className="hq-form-grid">
               <label className="wide"><span>Tarea</span><input name="title" required autoFocus /></label>
               <label><span>Proyecto</span><select name="projectId" defaultValue=""><option value="">Operación interna</option>{workspace.projects.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
-              <label><span>División</span><select name="division"><option value="creative">Creative</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
+              <label><span>División</span><select name="division"><option value="creative">Tech</option><option value="realty">Realty</option><option value="construction">Construcciones</option></select></label>
               <label><span>Responsable</span><input name="owner" defaultValue="Norvin" /></label>
               <label><span>Prioridad</span><select name="priority" defaultValue="medium"><option value="low">Baja</option><option value="medium">Media</option><option value="high">Alta</option><option value="critical">Crítica</option></select></label>
               <label><span>Estado</span><select name="status" defaultValue="Pendiente"><option>Pendiente</option><option>En curso</option><option>Bloqueada</option><option>En revisión</option><option>Terminada</option></select></label>

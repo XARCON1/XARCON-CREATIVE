@@ -82,7 +82,7 @@ export function BrandVisual() {
         <span>
           XARCON
           <br />
-          <b>CREATIVE</b>
+          <b>TECH</b>
         </span>
       </div>
       <div className="brand-specimen">

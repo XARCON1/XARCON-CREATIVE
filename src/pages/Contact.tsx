@@ -50,7 +50,7 @@ export default function Contact() {
   const heading = useRef<HTMLHeadingElement>(null);
   const update = (field: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [field]: value }));
-  const text = `PROYECTO · XARCON CREATIVE\n\nNecesidad: ${selected}\nNombre: ${form.name}\nCorreo: ${form.email}\nTeléfono: ${form.phone}\nEmpresa: ${form.company || "No indicada"}\nPresupuesto: ${form.budget || "Por definir"}\n\n${form.message}`;
+  const text = `PROYECTO · XARCON TECH\n\nNecesidad: ${selected}\nNombre: ${form.name}\nCorreo: ${form.email}\nTeléfono: ${form.phone}\nEmpresa: ${form.company || "No indicada"}\nPresupuesto: ${form.budget || "Por definir"}\n\n${form.message}`;
   const channel = whatsapp
     ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`
     : `mailto:${email}?subject=${encodeURIComponent("Nuevo proyecto · " + selected)}&body=${encodeURIComponent(text)}`;

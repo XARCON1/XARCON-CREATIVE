@@ -90,7 +90,7 @@ export default function ConceptLab() {
             <span className="lab-concept-stamp">
               CONCEPTO INTERACTIVO
               <br />
-              XARCON / CREATIVE
+              XARCON / TECH
             </span>
           </div>
           <div

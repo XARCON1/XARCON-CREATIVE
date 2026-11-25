@@ -17,7 +17,7 @@ export default function Laptop({ paused: _paused, active: _active, index = 0 }: 
           <div className="laptop-display">
             <ProductDemo index={index} />
           </div>
-          <span className="laptop-screen-label">XARCON / CREATIVE</span>
+          <span className="laptop-screen-label">XARCON / TECH</span>
         </div>
 
         <div className="laptop-deck">

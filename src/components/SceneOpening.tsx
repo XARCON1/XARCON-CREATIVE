@@ -53,7 +53,7 @@ export default function SceneOpening() {
         transition={{ duration: 0.82, times: [0, 0.2, 0.58, 1], ease: cinematicEase }}
       >
         <strong>XARCON</strong>
-        <span>CREATIVE</span>
+        <span>TECH</span>
       </motion.div>
     </motion.div>, document.body
   );

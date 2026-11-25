@@ -1,32 +1,32 @@
 {
   "home": {
     "path": "/",
-    "title": "XARCON | Desarrollo de software y tecnología en Nicaragua",
+    "title": "XARCON TECH | Desarrollo de software y tecnología en Nicaragua",
     "description": "Desarrollo de software empresarial, sitios web profesionales, sistemas administrativos y automatización con IA desde Matagalpa, Nicaragua."
   },
   "services": {
     "path": "/servicios",
-    "title": "Software empresarial, web y automatización en Nicaragua | XARCON",
+    "title": "Software empresarial, web y automatización en Nicaragua | XARCON TECH",
     "description": "Software a medida, sistemas de gestión, diseño web profesional, comercio electrónico e integraciones para empresas en Nicaragua."
   },
   "solutions": {
     "path": "/soluciones",
-    "title": "Soluciones de transformación digital | XARCON Nicaragua",
+    "title": "Soluciones de transformación digital | XARCON TECH Nicaragua",
     "description": "Soluciones tecnológicas para empresas: presencia digital, gestión de operaciones y productos digitales escalables."
   },
   "process": {
     "path": "/proceso",
-    "title": "Proceso de contratación y desarrollo | XARCON",
+    "title": "Proceso de contratación y desarrollo | XARCON TECH",
     "description": "Consulta, propuesta tecnológica, diseño y desarrollo, pruebas e implementación con acompañamiento acordado."
   },
   "about": {
     "path": "/nosotros",
-    "title": "Empresa de desarrollo tecnológico en Nicaragua | XARCON",
+    "title": "Empresa de desarrollo tecnológico en Nicaragua | XARCON TECH",
     "description": "XARCON combina desarrollo de software, diseño y estrategia digital para empresas desde Matagalpa, Nicaragua."
   },
   "contact": {
     "path": "/contacto",
-    "title": "Solicitar propuesta de desarrollo de software | XARCON",
+    "title": "Solicitar propuesta de desarrollo de software | XARCON TECH",
     "description": "Solicita una cotización para software empresarial, desarrollo web, automatización o integraciones tecnológicas."
   }
 }

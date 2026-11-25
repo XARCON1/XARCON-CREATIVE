@@ -5,7 +5,7 @@ export function WebInterface({ variant = 0 }: { variant?: number }) {
     <div className={`web-interface web-variant-${variant}`}>
       <div className="web-interface-nav">
         <span>
-          <Symbol /> XARCON<span className="web-mini-creative"> CREATIVE</span>
+          <Symbol /> XARCON<span className="web-mini-creative"> TECH</span>
         </span>
         <div>
           Espacios <span>Visión</span> Contacto

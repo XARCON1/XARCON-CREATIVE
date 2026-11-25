@@ -1,4 +1,4 @@
-# XARCON Creative
+# XARCON TECH
 
 Sitio del estudio, diseñado alrededor de una idea: **ideas con forma, negocios con futuro**.
 

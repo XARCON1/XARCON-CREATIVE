@@ -32,14 +32,14 @@ export default function SiteFooter() {
         <Link
           className="footer-wordmark"
           to="/"
-          aria-label="XARCON Creative — Inicio"
+          aria-label="XARCON TECH — Inicio"
         >
           XARCON
           <Symbol />
         </Link>
 
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} XARCON Creative</span>
+          <span>© {new Date().getFullYear()} XARCON TECH</span>
           <span>Hecho en Nicaragua.</span>
           <span>SOFTWARE. WEB. IA.</span>
         </div>

@@ -41,7 +41,7 @@ export default function About() {
         <div className="about-intro-bottom">
           <Symbol />
           <p>
-            Somos XARCON Creative, una empresa de desarrollo tecnológico y soluciones digitales. Combinamos software, estrategia y diseño para resolver necesidades empresariales.
+            Somos XARCON TECH, una empresa de desarrollo tecnológico y soluciones digitales. Combinamos software, estrategia y diseño para resolver necesidades empresariales.
           </p>
           <span>
             DISEÑO HUMANO.
