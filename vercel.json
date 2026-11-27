@@ -80,6 +80,37 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/admin/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/admin",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "xarcon-creative.vercel.app"
+        }
+      ],
+      "destination": "https://www.xarcontech.com/:path*",
+      "permanent": true
     }
   ]
 }

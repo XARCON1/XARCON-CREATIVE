@@ -12,6 +12,11 @@ const escape = (s) =>
 for (const page of Object.values(pages)) {
   if (page.path === "/") continue;
   const html = base
+    .replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/, (full, json) => {
+      const schema = JSON.parse(json);
+      schema["@graph"] = schema["@graph"].filter((node) => node["@type"] !== "WebSite");
+      return `<script type="application/ld+json">${JSON.stringify(schema)}</script>`;
+    })
     .replace(/<title>.*?<\/title>/, `<title>${escape(page.title)}</title>`)
     .replace(
       /(<meta\s+name="description"\s+content=")[^"]*/,

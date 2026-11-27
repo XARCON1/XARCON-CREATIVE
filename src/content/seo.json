@@ -1,8 +1,8 @@
 {
   "home": {
     "path": "/",
-    "title": "XARCON TECH | Desarrollo de software y tecnología en Nicaragua",
-    "description": "Desarrollo de software empresarial, sitios web profesionales, sistemas administrativos y automatización con IA desde Matagalpa, Nicaragua."
+    "title": "XARCON TECH | Software, desarrollo web e IA en Nicaragua",
+    "description": "XARCON TECH (XARCON) desarrolla software empresarial, sitios web profesionales, sistemas de gestión y automatización con IA desde Matagalpa, Nicaragua."
   },
   "services": {
     "path": "/servicios",
@@ -51,7 +51,7 @@
   },
   "plans": {
     "path": "/planes",
-    "title": "Planes de páginas web y membresías | XARCON Launch",
+    "title": "Planes de páginas web y membresías | XARCON TECH",
     "description": "Soluciones web profesionales con dominio .com estándar, alojamiento y diseño adaptable. Descubre Essential, Business y Growth de XARCON TECH."
   }
 }

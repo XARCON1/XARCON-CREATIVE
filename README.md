@@ -2,7 +2,7 @@
 
 Sitio del estudio, diseñado alrededor de una idea: **ideas con forma, negocios con futuro**.
 
-Producción: https://xarcon-creative.vercel.app/
+Sitio oficial: https://www.xarcontech.com/
 
 ## Desarrollo
 
@@ -16,7 +16,7 @@ npm run build
 npm run preview
 ```
 
-El build genera `dist/`, metadatos específicos para las seis rutas, `sitemap.xml` y `robots.txt`. Vercel publica desde `main`; las reglas de `vercel.json` permiten abrir las páginas directamente.
+El build genera `dist/`, metadatos específicos para las rutas públicas, `sitemap.xml` y `robots.txt`. Vercel publica desde `main`; las reglas de `vercel.json` permiten abrir las páginas directamente.
 
 ## Estructura
 
